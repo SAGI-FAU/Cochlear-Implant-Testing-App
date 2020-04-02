@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CIT-APP</string>
+    <string-array name="Exercises">
+        <item>Minimal pairs</item>
+        <item>Minimal pairs 2</item>
+        <item>Word list</item>
+        <item>Picture description</item>
+        <item>Sentence reading</item>
+        <item>Syllable repitition</item>
+    </string-array>
 </resources>
