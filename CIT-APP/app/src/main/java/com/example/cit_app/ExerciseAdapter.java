@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder>{
 
     String elements[];
+    int images[];
     Context context;
     OnExerciseListener exListener;
 
-    public ExerciseAdapter(Context con, String s1[], OnExerciseListener exList) {
+    public ExerciseAdapter(Context con, String s1[], int images1[], OnExerciseListener exList) {
         context = con;
         elements = s1;
+        images = images1;
         exListener = exList;
     }
     @NonNull
@@ -31,6 +34,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(elements[position]);
+        holder.image.setImageResource(images[position]);
     }
 
     @Override
@@ -40,10 +44,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
+        ImageView image;
         OnExerciseListener exListener;
         public ViewHolder(@NonNull View itemView, OnExerciseListener exerciseListener) {
             super(itemView);
             title = itemView.findViewById(R.id.exerciseName);
+            image = itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this);
             exListener = exerciseListener;
         }

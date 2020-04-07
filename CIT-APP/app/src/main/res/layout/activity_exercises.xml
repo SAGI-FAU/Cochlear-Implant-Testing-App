@@ -8,13 +8,15 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="221dp"
-        android:layout_height="52dp"
+        android:layout_width="436dp"
+        android:layout_height="51dp"
         android:layout_marginStart="8dp"
 
         android:layout_marginLeft="8dp"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="EXERCISES"
+        android:textColor="#ffffff"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.422"

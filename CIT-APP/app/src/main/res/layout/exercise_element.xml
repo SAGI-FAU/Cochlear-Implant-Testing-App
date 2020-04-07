@@ -22,7 +22,8 @@
         android:layout_width="321dp"
         android:layout_height="49dp"
         android:layout_marginTop="32dp"
-
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#ffffff"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"

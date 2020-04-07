@@ -6,14 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 //This class is the view showing the exercise list
 public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnExerciseListener {
 
     private String s1[];
+    private int images[];
     private RecyclerView exerciseList;
 
     @Override
@@ -21,8 +20,9 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises);
         s1 = getResources().getStringArray(R.array.Exercises);
+        images = new int[]{R.drawable.hearing, R.drawable.hearing, R.drawable.speech_results, R.drawable.speech_results, R.drawable.speech_results, R.drawable.speech_results};
         exerciseList = findViewById(R.id.element_list);
-        ExerciseAdapter exAd = new ExerciseAdapter(this, s1, this);
+        ExerciseAdapter exAd = new ExerciseAdapter(this, s1, images, this);
         exerciseList.setAdapter(exAd);
         exerciseList.setLayoutManager(new LinearLayoutManager(this));
     }
