@@ -36,7 +36,7 @@ public class Instruction extends AppCompatActivity {
                         newActivity = new Intent(v.getContext(), Instruction.class);
                         break;
                     case "Minimal pairs 2":
-                        newActivity = new Intent(v.getContext(), Instruction.class);
+                        newActivity = new Intent(v.getContext(), MinimalPairs2.class);
                         break;
                     case "Word list":
                         newActivity = new Intent(v.getContext(), Instruction.class);
