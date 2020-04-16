@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CIT-APP</string>
+    <string name="Training_Set">Training Set</string>
+    <string name="Exercises">Exercises</string>
+    <string name="Settings">Settings</string>
+    <string name="Motivation">Good Job!</string>
+    <string name="Done">Done</string>
+    <string name="Again">Again</string>
+    <string name="ExplanationMinPairs2">Select the word you heard</string>
+</resources>

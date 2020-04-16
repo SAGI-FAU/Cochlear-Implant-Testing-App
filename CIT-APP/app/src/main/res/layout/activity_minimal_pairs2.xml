@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="416dp"
+        android:layout_width="wrap_content"
         android:layout_height="132dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:text="Choose the word you heard"
+        android:text="@string/ExplanationMinPairs2"
         android:textColor="#ffffff"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

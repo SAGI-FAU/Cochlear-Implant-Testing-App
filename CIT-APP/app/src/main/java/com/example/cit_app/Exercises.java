@@ -30,7 +30,6 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
     @Override
     public void onExerciseClick(int position) {
         Intent intent;
-        Toast.makeText(this, "GOING HERE", Toast.LENGTH_SHORT).show();
         switch(s1[position]) {
             case "Minimal pairs":
                 intent = new Intent(this, Instruction.class);

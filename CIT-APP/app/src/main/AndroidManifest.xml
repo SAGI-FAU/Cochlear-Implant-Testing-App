@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MinimalPairs2"></activity>
+        <activity android:name=".Settings"></activity>
+        <activity android:name=".MinimalPairsExerciseFinished" />
+        <activity android:name=".MinimalPairs2" />
         <activity android:name=".Instruction" />
         <activity android:name=".Exercises" />
         <activity android:name=".Trainingset" />
