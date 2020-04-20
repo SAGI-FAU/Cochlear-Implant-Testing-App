@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SyllableRepetition">
+
+    <TextView
+        android:id="@+id/syllableText"
+        android:layout_width="wrap_content"
+        android:layout_height="132dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="@string/ExplanationRepetition"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/startTimer"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="Start"
+        android:textSize="30sp"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/timerProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="420dp"
+        android:layout_height="310dp"
+        android:layoutDirection="rtl"
+        android:progress="100"
+        android:progressDrawable="@drawable/circle"
+        android:rotation="90"
+        app:layout_constraintBottom_toTopOf="@+id/startTimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/syllableText" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="177dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="92dp"
+        android:gravity="center"
+        android:text="10"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/timerProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timerProgress"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

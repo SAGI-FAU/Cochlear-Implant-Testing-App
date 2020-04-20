@@ -8,4 +8,5 @@
     <string name="Done">Done</string>
     <string name="Again">Again</string>
     <string name="ExplanationMinPairs2">Select the word you heard</string>
+    <string name="ExplanationRepetition">Please repeat the word PETAKA as many times as possible</string>
 </resources>

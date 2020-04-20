@@ -45,7 +45,7 @@ public class Instruction extends AppCompatActivity {
                         newActivity = new Intent(v.getContext(), Instruction.class);
                         break;
                     case "Syllable repetition":
-                        newActivity = new Intent(v.getContext(), Instruction.class);
+                        newActivity = new Intent(v.getContext(), SyllableRepetition.class);
                         break;
                     case "Picture description":
                         newActivity = new Intent(v.getContext(), Instruction.class);
