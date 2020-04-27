@@ -8,6 +8,10 @@
     <string name="Again">Again</string>
     <string name="ExplanationMinPairs2">Select the word you heard</string>
     <string name="ExplanationRepetition">Please repeat the word PETAKA as many times as possible</string>
+    <string name="ExplanationMinPairs">Press the listen button to listen to the word, then press the record button and repeat the word you heard </string>
+    <string name="ExplanationWordList">Press the record button, then repeat the word shown in the middle </string>
+    <string name="Listen">listen</string>
+    <string name="record">record</string>
     <string-array name="Exercises">
         <item>Minimal pairs</item>
         <item>Minimal pairs 2</item>
@@ -15,6 +19,111 @@
         <item>Picture description</item>
         <item>Sentence reading</item>
         <item>Syllable repetition</item>
+    </string-array>
+    <string-array name="Word_List_Plosives">
+        <item>Anker</item>
+        <item>Apfel</item>
+        <item>Arzt</item>
+        <item>Auto</item>
+        <item>Ball</item>
+        <item>Bank</item>
+        <item>Baum</item>
+        <item>Berg</item>
+        <item>Bett</item>
+        <item>Bild</item>
+        <item>Blume</item>
+        <item>Brief</item>
+        <item>Brille</item>
+        <item>Buch</item>
+        <item>Drachen</item>
+        <item>Dusche</item>
+        <item>Elefant</item>
+        <item>Erdbeere</item>
+        <item>Feder</item>
+        <item>Fenster</item>
+        <item>Gabel</item>
+        <item>Gespenst</item>
+        <item>Gießkanne</item>
+        <item>Gitarre</item>
+        <item>Glas</item>
+        <item>Graß</item>
+        <item>grün</item>
+        <item>Jacke</item>
+        <item>Jäger</item>
+        <item>Kanne</item>
+        <item>Kaputt</item>
+        <item>Katze</item>
+        <item>Kiste</item>
+        <item>Kleid</item>
+        <item>Knöpfe</item>
+        <item>Korb</item>
+        <item>Krokodil</item>
+        <item>Kuh</item>
+        <item>Lampe</item>
+        <item>Mond</item>
+        <item>Nagel</item>
+        <item>Nest</item>
+        <item>Pferd</item>
+        <item>Punkt</item>
+        <item>Quak</item>
+        <item>Rad</item>
+        <item>Rutsche</item>
+        <item>Sack</item>
+        <item>Schmetterling</item>
+        <item>Schnecke</item>
+        <item>Schrank</item>
+        <item>Tasche</item>
+        <item>Tasse</item>
+        <item>Taucher</item>
+        <item>Telefon</item>
+        <item>Teller</item>
+        <item>Tiger</item>
+        <item>Topf</item>
+        <item>Trecker</item>
+        <item>Wippe</item>
+        <item>Zebra</item>
+        <item>Zitrone</item>
+        <item>Zwerg</item>
+    </string-array>
+    <string-array name="Word_List_Fricatives">
+        <item>Fisch</item>
+        <item>Flasche</item>
+        <item>Frosch</item>
+        <item>Hexe</item>
+        <item>Haus</item>
+        <item>Heizung</item>
+        <item>Hase</item>
+        <item>Hund</item>
+        <item>Vogel</item>
+        <item>Eichhörnchen</item>
+        <item>Stuhl</item>
+        <item>Marienkäfer</item>
+        <item>Schiff</item>
+        <item>Unfall</item>
+    </string-array>
+    <string-array name="Word_List_Nasal">
+        <item>Nuss</item>
+        <item>Schornstein</item>
+        <item>Schwein</item>
+        <item>Sonne</item>
+        <item>Spinne</item>
+        <item>Spring</item>
+        <item>Zange</item>
+        <item>Eimer</item>
+        <item>Milch</item>
+        <item>Strumpf</item>
+    </string-array>
+    <string-array name="Word_List_Sibilant">
+        <item>Schere</item>
+        <item>Schlange</item>
+        <item>Schlüssel</item>
+        <item>Schuh</item>
+        <item>Schwein</item>
+        <item>Pilz</item>
+        <item>Spitze</item>
+        <item>Zange</item>
+        <item>Pflaster</item>
+        <item>Wurst</item>
     </string-array>
     <string-array name="Minimal_Pairs_Fricatives">
         <item>Vetter</item>

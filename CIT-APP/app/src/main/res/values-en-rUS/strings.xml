@@ -9,4 +9,8 @@
     <string name="Again">Again</string>
     <string name="ExplanationMinPairs2">Select the word you heard</string>
     <string name="ExplanationRepetition">Please repeat the word PETAKA as many times as possible</string>
+    <string name="ExplanationMinPairs">Press the listen button to listen to the word, then press the record button and repeat the word you heard </string>
+    <string name="ExplanationWordList">Press the record button, then repeat the word shown in the middle </string>
+    <string name="Listen">listen</string>
+    <string name="record">record</string>
 </resources>

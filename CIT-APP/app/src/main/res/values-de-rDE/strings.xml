@@ -9,4 +9,8 @@
     <string name="Again">Nochmal</string>
     <string name="ExplanationMinPairs2">Wählen sie das Wort, welches Sie gehört haben</string>
     <string name="ExplanationRepetition">Bitte wiederholen Sie das Wort PETAKA so oft wie möglich</string>
+    <string name="ExplanationMinPairs">Drücken Sie den hören Knopf um das Wort zu hören, dann drücken Sie den aufnehmen Knopf und wiederholen Sie das gehörte Wort</string>
+    <string name="ExplanationWordList">Drücken Sie den aufnehmen Knopf und sage Sie danach das Wort, welches in der Mitte zu sehen is</string>
+    <string name="Listen">hören</string>
+    <string name="record">aufnehmen</string>
 </resources>

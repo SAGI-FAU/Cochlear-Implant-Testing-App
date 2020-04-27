@@ -33,13 +33,13 @@ public class Instruction extends AppCompatActivity {
                 Intent newActivity;
                 switch(intent.getStringExtra("title")) {
                     case "Minimal pairs":
-                        newActivity = new Intent(v.getContext(), Instruction.class);
+                        newActivity = new Intent(v.getContext(), MinimalPairs.class);
                         break;
                     case "Minimal pairs 2":
                         newActivity = new Intent(v.getContext(), MinimalPairs2.class);
                         break;
                     case "Word list":
-                        newActivity = new Intent(v.getContext(), Instruction.class);
+                        newActivity = new Intent(v.getContext(), Word_List.class);
                         break;
                     case "Sentence reading":
                         newActivity = new Intent(v.getContext(), Instruction.class);
