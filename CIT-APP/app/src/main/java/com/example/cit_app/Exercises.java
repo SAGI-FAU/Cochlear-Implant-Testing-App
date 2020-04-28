@@ -35,43 +35,43 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 intent = new Intent(this, Instruction.class);
                 intent.putExtra("title", "Minimal pairs");
                 //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", "SOME DESCRIPTION");
-                intent.putExtra("instruction", "SOME INSTRUCTION");
+                intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
+                intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
                 break;
             case "Minimal pairs 2":
                 intent = new Intent(this, Instruction.class);
                 intent.putExtra("title", "Minimal pairs 2");
                 //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", "SOME DESCRIPTION");
-                intent.putExtra("instruction", "SOME INSTRUCTION");
+                intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
+                intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                 break;
             case "Word list":
                 intent = new Intent(this, Instruction.class);
                 intent.putExtra("title", "Word list");
                 //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", "SOME DESCRIPTION");
-                intent.putExtra("instruction", "SOME INSTRUCTION");
+                intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
+                intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                 break;
             case "Sentence reading":
                 intent = new Intent(this, Instruction.class);
                 intent.putExtra("title", "Sentence reading");
                 //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", "SOME DESCRIPTION");
-                intent.putExtra("instruction", "SOME INSTRUCTION");
+                intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
+                intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
                 break;
             case "Syllable repetition":
                 intent = new Intent(this, Instruction.class);
                 intent.putExtra("title", "Syllable repetition");
                 //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", "SOME DESCRIPTION");
-                intent.putExtra("instruction", "SOME INSTRUCTION");
+                intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
+                intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
                 break;
             case "Picture description":
                 intent = new Intent(this, Instruction.class);
                 intent.putExtra("title", "Picture description");
                 //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", "SOME DESCRIPTION");
-                intent.putExtra("instruction", "SOME INSTRUCTION");
+                intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
+                intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
                 break;
             default:
                 intent = new Intent(this, MainActivity.class);

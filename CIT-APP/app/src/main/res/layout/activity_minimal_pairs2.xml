@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MinimalPairs2">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="132dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:text="@string/ExplanationMinPairs2"
-        android:textColor="#ffffff"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/startButton"
@@ -34,6 +22,7 @@
         android:layout_width="409dp"
         android:layout_height="49dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -51,11 +40,11 @@
         android:id="@+id/linearLayout3"
         android:layout_width="409dp"
         android:layout_height="49dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="200dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/midLeft"

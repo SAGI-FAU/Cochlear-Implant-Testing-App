@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".SyllableRepetition">
 
-    <TextView
-        android:id="@+id/syllableText"
-        android:layout_width="wrap_content"
-        android:layout_height="132dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:text="@string/ExplanationRepetition"
-        android:textColor="#ffffff"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/startTimer"
         android:layout_width="300dp"
@@ -43,7 +30,7 @@
         app:layout_constraintBottom_toTopOf="@+id/startTimer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/syllableText" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/timer"
