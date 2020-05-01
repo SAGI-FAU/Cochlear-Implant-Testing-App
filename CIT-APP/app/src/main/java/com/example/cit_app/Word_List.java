@@ -1,8 +1,15 @@
 package com.example.cit_app;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +21,8 @@ import java.util.Random;
 
 public class Word_List extends AppCompatActivity {
 
+    private int Record_Audio_permission_Code = 1;
+    private int External_Storage_permission_Code = 2;
     TextView word;
     Button record;
     Random rand = new Random();
@@ -68,17 +77,61 @@ public class Word_List extends AppCompatActivity {
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO record sound
-                if(counter < 10) {
-                    word.setText(wordList[counter]);
-                    counter++;
+                if(ContextCompat.checkSelfPermission(v.getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                    requestRecordAudioPermission();
                 } else {
-                    Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
-                    intent.putExtra("exercise", "Word_List");
-                    v.getContext().startActivity(intent);
-                }
+                    if(ContextCompat.checkSelfPermission(v.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        requestExternalStoragePermission();
+                    } else {
+                        //TODO record sound
+                        if(counter < 10) {
+                            word.setText(wordList[counter]);
+                            counter++;
+                        } else {
+                            Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
+                            intent.putExtra("exercise", "Word_List");
+                            v.getContext().startActivity(intent);
+                        }
+                    }
+                    }
             }
         });
 
+    }
+
+    public void requestRecordAudioPermission() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            new AlertDialog.Builder(this).setTitle("Permission needed").setMessage("For this exercise permission to record your voice and write to your storage is needed").setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, Record_Audio_permission_Code);
+                }
+            }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).create().show();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, Record_Audio_permission_Code);
+        }
+    }
+
+    public void requestExternalStoragePermission() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            new AlertDialog.Builder(this).setTitle("Permission needed").setMessage("For this exercise permission to record your voice and write to your storage is needed").setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, External_Storage_permission_Code);
+                }
+            }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).create().show();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, External_Storage_permission_Code);
+        }
     }
 }
