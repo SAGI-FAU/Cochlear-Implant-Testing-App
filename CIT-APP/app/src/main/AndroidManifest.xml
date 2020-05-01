@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Picture_Description"></activity>
+        <activity android:name=".ReadingOfSentences"></activity>
+        <activity android:name=".Picture_Description" />
         <activity android:name=".Word_List" />
         <activity android:name=".MinimalPairs" />
-        <activity android:name=".SyllableRepetitionFinished" />
+        <activity android:name=".GeneralRepetitionFinished" />
         <activity android:name=".SyllableRepetition" />
         <activity android:name=".Settings" />
         <activity android:name=".MinimalPairsExerciseFinished" />

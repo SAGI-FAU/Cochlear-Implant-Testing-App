@@ -73,7 +73,8 @@ public class Word_List extends AppCompatActivity {
                     word.setText(wordList[counter]);
                     counter++;
                 } else {
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
+                    intent.putExtra("exercise", "Word_List");
                     v.getContext().startActivity(intent);
                 }
             }

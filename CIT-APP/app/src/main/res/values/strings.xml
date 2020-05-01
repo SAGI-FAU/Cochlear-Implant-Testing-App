@@ -20,6 +20,18 @@
     <string name="ExplanationPictureDescription">Please press the record button and then start describing the picture below. When you are finished press the button below again.</string>
     <string name="DescriptionSentenceReading">Read the sentence</string>
     <string name="ExplanationSentenceReading">Please read the sentence on the screen. Press the start button when you are ready.</string>
+    <string-array name="Sentences">
+        <item>Peter spielt auf der Strasse</item>
+        <item>Der Vater liest ein Buch</item>
+        <item>Die Schokolade ist sehr lecker</item>
+        <item>Das Pferd steht auf der Weide</item>
+        <item>Nenne meine Mami Mimi</item>
+        <item>Aber am anderen Abend aß Anton Ananas auf Eis</item>
+        <item>Unter Umständen unterbricht Udo unseren unglaublichen Urlaub in Ungarn</item>
+        <item>Opa Otto aß Ostern ohne Ordnung Obst oder Omlett vom Ofen</item>
+        <item>Ein Esel eilt eilig eine Einfahrt entlang</item>
+        <item>Im Idealfall ist im italienischen Innenhof immer ein interessantes Intermezzo</item>
+    </string-array>
     <string-array name="Exercises">
         <item>Minimal pairs</item>
         <item>Minimal pairs 2</item>

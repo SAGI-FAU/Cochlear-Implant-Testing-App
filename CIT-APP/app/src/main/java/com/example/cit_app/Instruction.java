@@ -42,7 +42,7 @@ public class Instruction extends AppCompatActivity {
                         newActivity = new Intent(v.getContext(), Word_List.class);
                         break;
                     case "Sentence reading":
-                        newActivity = new Intent(v.getContext(), Instruction.class);
+                        newActivity = new Intent(v.getContext(), ReadingOfSentences.class);
                         break;
                     case "Syllable repetition":
                         newActivity = new Intent(v.getContext(), SyllableRepetition.class);

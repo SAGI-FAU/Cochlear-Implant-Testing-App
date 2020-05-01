@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SyllableRepetition extends AppCompatActivity{
 
@@ -47,7 +46,8 @@ public class SyllableRepetition extends AppCompatActivity{
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(c, SyllableRepetitionFinished.class);
+                Intent intent = new Intent(c, GeneralRepetitionFinished.class);
+                intent.putExtra("exercise", "SyllableRepetition");
                 c.startActivity(intent);
             }
         }.start();
