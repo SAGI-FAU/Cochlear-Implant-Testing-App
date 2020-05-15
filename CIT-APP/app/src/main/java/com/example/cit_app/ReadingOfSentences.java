@@ -9,17 +9,23 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.Random;
+import java.util.UUID;
 
 public class ReadingOfSentences extends AppCompatActivity {
 
     private int Record_Audio_permission_Code = 1;
     private int External_Storage_permission_Code = 2;
+    private String path;
+    private boolean isRecording;
+    private MediaRecorder recorder;
     String[] sentences;
     TextView text;
     Random rand;
@@ -45,9 +51,25 @@ public class ReadingOfSentences extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(v.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         requestExternalStoragePermission();
                     } else {
-                        Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
-                        intent.putExtra("exercise", "ReadingOfSentences");
-                        v.getContext().startActivity(intent);
+                        if(isRecording) {
+                            recorder.stop();
+                            recorder.release();
+                            isRecording = false;
+                            record.setText("aufnehmen");
+                            Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
+                            intent.putExtra("exercise", "ReadingOfSentences");
+                            v.getContext().startActivity(intent);
+                        } else {
+                            setupMediaRecorder();
+                            try {
+                                isRecording = true;
+                                recorder.prepare();
+                                recorder.start();
+                                record.setText("recording...");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
             }
@@ -89,5 +111,14 @@ public class ReadingOfSentences extends AppCompatActivity {
         } else {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, External_Storage_permission_Code);
         }
+    }
+
+    public void setupMediaRecorder() {
+        path = this.getExternalFilesDir(null).getAbsolutePath() + "/batman" + UUID.randomUUID().toString() + "CIT_APP.3gp"; //+"/batman" + UUID.randomUUID().toString()+"CIT_APP.3gp";
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        recorder.setOutputFile(path);
     }
 }

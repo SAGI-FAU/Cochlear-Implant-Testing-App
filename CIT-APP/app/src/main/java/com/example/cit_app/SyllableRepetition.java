@@ -10,12 +10,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class SyllableRepetition extends AppCompatActivity{
 
@@ -26,12 +30,16 @@ public class SyllableRepetition extends AppCompatActivity{
     private TextView timer;
     private ProgressBar progress;
     private Button start;
+    private String path;
+    private boolean isRecording, started;
+    private MediaRecorder recorder;
     private CountDownTimer cdt;
     private Context c = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllable_repetition);
+        started = false;
         timer = (TextView) findViewById(R.id.timer);
         progress = (ProgressBar) findViewById(R.id.timerProgress);
         start = (Button) findViewById(R.id.startTimer);
@@ -44,7 +52,22 @@ public class SyllableRepetition extends AppCompatActivity{
                     if (ContextCompat.checkSelfPermission(v.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         requestExternalStoragePermission();
                     } else {
-                        startTimer();
+                        if(!started) {
+                            started = true;
+                            startTimer();
+                            if (isRecording) {
+                            } else {
+                                setupMediaRecorder();
+                                try {
+                                    isRecording = true;
+                                    recorder.prepare();
+                                    recorder.start();
+                                    start.setText("recording...");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -63,6 +86,10 @@ public class SyllableRepetition extends AppCompatActivity{
 
             @Override
             public void onFinish() {
+                recorder.stop();
+                recorder.release();
+                isRecording = false;
+                started = false;
                 Intent intent = new Intent(c, GeneralRepetitionFinished.class);
                 intent.putExtra("exercise", "SyllableRepetition");
                 c.startActivity(intent);
@@ -104,5 +131,14 @@ public class SyllableRepetition extends AppCompatActivity{
         } else {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, External_Storage_permission_Code);
         }
+    }
+
+    public void setupMediaRecorder() {
+        path = this.getExternalFilesDir(null).getAbsolutePath() + "/batman" + UUID.randomUUID().toString() + "CIT_APP.3gp"; //+"/batman" + UUID.randomUUID().toString()+"CIT_APP.3gp";
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        recorder.setOutputFile(path);
     }
 }

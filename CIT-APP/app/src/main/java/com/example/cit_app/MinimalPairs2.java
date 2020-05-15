@@ -3,6 +3,7 @@ package com.example.cit_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ public class MinimalPairs2 extends AppCompatActivity {
     private int position = 0;
     private int counter = 0;
     private int oldPos = 0;
+    private MediaPlayer player;
     private String[] minimal_pairs_fricatives, minimal_pairs_stops, minimal_pairs_general, minimal_pairs_result, minimal_pairs_correct;
     private Button start, leftLeft, rightRight, midLeft, midRight;
     @Override
@@ -190,6 +192,18 @@ public class MinimalPairs2 extends AppCompatActivity {
                     midRight.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
                     oldPos += 4;
+                }
+            }
+        });
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(player != null) {
+                    player.seekTo(0);
+                    player.start();
+                } else {
+                    player = MediaPlayer.create(v.getContext(),  R.raw.test);
+                    player.start();
                 }
             }
         });

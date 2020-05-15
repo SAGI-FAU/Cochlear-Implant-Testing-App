@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/cookie" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/recordPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
