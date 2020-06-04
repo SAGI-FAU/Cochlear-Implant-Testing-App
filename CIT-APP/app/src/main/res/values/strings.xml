@@ -20,6 +20,12 @@
     <string name="ExplanationPictureDescription">Please press the record button and then start describing the picture below. When you are finished press the button below again.</string>
     <string name="DescriptionSentenceReading">Read the sentence</string>
     <string name="ExplanationSentenceReading">Please read the sentence on the screen. Press the start button when you are ready.</string>
+    <string name="MinimalPairs">Minimal pairs</string>
+    <string name="MinimalPairs2">Minimal pairs 2</string>
+    <string name="WordList">Word list</string>
+    <string name="PictureDescription">Picture description</string>
+    <string name="SentenceReading">Sentence reading</string>
+    <string name="SyllableRepetition">Syllable repetition</string>
     <string-array name="Sentences">
         <item>Peter spielt auf der Strasse</item>
         <item>Der Vater liest ein Buch</item>

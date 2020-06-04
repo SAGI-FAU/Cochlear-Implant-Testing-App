@@ -12,11 +12,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,7 +32,7 @@ public class Word_List extends AppCompatActivity {
     private boolean isRecording = false;
     private MediaRecorder recorder;
     private String path;
-    TextView word;
+    TextView word, text;
     Button record;
     Random rand = new Random();
     int counter = 1;
@@ -45,7 +48,9 @@ public class Word_List extends AppCompatActivity {
         wordListNasal = getResources().getStringArray(R.array.Word_List_Nasal);
         wordListSibilant = getResources().getStringArray(R.array.Word_List_Sibilant);
         word = (TextView) findViewById(R.id.word);
+        text = (TextView) findViewById(R.id.wordNumber3);
         record = (Button) findViewById(R.id.recordButtonWordList);
+        text.setText(counter + " / 10");
         for(int i = 0; i < 10; i++) {
             int tmp = -1;
             if(i < 2) {
@@ -97,6 +102,7 @@ public class Word_List extends AppCompatActivity {
                             if(counter < 10) {
                                 word.setText(wordList[counter]);
                                 counter++;
+                                text.setText(counter + " / 10");
                             } else {
                                 Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
                                 intent.putExtra("exercise", "Word_List");
@@ -157,10 +163,17 @@ public class Word_List extends AppCompatActivity {
     }
 
     public void setupMediaRecorder() {
-        path = this.getExternalFilesDir(null).getAbsolutePath() + "/batman" + UUID.randomUUID().toString() + "CIT_APP.3gp"; //+"/batman" + UUID.randomUUID().toString()+"CIT_APP.3gp";
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "CIT-APP");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("App", "failed to create directory");
+            }
+        }
+        path = mediaStorageDir.getAbsolutePath() + "/" + UUID.randomUUID().toString() + "WordList.wav";
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         recorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         recorder.setOutputFile(path);
     }

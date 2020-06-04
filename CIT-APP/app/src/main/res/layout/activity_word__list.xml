@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Word_List">
 
+    <TextView
+        android:id="@+id/wordNumber3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="TextView"
+        android:textColor="#330000"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/recordButtonWordList"
         android:layout_width="206dp"

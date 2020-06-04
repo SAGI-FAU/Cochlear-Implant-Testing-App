@@ -8,9 +8,9 @@
     <string name="Done">Fertig</string>
     <string name="Again">Nochmal</string>
     <string name="DescriptionMinPairs2">Wiederholen Sie das gehörte Wort</string>
-    <string name="ExplanationMinPairs2">Drücken Sie den hören Knopf um ein Wort zu hören. Drücken Sie dann den Knopf mit dem Wort das Sie gehört haben.</string>
+    <string name="ExplanationMinPairs2">Drücken Sie den hören Knopf um ein Wort zu hören. Drücken Sie dann den Knopf mit dem Wort, dass Sie gehört haben.</string>
     <string name="DescriptionSyllableRepetition">Wortwiederholung</string>
-    <string name="ExplanationSyllableRepetition">Bitte wiederholen Sie das Wort PETAKA so oft wie möglich.</string>
+    <string name="ExplanationSyllableRepetition">Bitte wiederholen Sie das Wort PETAKA so oft wie möglich. Drücken Sie auf aufnehmen, wenn Sie bereit sind.</string>
     <string name="DescriptionMinPairs">Wiederholen Sie das gehörte Wort</string>
     <string name="ExplanationMinPairs">Drücken Sie den hören Knopf um das Wort zu hören, dann drücken Sie den aufnehmen Knopf und wiederholen Sie das gehörte Wort.</string>
     <string name="DescriptionWordList">Wortwiederholung</string>
@@ -21,4 +21,18 @@
     <string name="ExplanationPictureDescription">Bitte drücken Sie den aufnehmen Knopf und beginnen Sie das Bild zu beschreiben. Wenn Sie fertig sind drücken Sie den Knopf nochmal.</string>
     <string name="DescriptionSentenceReading">Lesen Sie einen Satz</string>
     <string name="ExplanationSentenceReading">Bitte lesen Sie den Satz auf dem Bildschirm. Drücken Sie auf aufnehmen, wenn Sie bereit sind.</string>
+    <string name="MinimalPairs">Minimalpaare</string>
+    <string name="MinimalPairs2">Minimalpaare2</string>
+    <string name="WordList">Wortliste</string>
+    <string name="PictureDescription">Bildbeschreibung</string>
+    <string name="SentenceReading">Sätze lesen</string>
+    <string name="SyllableRepetition">Silben wiederholen</string>
+    <string-array name="Exercises">
+        <item>Minimalpaare</item>
+        <item>Minimalpaare2</item>
+        <item>Wortliste</item>
+        <item>Bildbeschreibung</item>
+        <item>Sätze lesen</item>
+        <item>Silben wiederholen</item>
+    </string-array>
 </resources>

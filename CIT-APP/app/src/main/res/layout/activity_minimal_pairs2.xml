@@ -6,12 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MinimalPairs2">
 
+    <TextView
+        android:id="@+id/wordNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="TextView"
+        android:textColor="#330000"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="323dp"
         android:layout_height="68dp"
-        android:text="Start"
+        android:text="@string/Listen"
         android:background="@color/colorPrimaryDark"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Random;
 public class MinimalPairs2 extends AppCompatActivity {
 
     private Random random = new Random();
+    private TextView text;
     private String[] minimal_pairs = new String[80];
     private int position = 0;
     private int counter = 0;
@@ -33,11 +35,13 @@ public class MinimalPairs2 extends AppCompatActivity {
         midLeft = (Button) findViewById(R.id.midLeft);
         midRight = (Button) findViewById(R.id.midRight);
         ArrayList<Integer> usedNumber = new ArrayList<>();
+        text = (TextView) findViewById(R.id.wordNumber2);
         minimal_pairs_fricatives = getResources().getStringArray(R.array.Minimal_Pairs_Fricatives);
         minimal_pairs_stops = getResources().getStringArray(R.array.Minimal_Pairs_Stops);
         minimal_pairs_general = getResources().getStringArray(R.array.Minimal_Pairs);
         minimal_pairs_result = new String[20];
         minimal_pairs_correct = new String[20];
+        text.setText((counter + 1) + " / 20");
         //fill minimal_pairs list with 20 pairs consisting of 10 random 5 fricative and 5 stop pairs
         for(int i = 0; i < 20; i++) {
             position = 4 * random.nextInt(50);
@@ -113,6 +117,7 @@ public class MinimalPairs2 extends AppCompatActivity {
                     midLeft.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
                     midRight.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                    text.setText((counter + 1) + " / 20");
                     oldPos += 4;
                 }
             }
@@ -139,6 +144,7 @@ public class MinimalPairs2 extends AppCompatActivity {
                     midLeft.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
                     midRight.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                    text.setText((counter + 1) + " / 20");
                     oldPos += 4;
                 }
             }
@@ -165,6 +171,7 @@ public class MinimalPairs2 extends AppCompatActivity {
                     midLeft.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
                     midRight.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                    text.setText((counter + 1) + " / 20");
                     oldPos += 4;
                 }
             }
@@ -191,6 +198,7 @@ public class MinimalPairs2 extends AppCompatActivity {
                     midLeft.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
                     midRight.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                    text.setText((counter + 1) + " / 20");
                     oldPos += 4;
                 }
             }

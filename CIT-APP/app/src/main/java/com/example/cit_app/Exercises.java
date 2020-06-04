@@ -32,43 +32,49 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
         Intent intent;
         switch(s1[position]) {
             case "Minimal pairs":
+            case "Minimalpaare":
                 intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", "Minimal pairs");
+                intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
                 break;
             case "Minimal pairs 2":
+            case "Minimalpaare2":
                 intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", "Minimal pairs 2");
+                intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                 break;
             case "Word list":
+            case "Wortliste":
                 intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", "Word list");
+                intent.putExtra("title", getResources().getString(R.string.WordList));
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                 break;
             case "Sentence reading":
+            case "Sätze lesen":
                 intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", "Sentence reading");
+                intent.putExtra("title", getResources().getString(R.string.SentenceReading));
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
                 break;
             case "Syllable repetition":
+            case "Silben wiederholen":
                 intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", "Syllable repetition");
+                intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
                 break;
             case "Picture description":
+            case "Bildbeschreibung":
                 intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", "Picture description");
+                intent.putExtra("title", getResources().getString(R.string.PictureDescription));
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));

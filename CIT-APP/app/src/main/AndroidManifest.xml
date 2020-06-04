@@ -13,19 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReadingOfSentences"></activity>
-        <activity android:name=".Picture_Description" />
-        <activity android:name=".Word_List" />
-        <activity android:name=".MinimalPairs" />
-        <activity android:name=".GeneralRepetitionFinished" />
-        <activity android:name=".SyllableRepetition" />
-        <activity android:name=".Settings" />
-        <activity android:name=".MinimalPairsExerciseFinished" />
-        <activity android:name=".MinimalPairs2" />
-        <activity android:name=".Instruction" />
-        <activity android:name=".Exercises" />
-        <activity android:name=".Trainingset" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ReadingOfSentences" android:screenOrientation="portrait" />
+        <activity android:name=".Picture_Description" android:screenOrientation="portrait"/>
+        <activity android:name=".Word_List" android:screenOrientation="portrait"/>
+        <activity android:name=".MinimalPairs" android:screenOrientation="portrait"/>
+        <activity android:name=".GeneralRepetitionFinished" android:screenOrientation="portrait"/>
+        <activity android:name=".SyllableRepetition" android:screenOrientation="portrait"/>
+        <activity android:name=".Settings" android:screenOrientation="portrait"/>
+        <activity android:name=".MinimalPairsExerciseFinished" android:screenOrientation="portrait"/>
+        <activity android:name=".MinimalPairs2" android:screenOrientation="portrait"/>
+        <activity android:name=".Instruction" android:screenOrientation="portrait"/>
+        <activity android:name=".Exercises" android:screenOrientation="portrait"/>
+        <activity android:name=".Trainingset" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

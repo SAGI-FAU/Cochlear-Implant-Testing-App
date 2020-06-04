@@ -7,16 +7,20 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -27,10 +31,12 @@ public class MinimalPairs extends AppCompatActivity {
 
     Button listen, record;
     String path = "";
+    int counter = 1;
     MediaRecorder recorder;
     MediaPlayer player;
     boolean isRecording;
     boolean isPlaying;
+    TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,9 @@ public class MinimalPairs extends AppCompatActivity {
         listen = (Button) findViewById(R.id.listen);
         isRecording = false;
         isPlaying = false;
+        text = (TextView) findViewById(R.id.wordNumber);
+        text.setText(counter + " / 10");
+        counter++;
         listen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,14 +76,22 @@ public class MinimalPairs extends AppCompatActivity {
                         requestExternalStoragePermission();
                     } else {
                         if(isRecording) {
-                            recorder.stop();
-                            recorder.release();
-                            isRecording = false;
-                            record.setText("aufnehmen");
-                            if(player != null) {
-                                player.stop();
-                                player.release();
-                                player = null;
+                            if(counter > 10) {
+                                Intent intent = new Intent(v.getContext(), MinimalPairsExerciseFinished.class);
+                                intent.putExtra("correct", 20);
+                                v.getContext().startActivity(intent);
+                            } else {
+                                recorder.stop();
+                                recorder.release();
+                                isRecording = false;
+                                record.setText("aufnehmen");
+                                text.setText(counter + " / 10");
+                                counter++;
+                                if(player != null) {
+                                    player.stop();
+                                    player.release();
+                                    player = null;
+                                }
                             }
                         } else {
                             if(player != null)
@@ -97,10 +114,17 @@ public class MinimalPairs extends AppCompatActivity {
     }
 
     public void setupMediaRecorder() {
-        path = this.getExternalFilesDir(null).getAbsolutePath() + "/batman" + UUID.randomUUID().toString() + "CIT_APP.3gp"; //+"/batman" + UUID.randomUUID().toString()+"CIT_APP.3gp";
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "CIT-APP");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("App", "failed to create directory");
+            }
+        }
+        path = mediaStorageDir.getAbsolutePath() + "/" + UUID.randomUUID().toString() + "MinimalPairs.wav";
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         recorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         recorder.setOutputFile(path);
     }

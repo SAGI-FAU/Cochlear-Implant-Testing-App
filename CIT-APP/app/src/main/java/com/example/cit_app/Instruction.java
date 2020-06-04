@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -33,21 +34,27 @@ public class Instruction extends AppCompatActivity {
                 Intent newActivity;
                 switch(intent.getStringExtra("title")) {
                     case "Minimal pairs":
+                    case "Minimalpaare":
                         newActivity = new Intent(v.getContext(), MinimalPairs.class);
                         break;
                     case "Minimal pairs 2":
+                    case "Minimalpaare2":
                         newActivity = new Intent(v.getContext(), MinimalPairs2.class);
                         break;
                     case "Word list":
+                    case "Wortliste":
                         newActivity = new Intent(v.getContext(), Word_List.class);
                         break;
                     case "Sentence reading":
+                    case "Sätze lesen":
                         newActivity = new Intent(v.getContext(), ReadingOfSentences.class);
                         break;
                     case "Syllable repetition":
+                    case "Silben wiederholen":
                         newActivity = new Intent(v.getContext(), SyllableRepetition.class);
                         break;
                     case "Picture description":
+                    case "Bildbeschreibung":
                         newActivity = new Intent(v.getContext(), Picture_Description.class);
                         break;
                     default:

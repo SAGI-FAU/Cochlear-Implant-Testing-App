@@ -11,9 +11,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -102,10 +105,17 @@ public class Picture_Description extends AppCompatActivity {
     }
 
     public void setupMediaRecorder() {
-        path = this.getExternalFilesDir(null).getAbsolutePath() + "/batman" + UUID.randomUUID().toString() + "CIT_APP.3gp"; //+"/batman" + UUID.randomUUID().toString()+"CIT_APP.3gp";
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "CIT-APP");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("App", "failed to create directory");
+            }
+        }
+        path = mediaStorageDir.getAbsolutePath() + "/" + UUID.randomUUID().toString() + "PictureDescription.wav";
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         recorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         recorder.setOutputFile(path);
     }
