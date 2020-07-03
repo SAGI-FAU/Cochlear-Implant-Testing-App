@@ -52,7 +52,7 @@
         android:layout_marginTop="19dp"
         android:layout_marginBottom="32dp"
         android:background="@color/colorPrimaryDark"
-        android:text="startExercise"
+        android:text="@string/startExercise"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

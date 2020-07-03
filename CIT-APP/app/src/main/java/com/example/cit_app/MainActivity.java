@@ -3,9 +3,12 @@ package com.example.cit_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
                 openTrainingset();
             }
         });
+        SharedPreferences prefs = getSharedPreferences("LoginPref", this.MODE_PRIVATE);
+        int login = prefs.getInt("UserCreated", 0);
+        if (login != 1) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("UserCreated",1);
+            editor.commit();
+            Intent intent = new Intent(this, Login.class);
+            this.startActivity(intent);
+        }
     }
     //Open new Activity showing all available exercises
     public void openExercises() {

@@ -27,6 +27,8 @@ import java.util.UUID;
 
 public class Word_List extends AppCompatActivity {
 
+    public static boolean exerciseFinished = false;
+
     private int Record_Audio_permission_Code = 1;
     private int External_Storage_permission_Code = 2;
     private boolean isRecording = false;
@@ -97,7 +99,6 @@ public class Word_List extends AppCompatActivity {
                         if(isRecording) {
                             recorder.stop();
                             recorder.release();
-                            isRecording = false;
                             record.setText("aufnehmen");
                             if(counter < 10) {
                                 word.setText(wordList[counter]);
@@ -106,18 +107,22 @@ public class Word_List extends AppCompatActivity {
                             } else {
                                 Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
                                 intent.putExtra("exercise", "Word_List");
+                                if(getIntent().getBooleanExtra("trainingset", false)) {
+                                    //exerciseFinished = true;
+                                }
                                 v.getContext().startActivity(intent);
                             }
+                            isRecording = false;
                         } else {
                             setupMediaRecorder();
                             try {
-                                isRecording = true;
+                                record.setText("recording...");
                                 recorder.prepare();
                                 recorder.start();
-                                record.setText("recording...");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            isRecording = true;
                         }
                     }
                 }

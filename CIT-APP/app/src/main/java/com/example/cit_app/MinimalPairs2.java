@@ -15,12 +15,15 @@ import java.util.Random;
 
 public class MinimalPairs2 extends AppCompatActivity {
 
+    public static boolean exerciseFinished = false;
+
     private Random random = new Random();
     private TextView text;
     private String[] minimal_pairs = new String[80];
     private int position = 0;
     private int counter = 0;
     private int oldPos = 0;
+    private int choose = 0;
     private MediaPlayer player;
     private String[] minimal_pairs_fricatives, minimal_pairs_stops, minimal_pairs_general, minimal_pairs_result, minimal_pairs_correct;
     private Button start, leftLeft, rightRight, midLeft, midRight;
@@ -108,6 +111,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     intent.putExtra("correct", correct);
+                    if(getIntent().getBooleanExtra("trainingset", false)) {
+                        exerciseFinished = true;
+                    }
                     v.getContext().startActivity(intent);
                 } else {
                     position += random.nextInt(3);
@@ -119,6 +125,12 @@ public class MinimalPairs2 extends AppCompatActivity {
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
                     text.setText((counter + 1) + " / 20");
                     oldPos += 4;
+                    choose += 1;
+                    if(player != null) {
+                        player.stop();
+                        player.release();
+                        player = null;
+                    }
                 }
             }
         });
@@ -135,6 +147,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     intent.putExtra("correct", correct);
+                    if(getIntent().getBooleanExtra("trainingset", false)) {
+                        exerciseFinished = true;
+                    }
                     v.getContext().startActivity(intent);
                 } else {
                     position = random.nextInt(3);
@@ -146,6 +161,12 @@ public class MinimalPairs2 extends AppCompatActivity {
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
                     text.setText((counter + 1) + " / 20");
                     oldPos += 4;
+                    choose += 1;
+                    if(player != null) {
+                        player.stop();
+                        player.release();
+                        player = null;
+                    }
                 }
             }
         });
@@ -162,6 +183,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     intent.putExtra("correct", correct);
+                    if(getIntent().getBooleanExtra("trainingset", false)) {
+                        exerciseFinished = true;
+                    }
                     v.getContext().startActivity(intent);
                 } else {
                     position = random.nextInt(3);
@@ -173,6 +197,12 @@ public class MinimalPairs2 extends AppCompatActivity {
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
                     text.setText((counter + 1) + " / 20");
                     oldPos += 4;
+                    choose += 1;
+                    if(player != null) {
+                        player.stop();
+                        player.release();
+                        player = null;
+                    }
                 }
             }
         });
@@ -189,6 +219,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     intent.putExtra("correct", correct);
+                    if(getIntent().getBooleanExtra("trainingset", false)) {
+                        exerciseFinished = true;
+                    }
                     v.getContext().startActivity(intent);
                 } else {
                     position = random.nextInt(3);
@@ -200,6 +233,12 @@ public class MinimalPairs2 extends AppCompatActivity {
                     rightRight.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
                     text.setText((counter + 1) + " / 20");
                     oldPos += 4;
+                    choose += 1;
+                    if(player != null) {
+                        player.stop();
+                        player.release();
+                        player = null;
+                    }
                 }
             }
         });
@@ -210,7 +249,15 @@ public class MinimalPairs2 extends AppCompatActivity {
                     player.seekTo(0);
                     player.start();
                 } else {
-                    player = MediaPlayer.create(v.getContext(),  R.raw.test);
+                    minimal_pairs_correct[choose] = minimal_pairs_correct[choose].replace("ä", "ae");
+                    minimal_pairs_correct[choose] = minimal_pairs_correct[choose].replace("ö", "oe");
+                    minimal_pairs_correct[choose] = minimal_pairs_correct[choose].replace("ü", "ue");
+                    minimal_pairs_correct[choose] = minimal_pairs_correct[choose].replace("ß", "ss");
+                    String file = minimal_pairs_correct[choose].toLowerCase();
+                    int resId = getResources().getIdentifier(file, "raw", getPackageName());
+                    String path = "a" + resId;
+                    String path2 = path.substring(1);
+                    player = MediaPlayer.create(v.getContext(), Integer.parseInt(path2));
                     player.start();
                 }
             }

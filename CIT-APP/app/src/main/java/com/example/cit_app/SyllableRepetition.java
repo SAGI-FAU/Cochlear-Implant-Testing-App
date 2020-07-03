@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,8 @@ public class SyllableRepetition extends AppCompatActivity{
 
     private int Record_Audio_permission_Code = 1;
     private int External_Storage_permission_Code = 2;
+
+    public static boolean exerciseFinished = false;
 
     //TODO Add recording of voice
     private TextView timer;
@@ -95,6 +98,10 @@ public class SyllableRepetition extends AppCompatActivity{
                 started = false;
                 Intent intent = new Intent(c, GeneralRepetitionFinished.class);
                 intent.putExtra("exercise", "SyllableRepetition");
+                Toast.makeText(c, "" + getIntent().getBooleanExtra("trainingset", false), Toast.LENGTH_SHORT).show();
+                if(getIntent().getBooleanExtra("trainingset", false)) {
+                    //exerciseFinished = true;
+                }
                 c.startActivity(intent);
             }
         }.start();

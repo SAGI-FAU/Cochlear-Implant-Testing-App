@@ -31,6 +31,7 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
                     case "SyllableRepetition": intent = new Intent(v.getContext(), SyllableRepetition.class); break;
                     case "Word_List": intent = new Intent(v.getContext(), Word_List.class); break;
                     case "ReadingOfSentences": intent = new Intent(v.getContext(), ReadingOfSentences.class); break;
+                    case "MinimalPairs": intent = new Intent(v.getContext(), MinimalPairs.class);break;
                     default: intent = new Intent(v.getContext(), MainActivity.class);
                 }
                 v.getContext().startActivity(intent);

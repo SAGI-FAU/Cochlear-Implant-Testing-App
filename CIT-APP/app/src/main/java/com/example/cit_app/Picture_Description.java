@@ -22,6 +22,8 @@ import java.util.UUID;
 
 public class Picture_Description extends AppCompatActivity {
 
+    public static boolean exerciseFinished = false;
+
     private int Record_Audio_permission_Code = 1;
     private int External_Storage_permission_Code = 2;
     private boolean isRecording = false;
@@ -50,6 +52,9 @@ public class Picture_Description extends AppCompatActivity {
                             record.setText("aufnehmen");
                             Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
                             intent.putExtra("exercise", "Picture description");
+                            if(getIntent().getBooleanExtra("trainingset", false)) {
+                                exerciseFinished = true;
+                            }
                             v.getContext().startActivity(intent);
                         } else {
                             setupMediaRecorder();

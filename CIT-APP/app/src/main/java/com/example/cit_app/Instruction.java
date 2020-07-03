@@ -36,26 +36,32 @@ public class Instruction extends AppCompatActivity {
                     case "Minimal pairs":
                     case "Minimalpaare":
                         newActivity = new Intent(v.getContext(), MinimalPairs.class);
+                        newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                         break;
                     case "Minimal pairs 2":
                     case "Minimalpaare2":
                         newActivity = new Intent(v.getContext(), MinimalPairs2.class);
+                        newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                         break;
                     case "Word list":
                     case "Wortliste":
                         newActivity = new Intent(v.getContext(), Word_List.class);
+                        newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                         break;
                     case "Sentence reading":
                     case "Sätze lesen":
                         newActivity = new Intent(v.getContext(), ReadingOfSentences.class);
+                        newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                         break;
                     case "Syllable repetition":
                     case "Silben wiederholen":
                         newActivity = new Intent(v.getContext(), SyllableRepetition.class);
+                        newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                         break;
                     case "Picture description":
                     case "Bildbeschreibung":
                         newActivity = new Intent(v.getContext(), Picture_Description.class);
+                        newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                         break;
                     default:
                         newActivity = new Intent(v.getContext(), MainActivity.class);

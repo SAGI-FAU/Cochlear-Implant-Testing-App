@@ -38,6 +38,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
+                intent.putExtra("trainingset", false);
                 break;
             case "Minimal pairs 2":
             case "Minimalpaare2":
@@ -46,6 +47,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
+                intent.putExtra("trainingset", false);
                 break;
             case "Word list":
             case "Wortliste":
@@ -54,6 +56,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
+                intent.putExtra("trainingset", false);
                 break;
             case "Sentence reading":
             case "Sätze lesen":
@@ -62,6 +65,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
+                intent.putExtra("trainingset", false);
                 break;
             case "Syllable repetition":
             case "Silben wiederholen":
@@ -70,6 +74,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
+                intent.putExtra("trainingset", false);
                 break;
             case "Picture description":
             case "Bildbeschreibung":
@@ -78,6 +83,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 //TODO Think of some useful descriptions and instructions
                 intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
+                intent.putExtra("trainingset", false);
                 break;
             default:
                 intent = new Intent(this, MainActivity.class);
