@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SyllableRepetition">
+    tools:context=".exercises.SyllableRepetition">
 
     <Button
         android:id="@+id/startTimer"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="#FFFF8C00"
         android:text="Start"
         android:textSize="30sp"
-        android:textColor="#ffffff"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -39,7 +39,7 @@
         android:layout_marginTop="92dp"
         android:gravity="center"
         android:text="10"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#000000"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/timerProgress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
         android:id="@+id/textView2"
         android:layout_width="266dp"
         android:layout_height="57dp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#000000"
         android:textSize="40dp"
         android:gravity="center"
         android:text="PATAKA"

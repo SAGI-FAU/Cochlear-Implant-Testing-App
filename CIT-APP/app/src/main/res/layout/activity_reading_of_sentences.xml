@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReadingOfSentences">
+    tools:context=".exercises.ReadingOfSentences">
 
     <TextView
         android:id="@+id/sentences"
@@ -23,9 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:text="@string/record"
-        android:background="@color/colorPrimaryDark"
+        android:background="#FFFF8C00"
         android:textSize="30sp"
-        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sentences" />

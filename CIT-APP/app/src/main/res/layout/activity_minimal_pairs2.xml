@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MinimalPairs2">
+    tools:context=".exercises.MinimalPairs2">
 
     <TextView
         android:id="@+id/wordNumber2"
@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="TextView"
-        android:textColor="#330000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +22,7 @@
         android:layout_width="323dp"
         android:layout_height="68dp"
         android:text="@string/Listen"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
+        android:background="#FFFF8C00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -42,9 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
-            android:text="Button"
-            android:textColor="#ffffff" />
+            android:background="#FFFF8C00"
+            android:text="Button" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,9 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
-            android:text="Button"
-            android:textColor="#ffffff" />
+            android:background="#FFFF8C00"
+            android:text="Button"/>
     </LinearLayout>
 
     <LinearLayout
@@ -81,9 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="#FFFF8C00"
             android:text="Button"
-            android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
@@ -102,9 +97,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
-            android:text="Button"
-            android:textColor="#ffffff" />
+            android:background="#FFFF8C00"
+            android:text="Button" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

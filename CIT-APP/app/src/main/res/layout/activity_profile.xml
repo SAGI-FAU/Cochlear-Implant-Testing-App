@@ -9,14 +9,14 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:focusableInTouchMode="true"
-    tools:context=".Profile">
+    tools:context=".other_activities.Profile">
 
     <TextView
         android:id="@+id/username_create"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="#FFFF8C00"
         android:gravity="center"
         android:hint="name1"
         android:textSize="36sp"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Geburtsdatum"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#FFFF8C00"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_create" />
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="#FFFF8C00"
         android:maxLines="1"
         android:textSize="36sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Geschlecht"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#FFFF8C00"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age_create" />
@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:scaleX="1"
             android:scaleY="1"
@@ -87,7 +87,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="weiblich"
             android:textSize="18sp" />
@@ -97,7 +97,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="divers"
             android:textSize="18sp" />
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Seite des Implantats"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#FFFF8C00"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gender_radio" />
@@ -130,7 +130,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="links"
             android:textSize="18sp" />
@@ -140,7 +140,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="rechts"
             android:textSize="18sp" />
@@ -150,7 +150,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="beide"
             android:textSize="18sp" />
@@ -164,7 +164,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rdImplant"
         android:layout_marginTop="24dp"
         android:text="Raucher"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#FFFF8C00"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -182,7 +182,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="nein"
             android:textSize="18sp" />
@@ -192,7 +192,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="ja"
             android:textSize="18sp" />
@@ -205,7 +205,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#FFFF8C00"
         android:text="zurück"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -219,7 +219,7 @@
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#FFFF8C00"
         android:text="Fertig"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -233,7 +233,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Art des Implantats"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#FFFF8C00"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rdSide_of_implant" />
@@ -253,7 +253,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="Nur Cochlear Implantat"
             android:textSize="18sp" />
@@ -263,7 +263,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorPrimary"
+            android:buttonTint="#FFFF8C00"
             android:checked="false"
             android:text="Kombination mit Hörgerät"
             android:textSize="18sp" />

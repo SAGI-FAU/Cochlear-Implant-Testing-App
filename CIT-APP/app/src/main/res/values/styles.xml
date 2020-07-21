@@ -3,9 +3,26 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#FFFF8C00</item>
+        <item name="colorPrimaryDark">#FFFF8C00</item>
+        <item name="colorAccent">@android:color/holo_orange_dark</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/right_slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/left_slide_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/left_slide_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/right_slide_out</item>
     </style>
 
 </resources>

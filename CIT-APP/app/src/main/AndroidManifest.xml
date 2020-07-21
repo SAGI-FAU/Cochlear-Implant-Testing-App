@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -13,53 +14,57 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Profile" />
+        <activity android:name=".other_activities.EvaluationOverTime" />
         <activity
-            android:name=".ReadingOfSentences"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Picture_Description"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Word_List"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MinimalPairs"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".GeneralRepetitionFinished"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".SyllableRepetition"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Settings"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MinimalPairsExerciseFinished"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MinimalPairs2"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Instruction"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Exercises"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Trainingset"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".other_activities.MainActivity"
+            android:label="CIT-APP"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".tools.NotificationReceiver"/>
+        <activity android:name=".other_activities.Login" />
+        <activity android:name=".other_activities.Profile" />
+        <activity
+            android:name=".exercises.ReadingOfSentences"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".exercises.Picture_Description"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".exercises.Word_List"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".exercises.MinimalPairs"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".other_activities.GeneralRepetitionFinished"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".exercises.SyllableRepetition"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".other_activities.Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".other_activities.MinimalPairsExerciseFinished"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".exercises.MinimalPairs2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".other_activities.Instruction"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Exercises"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".other_activities.Trainingset"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

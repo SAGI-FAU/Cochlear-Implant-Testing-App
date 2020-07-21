@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MinimalPairsExerciseFinished">
+    tools:context=".other_activities.MinimalPairsExerciseFinished">
 
     <Button
         android:id="@+id/againButton"
@@ -12,9 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="50dp"
-        android:background="#00994C"
+        android:background="#FFFF8C00"
         android:text="@string/Again"
-        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,9 +24,8 @@
         android:layout_width="190dp"
         android:layout_height="118dp"
         android:layout_marginTop="100dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#FFFF8C00"
         android:text="@string/Done"
-        android:textColor="#ffffff"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

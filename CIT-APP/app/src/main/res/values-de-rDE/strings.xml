@@ -12,15 +12,15 @@
     <string name="DescriptionSyllableRepetition">Wortwiederholung</string>
     <string name="ExplanationSyllableRepetition">Bitte wiederholen Sie das Wort PATAKA so oft wie möglich. Drücken Sie auf \"aufnehmen\" wenn Sie bereit sind.</string>
     <string name="DescriptionMinPairs">Wiederholen Sie das gehörte Wort</string>
-    <string name="ExplanationMinPairs">Drücken Sie den \"hören\" Knopf um das Wort zu hören, dann drücken Sie den \"aufnehmen\" Knopf und wiederholen Sie das gehörte Wort.</string>
+    <string name="ExplanationMinPairs">Drücken Sie den \"hören\" Knopf um das Wort zu hören, drücken Sie dann den \"aufnehmen\" Knopf und wiederholen Sie das gehörte Wort. Wenn Sie fertig sind drücken Sie bitte den \"aufnahme läuft ...\" Knopf um die Aufnahme zu beenden.</string>
     <string name="DescriptionWordList">Wortwiederholung</string>
-    <string name="ExplanationWordList">Drücken Sie den \"aufnehmen\" Knopf und sagen Sie danach das Wort, welches in der Mitte zu sehen is.</string>
+    <string name="ExplanationWordList">Drücken Sie den \"aufnehmen\" Knopf und sagen Sie danach das Wort, welches in der Mitte zu sehen is. Wenn Sie fertig sind drücken Sie bitte den \"aufnahme läuft ...\" Knopf um die Aufnahme zu beenden.</string>
     <string name="Listen">hören</string>
     <string name="record">aufnehmen</string>
     <string name="DescriptionPictureDescription">Bildbeschreibung</string>
-    <string name="ExplanationPictureDescription">Bitte drücken Sie den \"aufnehmen\" Knopf und beginnen Sie das Bild zu beschreiben. Wenn Sie fertig sind drücken Sie den \"recording ...\" Knopf.</string>
+    <string name="ExplanationPictureDescription">Bitte drücken Sie den \"aufnehmen\" Knopf und beginnen Sie das Bild zu beschreiben. Wenn Sie fertig sind drücken Sie bitte den \"aufnahme läuft ...\" Knopf um die Aufnahme zu beenden.</string>
     <string name="DescriptionSentenceReading">Lesen Sie einen Satz</string>
-    <string name="ExplanationSentenceReading">Bitte lesen Sie den Satz auf dem Bildschirm. Drücken Sie auf \"aufnehmen\" wenn Sie bereit sind.</string>
+    <string name="ExplanationSentenceReading">Bitte lesen Sie den Satz auf dem Bildschirm. Drücken Sie auf \"aufnehmen\" wenn Sie bereit sind. Wenn Sie fertig sind drücken Sie bitte den \"aufnahme läuft ...\" Knopf um die Aufnahme zu beenden.</string>
     <string name="MinimalPairs">Minimalpaare</string>
     <string name="MinimalPairs2">Minimalpaare2</string>
     <string name="WordList">Wortliste</string>
@@ -28,10 +28,12 @@
     <string name="SentenceReading">Sätze lesen</string>
     <string name="SyllableRepetition">Silben wiederholen</string>
     <string name="startExercise">START</string>
+    <string name="recording">aufnahme läuft ...</string>
     <string name="trainingsetTitle">Übungseinheit</string>
     <string name="listEmpty">Alle Übungen für heute fertig.</string>
     <string name="user_empty">Bitte geben Sie Ihren Benutzernamen ein</string>
     <string name="userid_empty">Bitte geben Sie Ihre Telefonnummer ein</string>
+    <string name="settings">Einstellungen</string>
     <string-array name="Exercises">
         <item>Minimalpaare</item>
         <item>Minimalpaare2</item>

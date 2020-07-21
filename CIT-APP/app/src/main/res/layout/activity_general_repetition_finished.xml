@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GeneralRepetitionFinished">
+    tools:context=".other_activities.GeneralRepetitionFinished">
 
     <TextView
         android:id="@+id/motivation"
@@ -13,7 +13,7 @@
         android:layout_marginTop="100dp"
         android:gravity="center"
         android:text="@string/Motivation"
-        android:textColor="#330000"
+        android:textColor="#FFFF8C00"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +25,7 @@
         android:layout_height="111dp"
         android:layout_marginTop="124dp"
         android:text="@string/Done"
-        android:textColor="#ffff"
-        android:background="@color/colorPrimaryDark"
+        android:background="#FFFF8C00"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -38,8 +37,7 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:text="@string/Again"
-        android:background="#00994C"
-        android:textColor="#ffff"
+        android:background="#FFFF8C00"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

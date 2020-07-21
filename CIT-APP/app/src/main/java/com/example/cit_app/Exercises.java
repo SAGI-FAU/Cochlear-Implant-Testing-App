@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import com.example.cit_app.other_activities.Instruction;
+import com.example.cit_app.other_activities.MainActivity;
 
 //This class is the view showing the exercise list
 public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnExerciseListener {
@@ -39,6 +41,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
                 intent.putExtra("trainingset", false);
+                //intent.putExtra("instructionPath", R.raw.minimalpairs_instruction);
                 break;
             case "Minimal pairs 2":
             case "Minimalpaare2":
@@ -48,6 +51,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                 intent.putExtra("trainingset", false);
+                //putExtra("instructionPath", R.raw.minimalpairs2_instruction);
                 break;
             case "Word list":
             case "Wortliste":
@@ -57,6 +61,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                 intent.putExtra("trainingset", false);
+                //intent.putExtra("instructionPath", R.raw.wordlist_instruction);
                 break;
             case "Sentence reading":
             case "Sätze lesen":
@@ -66,6 +71,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
                 intent.putExtra("trainingset", false);
+                //intent.putExtra("instructionPath", R.raw.readingofsentences_instruction);
                 break;
             case "Syllable repetition":
             case "Silben wiederholen":
@@ -75,6 +81,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
                 intent.putExtra("trainingset", false);
+                //intent.putExtra("instructionPath", R.raw.syllablerepetition_instruction);
                 break;
             case "Picture description":
             case "Bildbeschreibung":
@@ -84,6 +91,7 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
                 intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
                 intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
                 intent.putExtra("trainingset", false);
+                intent.putExtra("lololol", R.raw.minimalpairs2_instruction);
                 break;
             default:
                 intent = new Intent(this, MainActivity.class);
