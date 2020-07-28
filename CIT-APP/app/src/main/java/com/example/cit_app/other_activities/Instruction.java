@@ -27,7 +27,6 @@ public class Instruction extends AppCompatActivity {
 
     TextView title, description, instruction;
     Button start;
-    MediaController mediaController;
     Intent newActivity;
 
     @Override
@@ -53,7 +52,7 @@ public class Instruction extends AppCompatActivity {
                 path = path + R.raw.minimalpairs_instruction;
                 break;
             case "Minimal pairs 2":
-            case "Minimalpaare2":
+            case "Minimalpaare 2":
                 newActivity = new Intent(this, MinimalPairs2.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                 path = path + R.raw.minimalpairs2_instruction;
@@ -71,7 +70,7 @@ public class Instruction extends AppCompatActivity {
                 path = path + R.raw.readingofsentences_instruction;
                 break;
             case "Syllable repetition":
-            case "Silben wiederholen":
+            case "Wortwiederholung":
                 newActivity = new Intent(this, SyllableRepetition.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
                 path = path + R.raw.syllablerepetition_instruction;
@@ -88,12 +87,12 @@ public class Instruction extends AppCompatActivity {
         }
         // Set Instruction Video
         final VideoView videoView = findViewById(R.id.videoView);
-        Toast.makeText(this, "" + intent.getIntExtra("lololol", 0), Toast.LENGTH_SHORT).show();
-            videoView.setVideoURI(Uri.parse(path));
-            MediaController mediaController = new MediaController(this);
-            videoView.setMediaController(mediaController);
-            mediaController.setAnchorView(videoView);
-            videoView.seekTo(1);
+        videoView.setVideoURI(Uri.parse(path));
+        Toast.makeText(this, "" + path, Toast.LENGTH_SHORT).show();
+        MediaController mediaController = new MediaController(this);
+        videoView.setMediaController(mediaController);
+        mediaController.setAnchorView(videoView);
+        videoView.seekTo(1);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

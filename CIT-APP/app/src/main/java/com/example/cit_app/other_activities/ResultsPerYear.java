@@ -61,9 +61,9 @@ public class ResultsPerYear extends AppCompatActivity {
             speech_rate_values.add(new Entry(counter, speech_rate));
             counter ++;
         }
-        LineDataSet dataset = new LineDataSet(intonation, "Intonation");
-        LineDataSet dataset2 = new LineDataSet(hearing, "hearing");
-        LineDataSet dataset3 = new LineDataSet(speech_rate_values, "speech rate");
+        LineDataSet dataset = new LineDataSet(intonation, getResources().getString(R.string.intonation));
+        LineDataSet dataset2 = new LineDataSet(hearing, getResources().getString(R.string.hearingAbility));
+        LineDataSet dataset3 = new LineDataSet(speech_rate_values, getResources().getString(R.string.speechrate));
         dataset.setColors(ColorTemplate.rgb("#000000"));
         dataset2.setColors(ColorTemplate.rgb("#FFFFFF"));
         dataset3.setColors(ColorTemplate.rgb("#0084f9"));

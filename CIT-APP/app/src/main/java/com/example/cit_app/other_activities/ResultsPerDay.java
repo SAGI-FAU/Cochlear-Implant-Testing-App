@@ -89,7 +89,7 @@ public class ResultsPerDay extends AppCompatActivity {
         barChart.setData(data);
         barChart.getDescription().setEnabled(false);
         barChart.getLegend().setEnabled(false);
-        String[] measurements = {"Hearing", "Speech Rate", "Intonation"};
+        String[] measurements = {getResources().getString(R.string.hearingAbility), getResources().getString(R.string.speechrate), getResources().getString(R.string.intonation)};
         ValueFormatter xAxisFormatter = new DayAxisValueFormatter(barChart, measurements);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);

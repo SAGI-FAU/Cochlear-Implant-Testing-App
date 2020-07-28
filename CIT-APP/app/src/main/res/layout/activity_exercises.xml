@@ -4,27 +4,385 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".Exercises">
+    tools:context=".ExercisesFragment">
 
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="30dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/element_list"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/exercise_title"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/exerciseListTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/minpairs_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/yellow_background"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/title_minpairs"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:text="@string/MinimalPairs"
+                            android:textSize="40sp" />
+
+                        <ImageView
+                            android:id="@+id/image_minpairs"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/hearing" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/desc_minpairs"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center"
+                            android:text="@string/MinimalPairsDescription" />
+
+                        <ImageView
+                            android:id="@+id/pic_minpairs"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.2"
+                            android:src="@drawable/minimalpairs" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/minpairs2_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/yellow_background"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/title_minpairs2"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:text="@string/MinimalPairs2"
+                            android:textSize="40sp" />
+
+                        <ImageView
+                            android:id="@+id/image_minpairs2"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/hearing" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/desc_minpairs2"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center"
+                            android:text="@string/minimalPairs2Description" />
+
+                        <ImageView
+                            android:id="@+id/pic_minpairs2"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.2"
+                            android:src="@drawable/minimalpairs2" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/wordlist_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/yellow_background"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/title_wordlist"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:text="@string/WordList"
+                            android:textSize="40sp" />
+
+                        <ImageView
+                            android:id="@+id/image_wordlist"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/speaking" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/desc_wordlist"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center"
+                            android:text="@string/WordListDescription" />
+
+                        <ImageView
+                            android:id="@+id/pic_wordlist"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.2"
+                            android:src="@drawable/word_list_image" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/picture_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/yellow_background"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/title_picture"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:text="@string/PictureDescription"
+                            android:textSize="40sp" />
+
+                        <ImageView
+                            android:id="@+id/image_picture"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/speaking" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/desc_picture"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:gravity="center"
+                            android:layout_weight="0.8"
+                            android:text="@string/PictureDescriptionDescription" />
+
+                        <ImageView
+                            android:id="@+id/pic_picture"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.2"
+                            android:src="@drawable/picture_description" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/sentence_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/yellow_background"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/title_sentence"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:text="@string/SentenceReading"
+                            android:textSize="40sp" />
+
+                        <ImageView
+                            android:id="@+id/image_sentence"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/speaking" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/desc_sentence"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center"
+                            android:text="@string/SentenceReadingDescription" />
+
+                        <ImageView
+                            android:id="@+id/pic_sentence"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.2"
+                            android:src="@drawable/sentence_reading" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/repetition_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/yellow_background"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/title_repetition"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:text="@string/SyllableRepetition"
+                            android:textSize="40sp" />
+
+                        <ImageView
+                            android:id="@+id/image_repetition"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/speaking" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/desc_repetition"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:gravity="center"
+                            android:layout_weight="0.8"
+                            android:text="@string/SyllableRepetitionDescription" />
+
+                        <ImageView
+                            android:id="@+id/pic_repetition"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0.2"
+                            android:src="@drawable/repetition" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

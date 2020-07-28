@@ -75,7 +75,7 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
             editor.putString("MEM1", weekDay);
             editor.commit();
             exerciseList = findViewById(R.id.trainingsetList);
-            int[] intelligebility_or_articulation_images = {R.drawable.hearing, R.drawable.speech_results};
+            int[] intelligebility_or_articulation_images = {R.drawable.hearing, R.drawable.speaking};
             exercise_list = new String[]{intonation_exercise[choose], hearing_exercise, speech_rate, intelligebility_or_articulation_exercise[choose]};
             List<String> list = new ArrayList<String>(Arrays.asList(exercise_list));
             editor1.putBoolean("Word_List", false);
@@ -94,7 +94,7 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
             if(list.isEmpty()) {
                 exercise_list = new String[]{getString(R.string.listEmpty)};
             }
-            images = new int[]{R.drawable.speech_results, R.drawable.hearing, R.drawable.speech_results, intelligebility_or_articulation_images[choose]};
+            images = new int[]{R.drawable.speaking, R.drawable.hearing, R.drawable.speaking, intelligebility_or_articulation_images[choose]};
             ExerciseAdapter exAd = new ExerciseAdapter(this, exercise_list, images, this);
             exerciseList.setAdapter(exAd);
             exerciseList.setLayoutManager(new LinearLayoutManager(this));
@@ -105,7 +105,7 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             } else {
                 exerciseList = findViewById(R.id.trainingsetList);
-                int[] intelligebility_or_articulation_images = {R.drawable.hearing, R.drawable.speech_results};
+                int[] intelligebility_or_articulation_images = {R.drawable.hearing, R.drawable.speaking};
                 exercise_list = new String[]{intonation_exercise[choose], hearing_exercise, speech_rate, intelligebility_or_articulation_exercise[choose]};
                 List<String> list = new ArrayList<String>(Arrays.asList(exercise_list));
                 for (int i = 0; i < exercise_list.length; i++) {
@@ -149,7 +149,7 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                 if (list.isEmpty()) {
                     exercise_list = new String[]{getString(R.string.listEmpty)};
                 }
-                images = new int[]{R.drawable.speech_results, R.drawable.hearing, R.drawable.speech_results, intelligebility_or_articulation_images[choose]};
+                images = new int[]{R.drawable.speaking, R.drawable.hearing, R.drawable.speaking, intelligebility_or_articulation_images[choose]};
                 ExerciseAdapter exAd = new ExerciseAdapter(this, exercise_list, images, this);
                 exerciseList.setAdapter(exAd);
                 exerciseList.setLayoutManager(new LinearLayoutManager(this));

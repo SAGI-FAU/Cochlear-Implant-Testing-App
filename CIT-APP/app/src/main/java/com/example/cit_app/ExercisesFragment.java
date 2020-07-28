@@ -42,11 +42,6 @@ public class ExercisesFragment extends Fragment implements ExerciseAdapter.OnExe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_exercises, container, false);
         s1 = getResources().getStringArray(R.array.Exercises);
-        images = new int[]{R.drawable.hearing, R.drawable.hearing, R.drawable.speech_results, R.drawable.speech_results, R.drawable.speech_results, R.drawable.speech_results};
-        exerciseList = view.findViewById(R.id.element_list);
-        ExerciseAdapter exAd = new ExerciseAdapter(view.getContext(), s1, images, this);
-        exerciseList.setAdapter(exAd);
-        exerciseList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         return view;
     }
 
