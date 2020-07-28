@@ -16,27 +16,15 @@ public class PatientDA implements Serializable {
 
     private String gender;
 
-    int side;
+    private String side;
+
+    private boolean type;
 
     private boolean smoker;
 
-    int educational_level;
-
-    private int year_diag;
-
-    private String other_disorder;
-
-    private float weight;
-
-    private int height;
-
-    private int sessionCount;
-
 
     public PatientDA(Long userId, String govtId, String username, Date birthday,
-                     String gender, int side, boolean smoker, int educational_level,
-                     int year_diag, String other_disorder, float weight, int height,
-                     int sessionCount) {
+                     String gender, String side, boolean smoker, boolean type) {
         this.userId = userId;
         this.govtId = govtId;
         this.username = username;
@@ -44,12 +32,7 @@ public class PatientDA implements Serializable {
         this.gender = gender;
         this.side = side;
         this.smoker = smoker;
-        this.educational_level = educational_level;
-        this.year_diag = year_diag;
-        this.other_disorder = other_disorder;
-        this.weight = weight;
-        this.height = height;
-        this.sessionCount = sessionCount;
+        this.type = type;
     }
 
     public PatientDA() {
@@ -78,10 +61,10 @@ public class PatientDA implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    public int getSide() {
+    public String getSide() {
         return this.side;
     }
-    public void setSide(int side) {
+    public void setSide(String side) {
         this.side = side;
     }
     public boolean getSmoker() {
@@ -89,36 +72,6 @@ public class PatientDA implements Serializable {
     }
     public void setSmoker(boolean smoker) {
         this.smoker = smoker;
-    }
-    public int getEducational_level() {
-        return this.educational_level;
-    }
-    public void setEducational_level(int educational_level) {
-        this.educational_level = educational_level;
-    }
-    public int getYear_diag() {
-        return this.year_diag;
-    }
-    public void setYear_diag(int year_diag) {
-        this.year_diag = year_diag;
-    }
-    public String getOther_disorder() {
-        return this.other_disorder;
-    }
-    public void setOther_disorder(String other_disorder) {
-        this.other_disorder = other_disorder;
-    }
-    public float getWeight() {
-        return this.weight;
-    }
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-    public int getHeight() {
-        return this.height;
-    }
-    public void setHeight(int height) {
-        this.height = height;
     }
     public Long getUserId() {
         return this.userId;
@@ -129,17 +82,13 @@ public class PatientDA implements Serializable {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    public int getSessionCount() {
-        return this.sessionCount;
-    }
-    public void setSessionCount(int sessionCount) {
-        this.sessionCount = sessionCount;
-    }
     public String getGovtId() {
         return this.govtId;
     }
     public void setGovtId(String govtId) {
         this.govtId = govtId;
     }
+    public boolean getType(){return this.type;}
+    public void setType(boolean type) { this.type = type;}
 
 }

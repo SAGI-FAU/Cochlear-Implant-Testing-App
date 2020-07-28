@@ -27,9 +27,8 @@ public class ExercisesFragment extends Fragment implements ExerciseAdapter.OnExe
     public ExercisesFragment() {
         // Required empty public constructor
     }
-    public static ExercisesFragment newInstance(String param1, String param2) {
-        ExercisesFragment fragment = new ExercisesFragment();
-        return fragment;
+    public static ExercisesFragment newInstance() {
+        return new ExercisesFragment();
     }
 
     @Override

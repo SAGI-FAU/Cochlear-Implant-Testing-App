@@ -5,7 +5,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".other_activities.EvaluationOverTime" />
+        <activity android:name=".other_activities.ProfileMain"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".other_activities.LoginInfoScreen" />
+        <activity android:name=".other_activities.ResultsPerYear" />
+        <activity android:name=".other_activities.ResultsPerDay" />
         <activity
             android:name=".other_activities.MainActivity"
             android:label="CIT-APP"
@@ -26,9 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".tools.NotificationReceiver"/>
-        <activity android:name=".other_activities.Login" />
-        <activity android:name=".other_activities.Profile" />
+
+        <receiver android:name=".tools.NotificationReceiver" />
+        <activity android:name=".other_activities.ProfileLogin" />
         <activity
             android:name=".exercises.ReadingOfSentences"
             android:screenOrientation="portrait" />
@@ -61,6 +73,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Exercises"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".other_activities.Trainingset"

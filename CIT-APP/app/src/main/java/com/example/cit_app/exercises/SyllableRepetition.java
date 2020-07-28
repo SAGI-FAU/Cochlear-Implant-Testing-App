@@ -19,10 +19,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cit_app.RadarFeatures;
+import com.example.cit_app.data_access.FeatureDataService;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
+
+import java.io.File;
+import java.util.Date;
 
 public class SyllableRepetition extends AppCompatActivity{
 
@@ -35,12 +41,16 @@ public class SyllableRepetition extends AppCompatActivity{
     private SpeechRecorder recorder;
     private CountDownTimer cdt;
     private Context c = this;
+    int counter = 5000;
+    private FeatureDataService featureDataService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllable_repetition);
         started = false;
         timer = (TextView) findViewById(R.id.timer);
+        timer.setText("5");
+        featureDataService = new FeatureDataService(this);
         progress = (ProgressBar) findViewById(R.id.timerProgress);
         progress.getIndeterminateDrawable().setColorFilter(0xFFFF5722, android.graphics.PorterDuff.Mode.MULTIPLY);
         start = (Button) findViewById(R.id.startTimer);
@@ -50,7 +60,9 @@ public class SyllableRepetition extends AppCompatActivity{
             public void onClick(View v) {
                 if(!started) {
                     started = true;
-                    startTimer();
+                    //startTimer();
+                    MyCountDownTimer myCountDownTimer = new MyCountDownTimer(4000, 1000);
+                    myCountDownTimer.Start();
                     if (isRecording) {
                     } else {
                         path = recorder.prepare("SyllableRepetition");
@@ -63,14 +75,56 @@ public class SyllableRepetition extends AppCompatActivity{
         });
     }
 
-    public void startTimer(){
-        cdt = new CountDownTimer(11900, 1000) {
-            int count = 10;
+    class MyCountDownTimer {
+        private long millisInFuture;
+        private long countDownInterval;
+        public MyCountDownTimer(long pMillisInFuture, long pCountDownInterval) {
+            this.millisInFuture = pMillisInFuture;
+            this.countDownInterval = pCountDownInterval;
+        }
+        public void Start()
+        {
+            final Handler handler = new Handler();
+            final Runnable counter = new Runnable(){
+
+                public void run(){
+                    if(millisInFuture <= 0) {
+                        timer.setText("" + millisInFuture/1000);
+                        progress.setProgress((int)(millisInFuture/1000) * 20);
+                        isRecording = false;
+                        started = false;
+                        Intent intent = new Intent(c, GeneralRepetitionFinished.class);
+                        intent.putExtra("exercise", "SyllableRepetition");
+                        if(getIntent().getBooleanExtra("trainingset", false)) {
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("SyllableRepetition", true);
+                            editor.apply();
+                        }
+                        recorder.stopRecording();
+                        recorder.release();
+                        c.startActivity(intent);
+                    } else {
+                        long sec = millisInFuture/1000;
+                        timer.setText("" + sec);
+                        progress.setProgress((int)sec * 20);
+                        millisInFuture -= countDownInterval;
+                        handler.postDelayed(this, countDownInterval);
+                    }
+                }
+            };
+
+            handler.postDelayed(counter, countDownInterval);
+        }
+    }
+
+    /*public void startTimer(){
+        cdt = new CountDownTimer(counter, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timer.setText("" + count);
-                progress.setProgress(count * 10);
-                count --;
+                timer.setText("" + millisUntilFinished);
+                progress.setProgress((counter/1000) * 20);
+                counter = millisUntilFinished;
             }
 
             @Override
@@ -90,7 +144,7 @@ public class SyllableRepetition extends AppCompatActivity{
                 c.startActivity(intent);
             }
         }.start();
-    }
+    }*/
 
     private class VolumeHandler extends Handler {
 
@@ -100,29 +154,15 @@ public class SyllableRepetition extends AppCompatActivity{
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             Bundle bundle = msg.getData();
-            final int currentVolume = (int) bundle.getDouble("Volume");
 
             final String state = bundle.getString("State", "Empty");
             if (state.equals("Finished")){
 
-
-               /* try {
-                    if (mExercise.getId()==7){ // Compute intonation from longest sentence.
-                        float int_f0 = RadarFeatures.intonation(filePath);
-                        File file = new File(filePath);
-                        Date lastModDate = new Date(file.lastModified());
-                        FeatureDataService.save_feature(FeatureDataService.intonation_name, lastModDate, int_f0);
-
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putBoolean("New Area Speech", true);
-                        editor.apply();
-
-                    }
-                }
-                catch (Exception e){
-                    Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.failed),Toast.LENGTH_SHORT).show();
-                }*/
-
+                float int_f0 = RadarFeatures.voiceRate(path);
+                Toast.makeText(c, "" + int_f0, Toast.LENGTH_SHORT).show();
+                File file = new File(path);
+                Date lastModDate = new Date(file.lastModified());
+                featureDataService.save_feature(featureDataService.vrate_name, lastModDate, int_f0);
             }
         }
     }

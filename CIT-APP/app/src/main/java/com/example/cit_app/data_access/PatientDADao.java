@@ -28,14 +28,9 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
         public final static Property Username = new Property(2, String.class, "username", false, "USERNAME");
         public final static Property Birthday = new Property(3, java.util.Date.class, "birthday", false, "BIRTHDAY");
         public final static Property Gender = new Property(4, String.class, "gender", false, "GENDER");
-        public final static Property Hand = new Property(5, int.class, "hand", false, "HAND");
+        public final static Property Side = new Property(5, String.class, "side", false, "SIDE");
         public final static Property Smoker = new Property(6, boolean.class, "smoker", false, "SMOKER");
-        public final static Property Educational_level = new Property(7, int.class, "educational_level", false, "EDUCATIONAL_LEVEL");
-        public final static Property Year_diag = new Property(8, int.class, "year_diag", false, "YEAR_DIAG");
-        public final static Property Other_disorder = new Property(9, String.class, "other_disorder", false, "OTHER_DISORDER");
-        public final static Property Weight = new Property(10, float.class, "weight", false, "WEIGHT");
-        public final static Property Height = new Property(11, int.class, "height", false, "HEIGHT");
-        public final static Property SessionCount = new Property(12, int.class, "sessionCount", false, "SESSION_COUNT");
+        public final static Property Type = new Property(7, boolean.class, "type", false, "TYPE");
     }
 
 
@@ -56,14 +51,9 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
                 "\"USERNAME\" TEXT," + // 2: username
                 "\"BIRTHDAY\" INTEGER," + // 3: birthday
                 "\"GENDER\" TEXT," + // 4: gender
-                "\"HAND\" INTEGER NOT NULL ," + // 5: hand
+                "\"SIDE\" TEXT," + //5: side
                 "\"SMOKER\" INTEGER NOT NULL ," + // 6: smoker
-                "\"EDUCATIONAL_LEVEL\" INTEGER NOT NULL ," + // 7: educational_level
-                "\"YEAR_DIAG\" INTEGER NOT NULL ," + // 8: year_diag
-                "\"OTHER_DISORDER\" TEXT," + // 9: other_disorder
-                "\"WEIGHT\" REAL NOT NULL ," + // 10: weight
-                "\"HEIGHT\" INTEGER NOT NULL ," + // 11: height
-                "\"SESSION_COUNT\" INTEGER NOT NULL );"); // 12: sessionCount
+                "\"TYPE\" INTEGER NOT NULL );"); //7: type
     }
 
     /** Drops the underlying database table. */
@@ -100,17 +90,12 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
         if (gender != null) {
             stmt.bindString(5, gender);
         }
-        stmt.bindLong(7, entity.getSmoker() ? 1L: 0L);
-        stmt.bindLong(8, entity.getEducational_level());
-        stmt.bindLong(9, entity.getYear_diag());
- 
-        String other_disorder = entity.getOther_disorder();
-        if (other_disorder != null) {
-            stmt.bindString(10, other_disorder);
+        String side = entity.getSide();
+        if(side != null) {
+            stmt.bindString(6, side);
         }
-        stmt.bindDouble(11, entity.getWeight());
-        stmt.bindLong(12, entity.getHeight());
-        stmt.bindLong(13, entity.getSessionCount());
+        stmt.bindLong(7, entity.getSmoker() ? 1L: 0L);
+        stmt.bindLong(8, entity.getType() ? 1L: 0L);
     }
 
     @Override
@@ -141,17 +126,12 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
         if (gender != null) {
             stmt.bindString(5, gender);
         }
-        stmt.bindLong(7, entity.getSmoker() ? 1L: 0L);
-        stmt.bindLong(8, entity.getEducational_level());
-        stmt.bindLong(9, entity.getYear_diag());
- 
-        String other_disorder = entity.getOther_disorder();
-        if (other_disorder != null) {
-            stmt.bindString(10, other_disorder);
+        String side = entity.getSide();
+        if(side != null) {
+            stmt.bindString(6, side);
         }
-        stmt.bindDouble(11, entity.getWeight());
-        stmt.bindLong(12, entity.getHeight());
-        stmt.bindLong(13, entity.getSessionCount());
+        stmt.bindLong(7, entity.getSmoker() ? 1L: 0L);
+        stmt.bindLong(8, entity.getType() ? 1L: 0L);
     }
 
     @Override
@@ -167,14 +147,9 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // username
             cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)), // birthday
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // gender
-            cursor.getInt(offset + 5), // hand
-            cursor.getShort(offset + 6) != 0, // smoker
-            cursor.getInt(offset + 7), // educational_level
-            cursor.getInt(offset + 8), // year_diag
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // other_disorder
-            cursor.getFloat(offset + 10), // weight
-            cursor.getInt(offset + 11), // height
-            cursor.getInt(offset + 12) // sessionCount
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // side
+                cursor.getShort(offset + 6) != 0, // smoker
+                cursor.getShort(offset + 7) != 0 // type
         );
         return entity;
     }
@@ -186,13 +161,9 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
         entity.setUsername(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setBirthday(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));
         entity.setGender(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setSide(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setSmoker(cursor.getShort(offset + 6) != 0);
-        entity.setEducational_level(cursor.getInt(offset + 7));
-        entity.setYear_diag(cursor.getInt(offset + 8));
-        entity.setOther_disorder(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setWeight(cursor.getFloat(offset + 10));
-        entity.setHeight(cursor.getInt(offset + 11));
-        entity.setSessionCount(cursor.getInt(offset + 12));
+        entity.setType(cursor.getShort(offset + 7) != 0);
      }
     
     @Override

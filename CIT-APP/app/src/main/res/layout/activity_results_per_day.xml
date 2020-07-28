@@ -4,10 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".other_activities.DailyEvaluation">
+    tools:context=".DailyEvaluation">
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/dailyEvaluationBarChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.github.mikephil.charting.charts.BarChart>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,6 @@ import java.util.List;
 public class FeatureDataService {
     private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-    public String jitter_name="Jitter";
     public String vrate_name="vrate";
     public String intonation_name="intonation";
     public String hearing_name ="hearing";

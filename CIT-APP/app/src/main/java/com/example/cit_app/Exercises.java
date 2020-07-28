@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
@@ -20,13 +23,27 @@ public class Exercises extends AppCompatActivity implements ExerciseAdapter.OnEx
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_exercises);
+        getSupportActionBar().setTitle(getResources().getString(R.string.exerciseList)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         s1 = getResources().getStringArray(R.array.Exercises);
         images = new int[]{R.drawable.hearing, R.drawable.hearing, R.drawable.speech_results, R.drawable.speech_results, R.drawable.speech_results, R.drawable.speech_results};
         exerciseList = findViewById(R.id.element_list);
         ExerciseAdapter exAd = new ExerciseAdapter(this, s1, images, this);
         exerciseList.setAdapter(exAd);
         exerciseList.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

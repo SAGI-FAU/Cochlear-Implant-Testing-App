@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.cit_app.ExerciseAdapter;
@@ -41,8 +43,10 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_trainingset);
-        exerciseList = findViewById(R.id.element_list);
+        exerciseList = findViewById(R.id.trainingsetList);
         String[] intonation_exercise = {"Picture_Description", "ReadingOfSentences"};
         String hearing_exercise = "MinimalPairs2";
         String speech_rate = "SyllableRepetition";
