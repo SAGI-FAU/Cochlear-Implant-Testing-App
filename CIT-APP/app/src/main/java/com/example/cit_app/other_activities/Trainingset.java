@@ -1,14 +1,18 @@
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.cit_app.ExerciseAdapter;
@@ -22,6 +26,7 @@ import com.example.cit_app.exercises.Word_List;
 import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +40,7 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
     private String exercise_list[];
     private int images[];
     private RecyclerView exerciseList;
+    private CardView startTrainingset;
     Random rand = new Random();
     private String state = "";
     private int choose = 0;
@@ -46,7 +52,10 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_trainingset);
+        getSupportActionBar().setTitle(getResources().getString(R.string.trainingsetTitle)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         exerciseList = findViewById(R.id.trainingsetList);
+        startTrainingset = (CardView) findViewById(R.id.startTraining);
         String[] intonation_exercise = {"Picture_Description", "ReadingOfSentences"};
         String hearing_exercise = "MinimalPairs2";
         String speech_rate = "SyllableRepetition";
@@ -144,7 +153,6 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                             break;
                     }
                 }
-                Toast.makeText(this, "" + list, Toast.LENGTH_SHORT).show();
                 exercise_list = list.toArray(new String[0]);
                 if (list.isEmpty()) {
                     exercise_list = new String[]{getString(R.string.listEmpty)};
@@ -155,64 +163,90 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                 exerciseList.setLayoutManager(new LinearLayoutManager(this));
             }
         }
+
+        startTrainingset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                switch(exercise_list[0]) {
+                    case "MinimalPairs":
+                        intent = new Intent(v.getContext(), Instruction.class);
+                        intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
+                        //TODO Think of some useful descriptions and instructions
+                        intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
+                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
+                        intent.putExtra("exerciseList", exercise_list);
+                        intent.putExtra("exerciseCounter", 0);
+                        intent.putExtra("trainingset", true);
+                        break;
+                    case "MinimalPairs2":
+                        intent = new Intent(v.getContext(), Instruction.class);
+                        intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
+                        //TODO Think of some useful descriptions and instructions
+                        intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
+                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
+                        intent.putExtra("exerciseList", exercise_list);
+                        intent.putExtra("exerciseCounter", 0);
+                        intent.putExtra("trainingset", true);
+                        break;
+                    case "Word_List":
+                        intent = new Intent(v.getContext(), Instruction.class);
+                        intent.putExtra("title", getResources().getString(R.string.WordList));
+                        //TODO Think of some useful descriptions and instructions
+                        intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
+                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
+                        intent.putExtra("exerciseList", exercise_list);
+                        intent.putExtra("exerciseCounter", 0);
+                        intent.putExtra("trainingset", true);
+                        break;
+                    case "ReadingOfSentences":
+                        intent = new Intent(v.getContext(), Instruction.class);
+                        intent.putExtra("title", getResources().getString(R.string.SentenceReading));
+                        //TODO Think of some useful descriptions and instructions
+                        intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
+                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
+                        intent.putExtra("exerciseList", exercise_list);
+                        intent.putExtra("exerciseCounter", 0);
+                        intent.putExtra("trainingset", true);
+                        break;
+                    case "Picture_Description":
+                        intent = new Intent(v.getContext(), Instruction.class);
+                        intent.putExtra("title", getResources().getString(R.string.PictureDescription));
+                        //TODO Think of some useful descriptions and instructions
+                        intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
+                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
+                        intent.putExtra("exerciseList", exercise_list);
+                        intent.putExtra("exerciseCounter", 0);
+                        intent.putExtra("trainingset", true);
+                        break;
+                    case "SyllableRepetition":
+                        intent = new Intent(v.getContext(), Instruction.class);
+                        intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
+                        //TODO Think of some useful descriptions and instructions
+                        intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
+                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
+                        intent.putExtra("exerciseList", exercise_list);
+                        intent.putExtra("exerciseCounter", 0);
+                        intent.putExtra("trainingset", true);
+                        break;
+                    default:
+                        intent = new Intent(v.getContext(), MainActivity.class);
+                        break;
+                }
+                v.getContext().startActivity(intent);
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onExerciseClick(int position) {
-        Intent intent;
-        switch(exercise_list[position]) {
-            case "MinimalPairs":
-                intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                intent.putExtra("trainingset", true);
-                break;
-            case "MinimalPairs2":
-                intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
-                //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
-                intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
-                intent.putExtra("trainingset", true);
-                break;
-            case "Word_List":
-                intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", getResources().getString(R.string.WordList));
-                //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                intent.putExtra("trainingset", true);
-                break;
-            case "ReadingOfSentences":
-                intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
-                intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
-                intent.putExtra("trainingset", true);
-                break;
-            case "SyllableRepetition":
-                intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
-                intent.putExtra("trainingset", true);
-                break;
-            case "Picture_Description":
-                intent = new Intent(this, Instruction.class);
-                intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                //TODO Think of some useful descriptions and instructions
-                intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
-                intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
-                intent.putExtra("trainingset", true);
-                break;
-            default:
-                intent = new Intent(this, MainActivity.class);
-                break;
-        }
-        this.startActivity(intent);
     }
 }

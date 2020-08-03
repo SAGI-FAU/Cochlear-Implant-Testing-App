@@ -52,10 +52,10 @@ public class SpeechRecorder {
 
     private int minBufferSize;
 
-    private SpeechRecorder(Context context, Handler handler){
+    private SpeechRecorder(Context context, Handler handler, String folder){
         CONTEXT = context;
         HANDLER = handler;
-        AUDIO_FOLDER = new File(Environment.getExternalStorageDirectory() + File.separator + CONTEXT.getString(R.string.app_name) + File.separator + "AUDIO");
+        AUDIO_FOLDER = new File(Environment.getExternalStorageDirectory() + File.separator + CONTEXT.getString(R.string.app_name) + File.separator + "AUDIO" + File.separator + folder);
         if(!AUDIO_FOLDER.exists()){
             AUDIO_FOLDER.mkdirs();
         }
@@ -69,9 +69,9 @@ public class SpeechRecorder {
      * @param handler A handler to process volume level updates on the UI thread
      * @return New or existing SpeechRecorder instance
      */
-    public static SpeechRecorder getInstance(Context context, Handler handler) {
+    public static SpeechRecorder getInstance(Context context, Handler handler, String folder) {
         if (recorder_instance == null){
-            recorder_instance = new SpeechRecorder(context, handler);
+            recorder_instance = new SpeechRecorder(context, handler, folder);
         }
         return recorder_instance;
     }

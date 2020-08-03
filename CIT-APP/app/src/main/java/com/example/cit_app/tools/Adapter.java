@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.cit_app.DailyEvaluation;
-import com.example.cit_app.EvaluationOverTime;
 import com.example.cit_app.Exercises;
 import com.example.cit_app.Model;
 import com.example.cit_app.R;

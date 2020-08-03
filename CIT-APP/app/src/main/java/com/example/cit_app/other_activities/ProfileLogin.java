@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Environment;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -59,6 +60,8 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile);
+        getSupportActionBar().setTitle(getResources().getString(R.string.Login)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         et_date = findViewById(R.id.editTextTextbirthdate);
         tv_username = findViewById(R.id.editTextName);
         et_phone = findViewById(R.id.editTextPhone);
@@ -113,7 +116,6 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
             return false;
         } else {
             RadioButton genderRadioButton = findViewById(checkedGenderRadioButtonId);
-            Toast.makeText(this, "" + genderRadioButton.getText().toString(), Toast.LENGTH_SHORT).show();
             editor.putString("Gender", genderRadioButton.getText().toString());
             editor.apply();
             patientData.setGender(genderRadioButton.getText().toString());
@@ -159,14 +161,19 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         int checkedTypeRadioButtonId = rg_implant.getCheckedRadioButtonId();
         switch (checkedTypeRadioButtonId) {
             case R.id.rbCochlearImplant:
-                editor.putBoolean("CochlearImplant", true);
+                editor.putString("CochlearImplant", "CochlearImplant");
                 editor.apply();
-                patientData.setType(true);
+                patientData.setType("CochlearImplant");
                 break;
             case R.id.rbHearingAid:
-                editor.putBoolean("CochlearImplant", false);
+                editor.putString("CochlearImplant", "HearingAid");
                 editor.apply();
-                patientData.setType(false);
+                patientData.setType("HearingAid");
+                break;
+            case R.id.rbBothCI:
+                editor.putString("CochlearImplant", "BothCI");
+                editor.apply();
+                patientData.setType("BotCI");
                 break;
             default:
                 return false;
@@ -193,7 +200,7 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
                 } else {
                     SharedPreferences prefs = getSharedPreferences("LoginPref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("UserCreated",1);
+                    editor.putInt("UserCreated",0);
                     editor.apply();
                     if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                         requestRecordAudioPermission();
@@ -226,6 +233,13 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
     private void export_profile()  throws IOException {
         String PATH = Environment.getExternalStorageDirectory() + "/CITA/METADATA/";
         CSVFileWriter mCSVFileWriter = new CSVFileWriter("Profile", PATH);
@@ -236,7 +250,7 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         String[] Gender={"Gender", patientData.getGender()};
         String[] Smoker={"Smoker", String.valueOf(patientData.getSmoker())};
         String[] Side={"Side", patientData.getSide()};
-        String[] Type={"Type", String.valueOf(patientData.getType())};
+        String[] Type={"Type", patientData.getType()};
         mCSVFileWriter.write(Name);
         mCSVFileWriter.write(Birthday);
         mCSVFileWriter.write(ID);

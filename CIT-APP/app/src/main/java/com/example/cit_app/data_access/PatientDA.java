@@ -18,13 +18,13 @@ public class PatientDA implements Serializable {
 
     private String side;
 
-    private boolean type;
+    private String type;
 
     private boolean smoker;
 
 
     public PatientDA(Long userId, String govtId, String username, Date birthday,
-                     String gender, String side, boolean smoker, boolean type) {
+                     String gender, String side, boolean smoker, String type) {
         this.userId = userId;
         this.govtId = govtId;
         this.username = username;
@@ -88,7 +88,7 @@ public class PatientDA implements Serializable {
     public void setGovtId(String govtId) {
         this.govtId = govtId;
     }
-    public boolean getType(){return this.type;}
-    public void setType(boolean type) { this.type = type;}
+    public String getType(){return this.type;}
+    public void setType(String type) { this.type = type;}
 
 }

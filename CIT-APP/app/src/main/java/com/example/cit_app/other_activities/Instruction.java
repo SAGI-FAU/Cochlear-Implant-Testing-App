@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.cit_app.R;
@@ -35,6 +35,8 @@ public class Instruction extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_instruction);
+        getSupportActionBar().setTitle(getResources().getString(R.string.Instruction)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Intent intent = getIntent();
         title = (TextView) findViewById(R.id.exerciseTitle);
         description = (TextView) findViewById(R.id.exerciseDescription);
@@ -49,36 +51,48 @@ public class Instruction extends AppCompatActivity {
             case "Minimalpaare":
                 newActivity = new Intent(this, MinimalPairs.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
+                newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.minimalpairs_instruction;
                 break;
             case "Minimal pairs 2":
             case "Minimalpaare 2":
                 newActivity = new Intent(this, MinimalPairs2.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
+                newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.minimalpairs2_instruction;
                 break;
             case "Word list":
             case "Wortliste":
                 newActivity = new Intent(this, Word_List.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
+                newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.wordlist_instruction;
                 break;
             case "Sentence reading":
             case "Sätze lesen":
                 newActivity = new Intent(this, ReadingOfSentences.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
+                newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.readingofsentences_instruction;
                 break;
             case "Syllable repetition":
             case "Wortwiederholung":
                 newActivity = new Intent(this, SyllableRepetition.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
+                newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.syllablerepetition_instruction;
                 break;
             case "Picture description":
             case "Bildbeschreibung":
                 newActivity = new Intent(this, Picture_Description.class);
                 newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
+                newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.picturedescription_instruction;
                 break;
             default:
@@ -88,7 +102,6 @@ public class Instruction extends AppCompatActivity {
         // Set Instruction Video
         final VideoView videoView = findViewById(R.id.videoView);
         videoView.setVideoURI(Uri.parse(path));
-        Toast.makeText(this, "" + path, Toast.LENGTH_SHORT).show();
         MediaController mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(videoView);
@@ -99,5 +112,13 @@ public class Instruction extends AppCompatActivity {
                 v.getContext().startActivity(newActivity);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        if(!getIntent().getExtras().getBoolean("trainingset"))
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -2,13 +2,13 @@ package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.example.cit_app.DailyEvaluation;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.FeatureDA;
 import com.example.cit_app.data_access.FeatureDataService;
@@ -37,6 +37,8 @@ public class ResultsPerDay extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_results_per_day);
+        getSupportActionBar().setTitle(getResources().getString(R.string.ResultsPerDay)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         barChart = findViewById(R.id.dailyEvaluationBarChart);
         featureDataService = new FeatureDataService(this);
         barChart.setDrawValueAboveBar(false);
@@ -77,7 +79,6 @@ public class ResultsPerDay extends AppCompatActivity {
         } else {
             hearingAbility = hearing.get(0).getFeature_value();
         }
-        Toast.makeText(this, ""+ speech_rate_value, Toast.LENGTH_SHORT).show();
         List<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, hearingAbility));
         entries.add(new BarEntry(1f, speech_rate_value));
@@ -105,6 +106,14 @@ public class ResultsPerDay extends AppCompatActivity {
         yAxis1.setDrawGridLines(false);
         yAxis1.setDrawAxisLine(false);
         yAxis1.setDrawLabels(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 
     public class DayAxisValueFormatter extends ValueFormatter {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +25,8 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_general_repetition_finished);
+        getSupportActionBar().setTitle(getResources().getString(R.string.GeneralRepetitionFinished)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         done = (Button) findViewById(R.id.done);
         again = (Button) findViewById(R.id.again);
         done.setOnClickListener(new View.OnClickListener() {
@@ -47,5 +50,12 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
                 v.getContext().startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }

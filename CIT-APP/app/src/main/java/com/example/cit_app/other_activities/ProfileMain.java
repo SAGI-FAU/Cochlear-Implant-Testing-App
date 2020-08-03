@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -69,6 +70,8 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_main);
+        getSupportActionBar().setTitle(getResources().getString(R.string.Profile)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         in.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         et_date = findViewById(R.id.editTextTextbirthdate);
@@ -89,6 +92,7 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         RadioButton rb_hearing_aid = findViewById(R.id.rbHearingAid);
         RadioButton rb_smoker = findViewById(R.id.rbSmoker);
         RadioButton rb_no_smoker = findViewById(R.id.rbNoSmoker);
+        RadioButton rb_both_ci = findViewById(R.id.rbBothCI);
         File filepath = Environment.getExternalStorageDirectory();// + "/CITA/PROFILE/profile_pic.jpg";
         File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE/");
         dir.mkdir();
@@ -145,10 +149,15 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
             rb_no_smoker.setChecked(true);
         }
 
-        if (pref.getBoolean("CochlearImplant", false)) {
-            rb_cochlear.setChecked(true);
-        } else {
-            rb_hearing_aid.setChecked(true);
+        if (!pref.getString("CochlearImplant", "noAid").equals("noAid")) {
+            switch (pref.getString("CochlearImplant", "noAid")) {
+                case "CochlearImplant":
+                    rb_cochlear.setChecked(true);break;
+                case "HearingAid":
+                    rb_hearing_aid.setChecked(true);break;
+                case "BothCI":
+                    rb_both_ci.setChecked(true);break;
+            }
         }
 
         if (!pref.getString("Birthdate", "noDate").equals("noDate"))
@@ -218,14 +227,19 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         int checkedTypeRadioButtonId = rg_implant.getCheckedRadioButtonId();
         switch (checkedTypeRadioButtonId) {
             case R.id.rbCochlearImplant:
-                editor.putBoolean("CochlearImplant", true);
+                editor.putString("CochlearImplant", "CochlearImplant");
                 editor.apply();
-                patientData.setType(true);
+                patientData.setType("CochlearImplant");
                 break;
             case R.id.rbHearingAid:
-                editor.putBoolean("CochlearImplant", false);
+                editor.putString("CochlearImplant", "HearingAid");
                 editor.apply();
-                patientData.setType(false);
+                patientData.setType("HearingAid");
+                break;
+            case R.id.rbBothCI:
+                editor.putString("CochlearImplant", "BothCI");
+                editor.apply();
+                patientData.setType("BothCI");
                 break;
             default:
                 break;
@@ -475,5 +489,12 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         mCSVFileWriter.write(Type);
         mCSVFileWriter.close();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 }

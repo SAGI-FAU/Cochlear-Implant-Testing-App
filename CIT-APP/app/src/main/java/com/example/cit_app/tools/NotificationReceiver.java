@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -17,13 +18,16 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.cit_app.R;
 import com.example.cit_app.other_activities.MainActivity;
 
+import java.util.Calendar;
+import java.util.List;
+
 public class NotificationReceiver extends BroadcastReceiver {
 
     public static final String CHANNEL_ID = "notifyCIT";
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "channelCIT", NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("This is description");
 
@@ -42,5 +46,25 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .build();
         notificationManagerCompat.notify(1, notification);
+    }*/
+        Notifier notifications =new Notifier(context);
+        if (intent.getAction() != null && context != null) {
+
+            if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
+
+                notifications.setReminder(context, NotificationReceiver.class,
+                        9, 0);
+                return;
+
+            }
+
+        }
+
+        String Title_notification=context.getResources().getString(R.string.title_notify);
+        String content_notification=context.getResources().getString(R.string.content_notify);
+
+        //Trigger the notification
+        notifications.notifyUser(Title_notification, content_notification);
+
     }
 }

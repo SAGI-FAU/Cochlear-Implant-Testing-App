@@ -2,7 +2,9 @@ package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -31,6 +33,8 @@ public class ResultsPerYear extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_results_per_year);
+        getSupportActionBar().setTitle(getResources().getString(R.string.ResultsPerYear)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         lineChart = findViewById(R.id.evaluation_over_time);
         featureDataService = new FeatureDataService(this);
         lineChart.setMaxVisibleValueCount(1);
@@ -82,9 +86,6 @@ public class ResultsPerYear extends AppCompatActivity {
         xAxis.setAxisMaximum(12);
         xAxis.setAxisMinimum(1);
         xAxis.setLabelCount(12);
-        c.get(Calendar.YEAR);
-        String[] labels = {"01/" + c.get(Calendar.YEAR), "02/" + c.get(Calendar.YEAR), "03/" + c.get(Calendar.YEAR), "04/" + c.get(Calendar.YEAR), "05/" + c.get(Calendar.YEAR), "06/" + c.get(Calendar.YEAR), "07/" + c.get(Calendar.YEAR), "08/" + c.get(Calendar.YEAR), "09/" + c.get(Calendar.YEAR), "10/" + c.get(Calendar.YEAR), "11/" + c.get(Calendar.YEAR), "12/" + c.get(Calendar.YEAR)};
-        //xAxis.setValueFormatter(new DayAxisValueFormatter(lineChart, labels));
         YAxis yAxis = lineChart.getAxisLeft();
         yAxis.setDrawGridLines(false);
         yAxis.setAxisMinimum(0.0f);
@@ -93,5 +94,13 @@ public class ResultsPerYear extends AppCompatActivity {
         yAxis1.setDrawGridLines(false);
         yAxis1.setDrawAxisLine(false);
         yAxis1.setDrawLabels(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }

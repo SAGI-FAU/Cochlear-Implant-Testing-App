@@ -9,13 +9,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.cit_app.R;
 import com.example.cit_app.tools.NotificationReceiver;
@@ -36,12 +36,13 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
+        getSupportActionBar().setTitle(getResources().getString(R.string.Settings)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setListeners();
     }
 
     private void setListeners() {
-        findViewById(R.id.button_update_profile).setOnClickListener(this);
         findViewById(R.id.button_restart_session).setOnClickListener(this);
 
         SpinnerNotify = findViewById(R.id.SpinnerNotifications);
@@ -62,20 +63,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TimeNotification = i;
-
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putInt("Notification Time", TimeNotification);
                 editor.apply();
-                Calendar c = Calendar.getInstance();
-                SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(view.getContext());
-                int hour = p.getInt("Notification Time", 11);
-                c.set(Calendar.HOUR_OF_DAY, hour);
-                c.set(Calendar.SECOND, 0);
-                c.set(Calendar.MINUTE, 0);
-                AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                Intent activity = new Intent(view.getContext(), NotificationReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(view.getContext(), 0, activity, 0);
-                manager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             }
 
             @Override
@@ -86,26 +76,23 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+            Intent intent = new Intent(this, MainActivity.class);
+            this.startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.button_update_profile:
-                open_profile();
-                break;
             case R.id.button_restart_session:
-
                 restart_session();
         }
 
     }
-
-    private void open_profile() {
-        Intent intent_update =new Intent(this, ProfileLogin.class);
-        startActivity(intent_update);
-    }
-
-
 
     private void restart_session(){
         int choose = rand.nextInt(2);

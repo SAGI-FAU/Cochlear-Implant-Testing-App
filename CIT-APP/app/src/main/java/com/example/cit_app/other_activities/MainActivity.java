@@ -1,9 +1,6 @@
 package com.example.cit_app.other_activities;
 
 import android.animation.ArgbEvaluator;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -12,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -21,7 +17,7 @@ import com.example.cit_app.Model;
 import com.example.cit_app.R;
 import com.example.cit_app.tools.Adapter;
 import com.example.cit_app.tools.NotificationReceiver;
-
+import com.example.cit_app.tools.Notifier;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -48,10 +44,8 @@ public class MainActivity extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("LoginPref", this.MODE_PRIVATE);
-        int login = prefs.getInt("UserCreated", 0);
-        if (login != 1) {
-            Toast.makeText(this, "Went in this thingy", Toast.LENGTH_SHORT).show();
-            setAlarm();
+        int login = prefs.getInt("UserCreated", 1);
+        if (login == 1) {
             Intent intent = new Intent(this, LoginInfoScreen.class);
             this.startActivity(intent);
         }
@@ -87,19 +81,18 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Toast.makeText(this, "" + Locale.getDefault().getDisplayLanguage(), Toast.LENGTH_SHORT).show();
         if (!Locale.getDefault().getDisplayLanguage().equals("Deutsch")) {
             models = new ArrayList<>();
-            models.add(new Model(R.drawable.trainingset_background, "Daily Session", "Brochure is an informative paper document (often also used for advertising) that can be folded into a template"));
-            models.add(new Model(R.drawable.exercises_background, "Exercise List", "Sticker is a type of label: a piece of printed paper, plastic, vinyl, or other material with pressure sensitive adhesive on one side"));
-            models.add(new Model(R.drawable.daily_results_background, "Daily Results", "Poster is any piece of printed paper designed to be attached to a wall or vertical surface."));
-            models.add(new Model(R.drawable.evaluation_over_time_background, "Course of the year", "Business cards are cards bearing business information about a company or individual."));
+            models.add(new Model(R.drawable.trainingset_background, "Daily Session", getResources().getString(R.string.trainingsetDesc)));
+            models.add(new Model(R.drawable.exercises_background, "Exercise List", getResources().getString(R.string.ExerciseListDesc)));
+            models.add(new Model(R.drawable.daily_results_background, "Daily Results", getResources().getString(R.string.dailyResultDesc)));
+            models.add(new Model(R.drawable.evaluation_over_time_background, "Course of the year", getResources().getString(R.string.evaluationOverTimeDesc)));
         } else {
             models = new ArrayList<>();
-            models.add(new Model(R.drawable.uebungseinheit_background, "Tägliche Einheit", "Brochure is an informative paper document (often also used for advertising) that can be folded into a template"));
-            models.add(new Model(R.drawable.uebungen_background, "Übungen", "Sticker is a type of label: a piece of printed paper, plastic, vinyl, or other material with pressure sensitive adhesive on one side"));
-            models.add(new Model(R.drawable.taeglicher_fortschritt_background, "Ergebnis des Tages", "Poster is any piece of printed paper designed to be attached to a wall or vertical surface."));
-            models.add(new Model(R.drawable.fortschritt_ueber_die_zeit, "Verlauf des Jahres", "Business cards are cards bearing business information about a company or individual."));
+            models.add(new Model(R.drawable.uebungseinheit_background, "Tägliche Einheit", getResources().getString(R.string.trainingsetDesc)));
+            models.add(new Model(R.drawable.uebungen_background, "Übungen", getResources().getString(R.string.ExerciseListDesc)));
+            models.add(new Model(R.drawable.taeglicher_fortschritt_background, "Ergebnis des Tages", getResources().getString(R.string.dailyResultDesc)));
+            models.add(new Model(R.drawable.fortschritt_ueber_die_zeit, "Verlauf des Jahres", getResources().getString(R.string.evaluationOverTimeDesc)));
         }
         adapter = new Adapter(models, this);
 
@@ -146,19 +139,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        setAlarm();
     }
 
     public void setAlarm() {
         Calendar c = Calendar.getInstance();
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
-        int hour = p.getInt("Notification Time", 11);
-        Toast.makeText(this, ""+ hour, Toast.LENGTH_SHORT).show();
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MINUTE, 0);
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent activity = new Intent(this, NotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, activity, 0);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        int hour = p.getInt("Notification Time", 9);
+        Notifier notifier = new Notifier(this);
+        notifier.setReminder(this, NotificationReceiver.class, hour, 20);
     }
 }

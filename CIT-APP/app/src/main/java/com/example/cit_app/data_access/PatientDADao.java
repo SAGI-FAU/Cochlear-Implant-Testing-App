@@ -95,7 +95,10 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
             stmt.bindString(6, side);
         }
         stmt.bindLong(7, entity.getSmoker() ? 1L: 0L);
-        stmt.bindLong(8, entity.getType() ? 1L: 0L);
+        String type = entity.getType();
+        if(type != null) {
+            stmt.bindString(8, type);
+        }
     }
 
     @Override
@@ -131,7 +134,10 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
             stmt.bindString(6, side);
         }
         stmt.bindLong(7, entity.getSmoker() ? 1L: 0L);
-        stmt.bindLong(8, entity.getType() ? 1L: 0L);
+        String type = entity.getType();
+        if(type != null) {
+            stmt.bindString(8, type);
+        }
     }
 
     @Override
@@ -149,7 +155,7 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // gender
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // side
                 cursor.getShort(offset + 6) != 0, // smoker
-                cursor.getShort(offset + 7) != 0 // type
+                cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // type
         );
         return entity;
     }
@@ -163,7 +169,7 @@ public class PatientDADao extends AbstractDao<PatientDA, Long> {
         entity.setGender(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setSide(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setSmoker(cursor.getShort(offset + 6) != 0);
-        entity.setType(cursor.getShort(offset + 7) != 0);
+        entity.setType(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override

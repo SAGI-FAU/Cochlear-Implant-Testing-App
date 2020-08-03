@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".other_activities.GeneralRepetitionFinished">
+
 
     <TextView
         android:id="@+id/motivation"
-        android:layout_width="305dp"
-        android:layout_height="102dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:gravity="center"
+        android:background="@color/colorPrimaryDark"
         android:text="@string/Motivation"
         android:textColor="#000000"
         android:textSize="40sp"
@@ -20,29 +20,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/done"
-        android:layout_width="190dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="124dp"
-        android:text="@string/Done"
-        android:background="@drawable/button_border"
-        android:textSize="40sp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/motivation" />
+        app:layout_constraintTop_toBottomOf="@+id/motivation">
 
-    <Button
-        android:id="@+id/again"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:text="@string/Again"
-        android:background="@drawable/button_border"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/yellow_background"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/done"
+                android:layout_width="190dp"
+                android:layout_height="111dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:text="@string/Done"
+                android:textSize="40sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/done" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/yellow_background"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/again"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                android:text="@string/Again"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/done" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

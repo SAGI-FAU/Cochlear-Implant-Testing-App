@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -32,6 +33,8 @@ public class MinimalPairsExerciseFinished extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minimal_pairs_exercise_finished);
+        getSupportActionBar().setTitle(getResources().getString(R.string.GeneralRepetitionFinished)); // for set actionbar title
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         featureDataService = new FeatureDataService(this);
         done = (Button) findViewById(R.id.doneButton);
         again = (Button) findViewById(R.id.againButton);
@@ -62,5 +65,12 @@ public class MinimalPairsExerciseFinished extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 }
