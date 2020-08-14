@@ -67,7 +67,8 @@ public class MinimalPairs2 extends AppCompatActivity {
                 while(usedNumber.contains(position)) {
                     position = 4 * random.nextInt(50);
                 }
-                minimal_pairs_correct[i] = minimal_pairs_general[position];
+                int corr = random.nextInt(4);
+                minimal_pairs_correct[i] = minimal_pairs_general[position + corr];
                 minimal_pairs[i * 4] = minimal_pairs_general[position];
                 minimal_pairs[i * 4 + 1] = minimal_pairs_general[position + 1];
                 minimal_pairs[i * 4 + 2] = minimal_pairs_general[position + 2];
@@ -83,7 +84,8 @@ public class MinimalPairs2 extends AppCompatActivity {
                     while(usedNumber.contains(position)) {
                         position = 4 * random.nextInt(13);
                     }
-                    minimal_pairs_correct[i] = minimal_pairs_fricatives[position];
+                    int corr = random.nextInt(4);
+                    minimal_pairs_correct[i] = minimal_pairs_fricatives[position + corr];
                     minimal_pairs[i * 4] = minimal_pairs_fricatives[position];
                     minimal_pairs[i * 4 + 1] = minimal_pairs_fricatives[position + 1];
                     minimal_pairs[i * 4 + 2] = minimal_pairs_fricatives[position + 2];
@@ -97,7 +99,8 @@ public class MinimalPairs2 extends AppCompatActivity {
                     while(usedNumber.contains(position)) {
                         position = 4 * random.nextInt(7);
                     }
-                    minimal_pairs_correct[i] = minimal_pairs_stops[position];
+                    int corr = random.nextInt(4);
+                    minimal_pairs_correct[i] = minimal_pairs_stops[position + corr];
                     minimal_pairs[i * 4] = minimal_pairs_stops[position];
                     minimal_pairs[i * 4 + 1] = minimal_pairs_stops[position + 1];
                     minimal_pairs[i * 4 + 2] = minimal_pairs_stops[position + 2];
