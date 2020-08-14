@@ -1,7 +1,6 @@
 package com.example.cit_app.data_access;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -61,7 +60,6 @@ public class FeatureDataService {
 
 
     public void save_feature(String feature_name, Date feature_date, Float feature_value){
-        Toast.makeText(invocationcontext, "" + feature_date, Toast.LENGTH_SHORT).show();
         Date dateflook=new Date();
         try {
             dateflook= formatter.parse(formatter.format(feature_date));
@@ -189,11 +187,8 @@ public class FeatureDataService {
         FeatureDA featurec;
         for (int i=0;i<features.size();i++){
             featurec=features.get(i);
-
-            if (featurec.getFeature_value()!=0){
-              sum_feat+=featurec.getFeature_value();
-              cont_great_zero+=1;
-            }
+            sum_feat+=featurec.getFeature_value();
+            cont_great_zero+=1;
 
         }
 
@@ -221,7 +216,6 @@ public class FeatureDataService {
             return features;
         }
         Date curr0= Calendar.getInstance().getTime();
-        Toast.makeText(invocationcontext, "" + curr0, Toast.LENGTH_SHORT).show();
         String curr0str=formatter.format(curr0);
         List<FeatureDA> features_out=new ArrayList<>();
         FeatureDA featday=get_avg_feat_day(feat_name, curr0);

@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.cit_app.data_access.FeatureDataService;
 import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.MinimalPairsExerciseFinished;
@@ -17,6 +20,7 @@ import com.example.cit_app.R;
 import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 public class MinimalPairs2 extends AppCompatActivity {
@@ -32,6 +36,7 @@ public class MinimalPairs2 extends AppCompatActivity {
     private MediaPlayer player;
     private String[] minimal_pairs_fricatives, minimal_pairs_stops, minimal_pairs_general, minimal_pairs_result, minimal_pairs_correct;
     private Button start, topTop, botBot, topCenter, botCenter;
+    FeatureDataService featureDataService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +48,7 @@ public class MinimalPairs2 extends AppCompatActivity {
         topTop = (Button) findViewById(R.id.topTop);
         botBot = (Button) findViewById(R.id.topCenter);
         topCenter = (Button) findViewById(R.id.botCenter);
+        featureDataService = new FeatureDataService(this);
         if(getIntent().getExtras() != null)
             exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0) + 1;
         botCenter = (Button) findViewById(R.id.botBot);
@@ -186,6 +192,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                             }
                         }
                     }
+                    float int_f0 = (float)((double) correct / (double) 20);
+                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
+                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {
                     position += random.nextInt(3);
@@ -284,6 +293,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                             }
                         }
                     }
+                    float int_f0 = (float)((double) correct / (double) 20);
+                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
+                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {
                     position = random.nextInt(3);
@@ -382,6 +394,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                             }
                         }
                     }
+                    float int_f0 = (float)((double) correct / (double) 20);
+                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
+                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {
                     position = random.nextInt(3);
@@ -480,6 +495,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                             }
                         }
                     }
+                    float int_f0 = (float)((double) correct / (double) 20);
+                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
+                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {
                     position = random.nextInt(3);

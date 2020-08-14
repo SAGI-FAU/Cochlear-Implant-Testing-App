@@ -200,7 +200,7 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
                 } else {
                     SharedPreferences prefs = getSharedPreferences("LoginPref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("UserCreated",0);
+                    editor.putInt("UserCreated",13);
                     editor.apply();
                     if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                         requestRecordAudioPermission();
