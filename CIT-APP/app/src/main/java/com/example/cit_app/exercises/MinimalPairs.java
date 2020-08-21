@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
@@ -71,17 +72,20 @@ public class MinimalPairs extends AppCompatActivity {
         minimal_pairs_stops = getResources().getStringArray(R.array.Minimal_Pairs_Stops);
         minimal_pairs_general = getResources().getStringArray(R.array.Minimal_Pairs);
         //fill minimal_pairs list with 20 pairs consisting of 10 random 5 fricative and 5 stop pairs
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < 20; i+=4) {
             position = 4 * random.nextInt(50);
-            if(i < 10) {
+            if(i < 1) {
                 while(usedNumber.contains(position)) {
                     position = 4 * random.nextInt(50);
                 }
                 minimal_pairs[i] = minimal_pairs_general[position];
+                minimal_pairs[i + 1] = minimal_pairs_general[position + 1];
+                minimal_pairs[i + 2] = minimal_pairs_general[position + 2];
+                minimal_pairs[i + 3] = minimal_pairs_general[position + 3];
                 usedNumber.add(position);
             } else {
-                if(i < 15) {
-                    if(i == 10) {
+                if(i < 19) {
+                    if(i == 4) {
                         usedNumber.clear();
                     }
                     position = 4 * random.nextInt(13);
@@ -89,9 +93,12 @@ public class MinimalPairs extends AppCompatActivity {
                         position = 4 * random.nextInt(13);
                     }
                     minimal_pairs[i] = minimal_pairs_fricatives[position];
+                    minimal_pairs[i + 1] = minimal_pairs_fricatives[position + 1];
+                    minimal_pairs[i + 2] = minimal_pairs_fricatives[position + 2];
+                    minimal_pairs[i + 3] = minimal_pairs_fricatives[position + 3];
                     usedNumber.add(position);
                 } else {
-                    if(i == 15) {
+                    if(i == 12) {
                         usedNumber.clear();
                     }
                     position = 4 * random.nextInt(7);
@@ -99,6 +106,9 @@ public class MinimalPairs extends AppCompatActivity {
                         position = 4 * random.nextInt(7);
                     }
                     minimal_pairs[i] = minimal_pairs_stops[position];
+                    minimal_pairs[i + 1] = minimal_pairs_stops[position + 1];
+                    minimal_pairs[i + 2] = minimal_pairs_stops[position + 2];
+                    minimal_pairs[i + 3] = minimal_pairs_stops[position + 3];
                     usedNumber.add(position);
                 }
             }
