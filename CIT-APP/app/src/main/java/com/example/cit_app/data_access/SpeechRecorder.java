@@ -44,7 +44,7 @@ public class SpeechRecorder {
 
     private static SpeechRecorder recorder_instance = null;
     private static AudioRecord AUDIO_RECORD;
-    private static int SAMPLING_RATE = 16000;
+    private static int SAMPLING_RATE = 44100;
     private static File AUDIO_FOLDER;
     private static DataOutputStream DATA_OUTPUT_STREAM;
     private static File FILE_PCM;
