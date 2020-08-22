@@ -33,6 +33,7 @@ public class MinimalPairs2 extends AppCompatActivity {
     private int counter = 0;
     private int oldPos = 0;
     private int choose = 0;
+    private int images[];
     private MediaPlayer player;
     private String[] minimal_pairs_fricatives, minimal_pairs_stops, minimal_pairs_general, minimal_pairs_result, minimal_pairs_correct;
     private Button start, topTop, botBot, topCenter, botCenter;
@@ -48,6 +49,7 @@ public class MinimalPairs2 extends AppCompatActivity {
         topTop = (Button) findViewById(R.id.topTop);
         botBot = (Button) findViewById(R.id.topCenter);
         topCenter = (Button) findViewById(R.id.botCenter);
+        images = new int[20];
         featureDataService = new FeatureDataService(this);
         if(getIntent().getExtras() != null)
             exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0) + 1;
@@ -126,10 +128,14 @@ public class MinimalPairs2 extends AppCompatActivity {
                     for(int i = 0; i < 20; i++) {
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
+                            images[i] = R.drawable.right;
+                        } else {
+                            images[i] = R.drawable.wrong;
                         }
                     }
                     intent.putExtra("correct", correct);
-
+                    intent.putExtra("images", images);
+                    intent.putExtra("results", minimal_pairs_result);
                     if(getIntent().getBooleanExtra("trainingset", false)) {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
                         SharedPreferences.Editor editor = pref.edit();
@@ -228,9 +234,14 @@ public class MinimalPairs2 extends AppCompatActivity {
                     for(int i = 0; i < 20; i++) {
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
+                            images[i] = R.drawable.right;
+                        } else {
+                            images[i] = R.drawable.wrong;
                         }
                     }
                     intent.putExtra("correct", correct);
+                    intent.putExtra("images", images);
+                    intent.putExtra("results", minimal_pairs_result);
                     if(getIntent().getBooleanExtra("trainingset", false)) {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
                         SharedPreferences.Editor editor = pref.edit();
@@ -329,9 +340,14 @@ public class MinimalPairs2 extends AppCompatActivity {
                     for(int i = 0; i < 20; i++) {
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
+                            images[i] = R.drawable.right;
+                        } else {
+                            images[i] = R.drawable.wrong;
                         }
                     }
                     intent.putExtra("correct", correct);
+                    intent.putExtra("images", images);
+                    intent.putExtra("results", minimal_pairs_result);
                     if(getIntent().getBooleanExtra("trainingset", false)) {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
                         SharedPreferences.Editor editor = pref.edit();
@@ -430,9 +446,14 @@ public class MinimalPairs2 extends AppCompatActivity {
                     for(int i = 0; i < 20; i++) {
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
+                            images[i] = R.drawable.right;
+                        } else {
+                            images[i] = R.drawable.wrong;
                         }
                     }
                     intent.putExtra("correct", correct);
+                    intent.putExtra("images", images);
+                    intent.putExtra("results", minimal_pairs_result);
                     if(getIntent().getBooleanExtra("trainingset", false)) {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
                         SharedPreferences.Editor editor = pref.edit();

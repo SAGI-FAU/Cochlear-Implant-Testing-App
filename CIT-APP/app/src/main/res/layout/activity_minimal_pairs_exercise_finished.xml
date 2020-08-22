@@ -7,11 +7,10 @@
     tools:context=".other_activities.MinimalPairsExerciseFinished">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:id="@+id/cardView5"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         app:cardCornerRadius="50dp"
-        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/minPairs2Layout">
@@ -22,48 +21,61 @@
             android:background="@drawable/yellow_background"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/doneButton"
-                android:layout_width="190dp"
-                android:layout_height="111dp"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:text="@string/Done"
-                android:textSize="40sp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/correct_words"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_gravity="center">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
         </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/doneButton"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        app:cardCornerRadius="20dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView5">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="@string/Done"
+            android:textSize="20sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/againButton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+        app:layout_constraintTop_toBottomOf="@+id/doneButton">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/yellow_background"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/againButton"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:text="@string/Again"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/done" />
-        </LinearLayout>
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="@string/Again"
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
+
 
     <LinearLayout
         android:id="@+id/minPairs2Layout"

@@ -1,34 +1,46 @@
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.cit_app.ExerciseAdapter;
 import com.example.cit_app.R;
 import com.example.cit_app.exercises.MinimalPairs2;
 
-public class MinimalPairsExerciseFinished extends AppCompatActivity {
+public class MinimalPairsExerciseFinished extends AppCompatActivity implements ExerciseAdapter.OnExerciseListener{
 
-    private Button done, again;
+    private CardView done, again;
     private TextView score;
     private ProgressBar starsPercentage;
+    private String chosen_words[];
+    private int images[];
+    private RecyclerView exerciseList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minimal_pairs_exercise_finished);
         getSupportActionBar().setTitle(getResources().getString(R.string.GeneralRepetitionFinished)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        done = (Button) findViewById(R.id.doneButton);
-        again = (Button) findViewById(R.id.againButton);
+        done = (CardView) findViewById(R.id.doneButton);
+        again = (CardView) findViewById(R.id.againButton);
         score = (TextView) findViewById(R.id.score);
         starsPercentage = (ProgressBar) findViewById(R.id.minimalPairsPercentage);
+        exerciseList = (RecyclerView) findViewById(R.id.correct_words);
+        images = getIntent().getIntArrayExtra("images");
+        chosen_words = getIntent().getStringArrayExtra("results");
+        ExerciseAdapter exAd = new ExerciseAdapter(this, chosen_words, images, this);
+        exerciseList.setAdapter(exAd);
+        exerciseList.setLayoutManager(new LinearLayoutManager(this));
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Hearing", 0);
         SharedPreferences.Editor edit = pref.edit();
         int correct = getIntent().getIntExtra("correct", 0);
@@ -59,5 +71,10 @@ public class MinimalPairsExerciseFinished extends AppCompatActivity {
         // TODO Auto-generated method stub
             finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onExerciseClick(int position) {
+
     }
 }
