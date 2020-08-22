@@ -10,7 +10,6 @@
         android:id="@+id/cardView5"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/minPairs2Layout">
