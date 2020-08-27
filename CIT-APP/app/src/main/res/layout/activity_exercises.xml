@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ExercisesFragment">
+    android:layout_height="match_parent">
 
 
     <ScrollView
@@ -31,6 +30,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:text="@string/chooseyour" />
@@ -40,6 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:textSize="40sp"
                     android:text="@string/exercise" />
@@ -47,6 +48,7 @@
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
+                    android:autoSizeTextType="uniform"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="20sp"
@@ -56,6 +58,7 @@
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:textSize="40sp"
                     android:textColor="#000000"
@@ -85,6 +88,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="0.9"
+                            android:autoSizeTextType="uniform"
                             android:gravity="center"
                             android:text="@string/MinimalPairs"
                             android:textSize="40sp" />
@@ -107,6 +111,7 @@
                             android:layout_width="0dp"
                             android:layout_height="100dp"
                             android:layout_weight="0.8"
+                            android:autoSizeTextType="uniform"
                             android:gravity="center"
                             android:text="@string/MinimalPairsDescription" />
 
@@ -144,6 +149,7 @@
                             android:layout_height="50dp"
                             android:layout_weight="0.9"
                             android:gravity="center"
+                            android:autoSizeTextType="uniform"
                             android:text="@string/MinimalPairs2"
                             android:textSize="40sp" />
 
@@ -165,6 +171,7 @@
                             android:layout_width="0dp"
                             android:layout_height="100dp"
                             android:layout_weight="0.8"
+                            android:autoSizeTextType="uniform"
                             android:gravity="center"
                             android:text="@string/minimalPairs2Description" />
 
@@ -201,6 +208,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="0.9"
+                            android:autoSizeTextType="uniform"
                             android:gravity="center"
                             android:text="@string/WordList"
                             android:textSize="40sp" />
@@ -223,6 +231,7 @@
                             android:layout_width="0dp"
                             android:layout_height="100dp"
                             android:layout_weight="0.8"
+                            android:autoSizeTextType="uniform"
                             android:gravity="center"
                             android:text="@string/WordListDescription" />
 
@@ -260,6 +269,7 @@
                             android:layout_height="50dp"
                             android:layout_weight="0.9"
                             android:gravity="center"
+                            android:autoSizeTextType="uniform"
                             android:text="@string/PictureDescription"
                             android:textSize="40sp" />
 
@@ -281,6 +291,7 @@
                             android:layout_width="0dp"
                             android:layout_height="100dp"
                             android:gravity="center"
+                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.8"
                             android:text="@string/PictureDescriptionDescription" />
 
@@ -317,6 +328,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="0.9"
+                            android:autoSizeTextType="uniform"
                             android:gravity="center"
                             android:text="@string/SentenceReading"
                             android:textSize="40sp" />
@@ -338,6 +350,7 @@
                             android:id="@+id/desc_sentence"
                             android:layout_width="0dp"
                             android:layout_height="100dp"
+                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.8"
                             android:gravity="center"
                             android:text="@string/SentenceReadingDescription" />
@@ -376,6 +389,7 @@
                             android:layout_height="50dp"
                             android:layout_weight="0.9"
                             android:gravity="center"
+                            android:autoSizeTextType="uniform"
                             android:text="@string/SyllableRepetition"
                             android:textSize="40sp" />
 
@@ -398,6 +412,7 @@
                             android:layout_height="100dp"
                             android:gravity="center"
                             android:layout_weight="0.8"
+                            android:autoSizeTextType="uniform"
                             android:text="@string/SyllableRepetitionDescription" />
 
                         <ImageView

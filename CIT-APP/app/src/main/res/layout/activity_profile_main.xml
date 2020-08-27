@@ -55,6 +55,7 @@
                         android:id="@+id/editTextName"
                         android:layout_width="match_parent"
                         android:textSize="20sp"
+                        android:autoSizeTextType="uniform"
                         android:layout_weight="0.8"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -98,6 +99,7 @@
                         android:textSize="20sp"
                         android:layout_height="wrap_content"
                         android:hint="@string/phoneNumber"
+                        android:autoSizeTextType="uniform"
                         android:ems="10"
                         android:inputType="phone" />
 
@@ -136,6 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_weight="0.8"
                         android:layout_height="wrap_content"
+                        android:autoSizeTextType="uniform"
                         android:ems="10"
                         android:textSize="20sp"
                         android:background="@drawable/underscore"

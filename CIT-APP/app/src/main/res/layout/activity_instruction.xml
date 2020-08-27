@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Instruction"
         android:textSize="30sp"
+        android:autoSizeTextType="uniform"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

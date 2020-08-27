@@ -42,6 +42,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:maxLines="3"
+                android:autoSizeTextType="uniform"
                 android:drawablePadding="10dp"
                 android:ellipsize="end"
                 android:text="Description"

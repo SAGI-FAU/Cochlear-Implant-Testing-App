@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.FeatureDA;
@@ -21,6 +22,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -40,8 +42,6 @@ public class ResultsPerDay extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         barChart = findViewById(R.id.dailyEvaluationBarChart);
         featureDataService = new FeatureDataService(this);
-        barChart.setDrawValueAboveBar(false);
-        barChart.setMaxVisibleValueCount(1);
         barChart.setDrawGridBackground(false);
         Calendar c = Calendar.getInstance();
         c.set(2020, 6, 12);
@@ -86,9 +86,13 @@ public class ResultsPerDay extends AppCompatActivity {
         dataset.setColors(new int[] {Color.BLACK, Color.WHITE, Color.BLUE});
         BarData data = new BarData(dataset);
         data.setBarWidth(0.4f);
+        ValueFormatter percentageFormatter = new PercentageFormatter();
+        data.setValueFormatter(percentageFormatter);
+        data.setValueTextSize(20);
         barChart.setData(data);
         barChart.getDescription().setEnabled(false);
         barChart.getLegend().setEnabled(false);
+        barChart.setExtraBottomOffset(50);
         String[] measurements = {getResources().getString(R.string.hearingAbility), getResources().getString(R.string.speechrate), getResources().getString(R.string.intonation)};
         ValueFormatter xAxisFormatter = new DayAxisValueFormatter(barChart, measurements);
         XAxis xAxis = barChart.getXAxis();
@@ -96,11 +100,14 @@ public class ResultsPerDay extends AppCompatActivity {
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(7);
+        xAxis.setTextSize(17);
+        xAxis.setYOffset(20);
         xAxis.setValueFormatter(xAxisFormatter);
         YAxis yAxis = barChart.getAxisLeft();
         yAxis.setDrawGridLines(false);
         yAxis.setAxisMaximum(1.1f);
         yAxis.setAxisMinimum(0.f);
+        yAxis.setTextSize(20);
         YAxis yAxis1 = barChart.getAxisRight();
         yAxis1.setDrawGridLines(false);
         yAxis1.setDrawAxisLine(false);
@@ -125,6 +132,14 @@ public class ResultsPerDay extends AppCompatActivity {
         @Override
         public String getFormattedValue(float value) {
             return values[(int)value];
+        }
+    }
+
+    public class PercentageFormatter extends ValueFormatter {
+
+        @Override
+        public String getFormattedValue(float value) {
+            return String.format ("%.2f", value) + "%";
         }
     }
 }
