@@ -82,9 +82,9 @@ public class MinimalPairs2 extends AppCompatActivity {
                     if(i == 10) {
                         usedNumber.clear();
                     }
-                    position = 4 * random.nextInt(13);
+                    position = 4 * random.nextInt(12);
                     while(usedNumber.contains(position)) {
-                        position = 4 * random.nextInt(13);
+                        position = 4 * random.nextInt(12);
                     }
                     int corr = random.nextInt(4);
                     minimal_pairs_correct[i] = minimal_pairs_fricatives[position + corr];

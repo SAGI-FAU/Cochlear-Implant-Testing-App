@@ -221,10 +221,6 @@
         <item>Wurst</item>
     </string-array>
     <string-array name="Minimal_Pairs_Fricatives">
-        <item>Vetter</item>
-        <item>Fetter</item>
-        <item>Retter</item>
-        <item>Netter</item>
         <item>Kaum</item>
         <item>Saum</item>
         <item>Baum</item>
