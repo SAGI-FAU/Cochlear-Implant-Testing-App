@@ -1,8 +1,10 @@
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +17,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.cit_app.R;
 import com.example.cit_app.tools.NotificationReceiver;
@@ -29,7 +34,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     int TimeNotification;
     SharedPreferences sharedPref;
     Random rand = new Random();
-
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +43,28 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setTitle(getResources().getString(R.string.Settings)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setListeners();
+        dialog = new Dialog(this);
+        ImageView help = findViewById(R.id.help);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopUp(v);
+            }
+        });
+    }
+
+    private void showPopUp(View v) {
+
+        dialog.setContentView(R.layout.popup_help);
+        TextView text = dialog.findViewById(R.id.close);
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void setListeners() {

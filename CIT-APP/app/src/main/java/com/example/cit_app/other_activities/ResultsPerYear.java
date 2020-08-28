@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.FeatureDataService;
@@ -27,6 +29,7 @@ import java.util.List;
 public class ResultsPerYear extends AppCompatActivity {
     private LineChart lineChart;
     private FeatureDataService featureDataService;
+    private Button home_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,14 @@ public class ResultsPerYear extends AppCompatActivity {
         lineChart = findViewById(R.id.evaluation_over_time);
         featureDataService = new FeatureDataService(this);
         lineChart.setMaxVisibleValueCount(1);
+        home_button = findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
         List<Entry> intonation = new ArrayList<>();
         List<Entry> hearing = new ArrayList<>();
         List<Entry> speech_rate_values = new ArrayList<>();

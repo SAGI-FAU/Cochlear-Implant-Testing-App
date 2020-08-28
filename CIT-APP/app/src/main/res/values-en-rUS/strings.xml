@@ -19,6 +19,8 @@
     <string name="Listen">listen</string>
     <string name="record">record</string>
     <string name="save">save</string>
+    <string name="home">Title screen</string>
+    <string name="restartSessionHelp">When the restart session button is pressed and a training session is available, the exercises in the session will get changed.\nIf the training session has already been done, new exercises will appear and a new training session can be done!</string>
     <string name="trainingsetDesc">Each day you get a new set of different exercises to do. Click here to start your daily training set now!</string>
     <string name="ExerciseListDesc">Click here to see the list of possible exercises you can do individually. Do them as much as you want and whenever you want!</string>
     <string name="dailyResultDesc">Check out your daily results here! See how the values of your hearing, your intonation and your speech rate were today!</string>

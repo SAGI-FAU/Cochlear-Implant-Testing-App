@@ -67,6 +67,8 @@
     <string name="now">NOW!</string>
     <string name="start">Start your </string>
     <string name="training">SESSION</string>
+    <string name="home">Title screen</string>
+    <string name="restartSessionHelp">When the restart session button is pressed and a training session is available, the exercises in the session will get changed.\nIf the training session has already been done, new exercises will appear and a new training session can be done!</string>
     <string name="showme">and show me what you`ve got!</string>
     <string name="cochlearImplant">Cochlear Implant</string>
     <string name="hearingAid">Hearing Aid</string>

@@ -4,14 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EvaluationOverTime">
+    tools:context=".other_activities.ResultsPerYear">
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/evaluation_over_time"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/background"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toTopOf="@+id/home_button"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/home_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/home"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/yellow_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+import android.widget.Button;
 
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.FeatureDA;
@@ -22,15 +23,15 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class ResultsPerDay extends AppCompatActivity {
 
-    BarChart barChart;
-    FeatureDataService featureDataService;
+    private BarChart barChart;
+    private FeatureDataService featureDataService;
+    private Button home_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,14 @@ public class ResultsPerDay extends AppCompatActivity {
         barChart = findViewById(R.id.dailyEvaluationBarChart);
         featureDataService = new FeatureDataService(this);
         barChart.setDrawGridBackground(false);
+        home_button = findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
         Calendar c = Calendar.getInstance();
         c.set(2020, 6, 12);
         List<FeatureDA> intonation = featureDataService.get_avg_all_feat_per_day(featureDataService.intonation_name);
