@@ -125,11 +125,11 @@ public class MinimalPairs2 extends AppCompatActivity {
                     minimal_pairs_result[counter] = topTop.getText().toString();
                     Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
                     int correct = 0;
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ä", "ae");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ö", "oe");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ü", "ue");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ß", "ss");
                     for(int i = 0; i < 20; i++) {
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
                             images[i] = R.drawable.right;
@@ -235,11 +235,11 @@ public class MinimalPairs2 extends AppCompatActivity {
                     minimal_pairs_result[counter] = topCenter.getText().toString();
                     Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
                     int correct = 0;
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ä", "ae");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ö", "oe");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ü", "ue");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ß", "ss");
                     for(int i = 0; i < 20; i++) {
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
                             images[i] = R.drawable.right;
@@ -345,11 +345,11 @@ public class MinimalPairs2 extends AppCompatActivity {
                     minimal_pairs_result[counter] = botCenter.getText().toString();
                     Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
                     int correct = 0;
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ä", "ae");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ö", "oe");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ü", "ue");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ß", "ss");
                     for(int i = 0; i < 20; i++) {
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
                             images[i] = R.drawable.right;
@@ -455,11 +455,11 @@ public class MinimalPairs2 extends AppCompatActivity {
                     minimal_pairs_result[counter] = botBot.getText().toString();
                     Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
                     int correct = 0;
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ä", "ae");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ö", "oe");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ü", "ue");
-                    minimal_pairs_result[choose] = minimal_pairs_result[choose].replace("ß", "ss");
                     for(int i = 0; i < 20; i++) {
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
                         if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
                             correct++;
                             images[i] = R.drawable.right;
