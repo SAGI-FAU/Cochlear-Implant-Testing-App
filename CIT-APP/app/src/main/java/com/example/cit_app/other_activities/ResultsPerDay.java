@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.cit_app.R;
+import com.example.cit_app.data_access.CSVFileWriter;
 import com.example.cit_app.data_access.FeatureDA;
 import com.example.cit_app.data_access.FeatureDataService;
 import com.github.mikephil.charting.charts.BarChart;
@@ -23,6 +25,8 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -32,6 +36,9 @@ public class ResultsPerDay extends AppCompatActivity {
     private BarChart barChart;
     private FeatureDataService featureDataService;
     private Button home_button;
+    private float intonation_value = 0;
+    private float hearingAbility = 0;
+    private float speech_rate_value = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +64,6 @@ public class ResultsPerDay extends AppCompatActivity {
         List<FeatureDA> intonation = featureDataService.get_avg_all_feat_per_day(featureDataService.intonation_name);
         List<FeatureDA> hearing = featureDataService.get_avg_all_feat_per_day(featureDataService.hearing_name);
         List<FeatureDA> speech_rate = featureDataService.get_avg_all_feat_per_day(featureDataService.vrate_name);
-        float intonation_value = 0;
-        float hearingAbility = 0;
-        float speech_rate_value = 0;
         if(speech_rate.size() == 0) {
             speech_rate_value = 0;
         } else {
@@ -121,6 +125,11 @@ public class ResultsPerDay extends AppCompatActivity {
         yAxis1.setDrawGridLines(false);
         yAxis1.setDrawAxisLine(false);
         yAxis1.setDrawLabels(false);
+        try {
+            export_data();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -150,5 +159,19 @@ public class ResultsPerDay extends AppCompatActivity {
         public String getFormattedValue(float value) {
             return String.format ("%.2f", value) + "%";
         }
+    }
+
+    private void export_data()  throws IOException {
+        String PATH = Environment.getExternalStorageDirectory() + "/CITA/METADATA/RESULTS/";
+        CSVFileWriter mCSVFileWriter = new CSVFileWriter("Results", PATH);
+
+        String[] hearing_ability={"Hearing_Ability", String.valueOf(hearingAbility)};
+        String[] intonation={"Intonation", String.valueOf(intonation_value/100)};
+        String[] speech_rate={"Speech_Rate", String.valueOf(speech_rate_value)};
+        mCSVFileWriter.write(hearing_ability);
+        mCSVFileWriter.write(intonation);
+        mCSVFileWriter.write(speech_rate);
+        mCSVFileWriter.close();
+
     }
 }

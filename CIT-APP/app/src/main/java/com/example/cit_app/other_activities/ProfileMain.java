@@ -470,7 +470,7 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
     }
 
     private void export_profile()  throws IOException {
-        String PATH = Environment.getExternalStorageDirectory() + "/CITA/METADATA/";
+        String PATH = Environment.getExternalStorageDirectory() + "/CITA/METADATA/PROFILE";
         CSVFileWriter mCSVFileWriter = new CSVFileWriter("Profile", PATH);
 
         String[] Name={"Name", patientData.getUsername()};

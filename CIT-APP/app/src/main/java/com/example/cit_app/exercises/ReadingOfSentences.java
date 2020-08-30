@@ -65,79 +65,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                     isRecording = false;
                     textRecord.setText("aufnehmen");
                     imageView.setImageResource(R.drawable.play);
-                    if(int_f0 == -1 || Float.isNaN(int_f0)) {
-
-                    } else {
-                        Intent intent = new Intent(v.getContext(), GeneralRepetitionFinished.class);
-                        intent.putExtra("exercise", "ReadingOfSentences");
-                        if(getIntent().getBooleanExtra("trainingset", false)) {
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putBoolean("ReadingOfSentences", true);
-                            editor.apply();
-                            if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
-                                intent = new Intent(v.getContext(), TrainingsetFinished.class);
-                            } else {
-                                switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
-                                    case "MinimalPairs":
-                                        intent = new Intent(v.getContext(), Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "MinimalPairs2":
-                                        intent = new Intent(v.getContext(), Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "Word_List":
-                                        intent = new Intent(v.getContext(), Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.WordList));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "SyllableRepetition":
-                                        intent = new Intent(v.getContext(), Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "Picture_Description":
-                                        intent = new Intent(v.getContext(), Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    default:
-                                        intent = new Intent(v.getContext(), MainActivity.class);
-                                        break;
-                                }
-                            }
-                        }
-                        recorder.release();
-                        v.getContext().startActivity(intent);
-                    }
                 } else {
                     isRecording = true;
                     path = recorder.prepare("ReadingOfSentences");
@@ -178,6 +105,75 @@ public class ReadingOfSentences extends AppCompatActivity {
                     File file = new File(path);
                     Date lastModDate = new Date(file.lastModified());
                     featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0);
+                    Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
+                    intent.putExtra("exercise", "ReadingOfSentences");
+                    if(getIntent().getBooleanExtra("trainingset", false)) {
+                        SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putBoolean("ReadingOfSentences", true);
+                        editor.apply();
+                        if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
+                            intent = new Intent(getApplicationContext(), TrainingsetFinished.class);
+                        } else {
+                            switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
+                                case "MinimalPairs":
+                                    intent = new Intent(getApplicationContext(), Instruction.class);
+                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
+                                    //TODO Think of some useful descriptions and instructions
+                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
+                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
+                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                                    intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("trainingset", true);
+                                    break;
+                                case "MinimalPairs2":
+                                    intent = new Intent(getApplicationContext(), Instruction.class);
+                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
+                                    //TODO Think of some useful descriptions and instructions
+                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
+                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
+                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                                    intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("trainingset", true);
+                                    break;
+                                case "Word_List":
+                                    intent = new Intent(getApplicationContext(), Instruction.class);
+                                    intent.putExtra("title", getResources().getString(R.string.WordList));
+                                    //TODO Think of some useful descriptions and instructions
+                                    intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
+                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
+                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                                    intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("trainingset", true);
+                                    break;
+                                case "SyllableRepetition":
+                                    intent = new Intent(getApplicationContext(), Instruction.class);
+                                    intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
+                                    //TODO Think of some useful descriptions and instructions
+                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
+                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
+                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                                    intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("trainingset", true);
+                                    break;
+                                case "Picture_Description":
+                                    intent = new Intent(getApplicationContext(), Instruction.class);
+                                    intent.putExtra("title", getResources().getString(R.string.PictureDescription));
+                                    //TODO Think of some useful descriptions and instructions
+                                    intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
+                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
+                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                                    intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("trainingset", true);
+                                    break;
+                                default:
+                                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    break;
+                            }
+                        }
+                    }
+                    recorder.release();
+                    getApplicationContext().startActivity(intent);
                 }
             }
         }
