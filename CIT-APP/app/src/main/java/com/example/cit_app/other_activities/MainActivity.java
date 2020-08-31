@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("LoginPref", MODE_PRIVATE);
         int login = prefs.getInt("UserCreated", 0);
-        login = 0;
         if (login == 0) {
             Intent intent = new Intent(this, LoginInfoScreen.class);
             this.startActivity(intent);
