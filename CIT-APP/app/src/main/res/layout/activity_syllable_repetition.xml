@@ -23,7 +23,7 @@
         android:id="@+id/startTimer"
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:text="@string/Listen"
+        android:text="@string/record"
         android:textSize="20dp"
         android:background="@drawable/yellow_background"
         app:layout_constraintBottom_toBottomOf="parent"
