@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cit_app.data_access.FeatureDataService;
 import com.example.cit_app.other_activities.Instruction;
@@ -206,7 +205,6 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     float int_f0 = (float)((double) correct / (double) 20);
-                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
                     featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {
@@ -316,7 +314,6 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     float int_f0 = (float)((double) correct / (double) 20);
-                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
                     featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {
@@ -426,7 +423,6 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     float int_f0 = (float)((double) correct / (double) 20);
-                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
                     featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {
@@ -536,7 +532,6 @@ public class MinimalPairs2 extends AppCompatActivity {
                         }
                     }
                     float int_f0 = (float)((double) correct / (double) 20);
-                    Toast.makeText(MinimalPairs2.this, "" + int_f0, Toast.LENGTH_SHORT).show();
                     featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                     v.getContext().startActivity(intent);
                 } else {

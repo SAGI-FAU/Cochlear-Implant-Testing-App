@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("LoginPref", MODE_PRIVATE);
         int login = prefs.getInt("UserCreated", 0);
-        Toast.makeText(this, "" + login, Toast.LENGTH_SHORT).show();
+        login = 0;
         if (login == 0) {
             Intent intent = new Intent(this, LoginInfoScreen.class);
             this.startActivity(intent);
