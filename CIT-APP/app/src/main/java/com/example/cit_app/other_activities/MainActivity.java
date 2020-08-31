@@ -152,6 +152,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
         int hour = p.getInt("Notification Time", 9);
         Notifier notifier = new Notifier(this);
-        notifier.setReminder(this, NotificationReceiver.class, hour, 20);
+        notifier.setReminder(this, NotificationReceiver.class, hour, 0);
     }
 }
