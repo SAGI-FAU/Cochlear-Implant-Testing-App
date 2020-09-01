@@ -62,19 +62,7 @@ public class ResultsPerYear extends AppCompatActivity {
             float hearing_value = featureDataService.get_avg_feature_for_month(featureDataService.hearing_name, c.getTime()).getFeature_value();
             hearing.add(new Entry(counter, hearing_value));
             float speech_rate = featureDataService.get_avg_feature_for_month(featureDataService.vrate_name, c.getTime()).getFeature_value();
-            if (speech_rate < 25) {
-                speech_rate = speech_rate/25;
-            }
-            if (speech_rate > 55) {
-                speech_rate = 1 - ((speech_rate/55) - 1);
-                if (speech_rate < 0) {
-                    speech_rate = 0;
-                }
-            }
-            if (speech_rate <= 55 && speech_rate >= 25) {
-                speech_rate = 1;
-            }
-            speech_rate_values.add(new Entry(counter, speech_rate));
+            speech_rate_values.add(new Entry(counter, speech_rate/100));
             counter ++;
         }
         LineDataSet dataset = new LineDataSet(intonation, getResources().getString(R.string.intonation));

@@ -68,18 +68,6 @@ public class ResultsPerDay extends AppCompatActivity {
             speech_rate_value = 0;
         } else {
             speech_rate_value = speech_rate.get(0).getFeature_value();
-            if (speech_rate_value < 25) {
-                speech_rate_value = speech_rate_value/25;
-            }
-            if (speech_rate_value > 55) {
-                speech_rate_value = 1 - ((speech_rate_value/55) - 1);
-                if (speech_rate_value < 0) {
-                    speech_rate_value = 0;
-                }
-            }
-            if (speech_rate_value <= 55 && speech_rate_value >= 25) {
-                speech_rate_value = 1;
-            }
         }
         if(intonation.size() == 0) {
             intonation_value = 0;
@@ -93,7 +81,7 @@ public class ResultsPerDay extends AppCompatActivity {
         }
         List<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, hearingAbility));
-        entries.add(new BarEntry(1f, speech_rate_value));
+        entries.add(new BarEntry(1f, speech_rate_value/100));
         entries.add(new BarEntry(2f, intonation_value/100));
         BarDataSet dataset = new BarDataSet(entries, "");
         dataset.setColors(new int[] {Color.BLACK, Color.WHITE, Color.BLUE});
@@ -167,7 +155,7 @@ public class ResultsPerDay extends AppCompatActivity {
 
         String[] hearing_ability={"Hearing_Ability", String.valueOf(hearingAbility)};
         String[] intonation={"Intonation", String.valueOf(intonation_value/100)};
-        String[] speech_rate={"Speech_Rate", String.valueOf(speech_rate_value)};
+        String[] speech_rate={"Speech_Rate", String.valueOf(speech_rate_value/100)};
         mCSVFileWriter.write(hearing_ability);
         mCSVFileWriter.write(intonation);
         mCSVFileWriter.write(speech_rate);
