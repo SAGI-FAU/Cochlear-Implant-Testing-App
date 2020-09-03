@@ -39,6 +39,9 @@ public class ResultsPerDay extends AppCompatActivity {
     private float intonation_value = 0;
     private float hearingAbility = 0;
     private float speech_rate_value = 0;
+    private float real_intonation_value = 0;
+    private float pitch_mean_value = 0;
+    private float real_speech_rate_value = 0;
     private boolean saved = false;
 
     @Override
@@ -89,6 +92,12 @@ public class ResultsPerDay extends AppCompatActivity {
         List<FeatureDA> intonation = featureDataService.get_avg_all_feat_per_day(featureDataService.intonation_name);
         List<FeatureDA> hearing = featureDataService.get_avg_all_feat_per_day(featureDataService.hearing_name);
         List<FeatureDA> speech_rate = featureDataService.get_avg_all_feat_per_day(featureDataService.vrate_name);
+        FeatureDA real_intonation = featureDataService.get_last_feat_value(featureDataService.real_intonation_name);
+        FeatureDA pitch_mean = featureDataService.get_last_feat_value(featureDataService.pitch_mean_name);
+        FeatureDA real_speech_rate = featureDataService.get_last_feat_value(featureDataService.real_speech_rate_name);
+        real_intonation_value = real_intonation.getFeature_value();
+        real_speech_rate_value = real_speech_rate.getFeature_value();
+        pitch_mean_value = pitch_mean.getFeature_value();
         if(speech_rate.size() == 0) {
             speech_rate_value = 0;
         } else {
@@ -176,6 +185,12 @@ public class ResultsPerDay extends AppCompatActivity {
         String[] hearing_ability={"Hearing_Ability", String.valueOf(hearingAbility)};
         String[] intonation={"Intonation", String.valueOf(intonation_value/100)};
         String[] speech_rate={"Speech_Rate", String.valueOf(speech_rate_value/100)};
+        String[] speech_rate_real = {"Speech_Rate_Real", String.valueOf(real_speech_rate_value)};
+        mCSVFileWriter.write(speech_rate_real);
+        String[] intonation_real = {"Intonation_Real", String.valueOf(real_intonation_value)};
+        String[] pitch_mean = {"Pitch_Mean", String.valueOf(pitch_mean_value)};
+        mCSVFileWriter.write(pitch_mean);
+        mCSVFileWriter.write(intonation_real);
         mCSVFileWriter.write(hearing_ability);
         mCSVFileWriter.write(intonation);
         mCSVFileWriter.write(speech_rate);

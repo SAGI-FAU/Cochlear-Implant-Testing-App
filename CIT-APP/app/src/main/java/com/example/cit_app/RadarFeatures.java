@@ -87,7 +87,7 @@ public class RadarFeatures {
      * @param AudioFile Path of the wav file to be considered for computation of voice rate
      * @return Voice rate as a relative measure.
      */
-    public static float voiceRate(String AudioFile) {
+    public static float[] voiceRate(String AudioFile) {
         int[] InfoSig = wavFileReader.getdatainfo(AudioFile);
         float[] Signal = wavFileReader.readWAV(InfoSig[0]);
         Signal = SigProc.normsig(Signal);
@@ -95,20 +95,23 @@ public class RadarFeatures {
         List VoicedSeg = F0Detector.voiced(F0, Signal);
 
         float vRate=0;
+        float vRate0 = 0;
         if(VoicedSeg.size()==0)
             vRate=0;
         else
-            vRate = (float) InfoSig[1]*(float) VoicedSeg.size()/ (float) InfoSig[0];
+            vRate0 = (float) InfoSig[1]*(float) VoicedSeg.size()/ (float) InfoSig[0];
             // Reference (100%) = 6.25
             // 4.61 (mean) + 1.64 (standart deviation)
             // of VoiceRate For PCGITA controls
 
-            if(vRate >= 4.61f)
+            if(vRate0 >= 4.61f)
                 vRate = 100;
             else
-                vRate = (vRate*100)/ 4.61f;
+                vRate = (vRate0*100)/ 4.61f;
 
-        return vRate;
+
+        float ret[] = {vRate, vRate0};
+        return ret;
     }
 
     /**
@@ -117,7 +120,7 @@ public class RadarFeatures {
      * @param AudioFile String with the location (path) of the recording with the longest sentence.
      * @return stdf0 which is the standard deviation of the f0 contour from the longest sentence.
      */
-    public static float intonation(String AudioFile) {
+    public static float[] intonation(String AudioFile) {
         //Read audio file
         int[] InfoSig = wavFileReader.getdatainfo(AudioFile);
         float[] Signal = wavFileReader.readWAV(InfoSig[0]);
@@ -141,18 +144,20 @@ public class RadarFeatures {
         float nonzf0[] = newF0;
 
         //Compute standard deviation of non-zero f0 values
-        float stdf0 = SigProc.calculateSD(nonzf0);
-
+        float stdf01 = SigProc.calculateSD(nonzf0);
+        float stdf02 = SigProc.meanval(nonzf0);
+        float stdf0 = 0;
         //The reference value
         // Reference (100%) = 137.2 Hz
         // of intonation For PCGITA controls
 
-        if(stdf0 >= 137.2f)
+        if(stdf01 >= 137.2f)
             stdf0 = 100;
         else
-            stdf0 = (stdf0*100)/ 137.2f;
+            stdf0 = (stdf01*100)/ 137.2f;
 
-        return stdf0;
+        float stdfo2[] = {stdf0, stdf01, stdf02};
+        return stdfo2;
     }
 
     public static void export_speech_feature(String name_file, float feature, String feat_name) throws IOException {

@@ -37,7 +37,7 @@ public class ReadingOfSentences extends AppCompatActivity {
     Random rand;
     CardView record;
     FeatureDataService featureDataService;
-    float int_f0 = -1;
+    float int_f0[] = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +99,14 @@ public class ReadingOfSentences extends AppCompatActivity {
             if (state.equals("Finished")){
 
                 int_f0 = RadarFeatures.intonation(path);
-                if(Float.isNaN(int_f0)) {
+                if(Float.isNaN(int_f0[0])) {
 
                 } else {
                     File file = new File(path);
                     Date lastModDate = new Date(file.lastModified());
-                    featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0);
+                    featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
+                    featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
+                    featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
                     Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
                     intent.putExtra("exercise", "ReadingOfSentences");
                     if(getIntent().getBooleanExtra("trainingset", false)) {
@@ -114,6 +116,8 @@ public class ReadingOfSentences extends AppCompatActivity {
                         editor.apply();
                         if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
                             intent = new Intent(getApplicationContext(), TrainingsetFinished.class);
+                            intent.putExtra("intonation", int_f0);
+                            intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                         } else {
                             switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
                                 case "MinimalPairs":
@@ -124,6 +128,8 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("intonation", int_f0);
+                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "MinimalPairs2":
@@ -134,6 +140,8 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("intonation", int_f0);
+                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "Word_List":
@@ -144,6 +152,8 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("intonation", int_f0);
+                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "SyllableRepetition":
@@ -154,6 +164,8 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("intonation", int_f0);
+                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "Picture_Description":
@@ -164,6 +176,8 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
+                                    intent.putExtra("intonation", int_f0);
+                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 default:

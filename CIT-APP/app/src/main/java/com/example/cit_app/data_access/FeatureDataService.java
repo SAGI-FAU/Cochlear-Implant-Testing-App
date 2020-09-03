@@ -18,6 +18,9 @@ public class FeatureDataService {
     public String vrate_name="vrate";
     public String intonation_name="intonation";
     public String hearing_name ="hearing";
+    public String pitch_mean_name ="pitch_mean";
+    public String real_intonation_name ="real_intonation";
+    public String real_speech_rate_name ="real_speech_rate";
     public String wer_name="wer";
     public String pronun_name="pronun";
     public String area_speech_name="area speech";

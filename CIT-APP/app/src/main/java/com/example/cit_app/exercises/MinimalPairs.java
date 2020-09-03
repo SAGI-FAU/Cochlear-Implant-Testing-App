@@ -156,6 +156,8 @@ public class MinimalPairs extends AppCompatActivity {
                             editor.apply();
                             if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
                                 intent = new Intent(v.getContext(), TrainingsetFinished.class);
+                                intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
+                                intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                             } else {
                                 switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
                                     case "MinimalPairs2":
@@ -166,6 +168,8 @@ public class MinimalPairs extends AppCompatActivity {
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
+                                        intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "Word_List":
@@ -176,6 +180,8 @@ public class MinimalPairs extends AppCompatActivity {
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
+                                        intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "ReadingOfSentences":
@@ -186,6 +192,8 @@ public class MinimalPairs extends AppCompatActivity {
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
+                                        intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "SyllableRepetition":
@@ -196,6 +204,8 @@ public class MinimalPairs extends AppCompatActivity {
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
+                                        intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "Picture_Description":
@@ -206,6 +216,8 @@ public class MinimalPairs extends AppCompatActivity {
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
+                                        intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     default:

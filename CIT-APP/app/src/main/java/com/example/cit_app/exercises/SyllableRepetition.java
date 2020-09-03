@@ -41,6 +41,7 @@ public class SyllableRepetition extends AppCompatActivity{
     private Context c = this;
     int counter = 5000;
     private FeatureDataService featureDataService;
+    float int_f0[] = new float[2];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +105,8 @@ public class SyllableRepetition extends AppCompatActivity{
                             editor.apply();
                             if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
                                 intent = new Intent(c, TrainingsetFinished.class);
+                                intent.putExtra("realValues", int_f0);
+                                intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
                             } else {
                                 switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
                                     case "MinimalPairs":
@@ -114,6 +117,8 @@ public class SyllableRepetition extends AppCompatActivity{
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("realValues", int_f0);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "MinimalPairs2":
@@ -124,6 +129,8 @@ public class SyllableRepetition extends AppCompatActivity{
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("realValues", int_f0);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "Word_List":
@@ -134,6 +141,8 @@ public class SyllableRepetition extends AppCompatActivity{
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("realValues", int_f0);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "ReadingOfSentences":
@@ -144,6 +153,8 @@ public class SyllableRepetition extends AppCompatActivity{
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("realValues", int_f0);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     case "Picture_Description":
@@ -154,6 +165,8 @@ public class SyllableRepetition extends AppCompatActivity{
                                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
                                         intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                         intent.putExtra("exerciseCounter", exerciseCounter);
+                                        intent.putExtra("realValues", int_f0);
+                                        intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
                                         intent.putExtra("trainingset", true);
                                         break;
                                     default:
@@ -191,10 +204,11 @@ public class SyllableRepetition extends AppCompatActivity{
             final String state = bundle.getString("State", "Empty");
             if (state.equals("Finished")){
 
-                float int_f0 = RadarFeatures.voiceRate(path);
+                int_f0 = RadarFeatures.voiceRate(path);
                 File file = new File(path);
                 Date lastModDate = new Date(file.lastModified());
-                featureDataService.save_feature(featureDataService.vrate_name, lastModDate, int_f0);
+                featureDataService.save_feature(featureDataService.vrate_name, lastModDate, int_f0[0]);
+                featureDataService.save_feature(featureDataService.real_speech_rate_name, lastModDate, int_f0[1]);
             }
         }
     }
