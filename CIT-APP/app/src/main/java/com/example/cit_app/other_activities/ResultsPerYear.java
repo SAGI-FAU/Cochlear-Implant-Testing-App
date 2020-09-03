@@ -78,6 +78,7 @@ public class ResultsPerYear extends AppCompatActivity {
         LineData data = new LineData(dataSets);
         Legend legend = lineChart.getLegend();
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setWordWrapEnabled(true);
         legend.setTextSize(18);
         lineChart.setData(data);
         lineChart.getDescription().setEnabled(false);
