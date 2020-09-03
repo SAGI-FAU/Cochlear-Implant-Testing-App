@@ -35,10 +35,11 @@ public class ResultsPerDay extends AppCompatActivity {
 
     private BarChart barChart;
     private FeatureDataService featureDataService;
-    private Button home_button;
+    private Button home_button, save_button;
     private float intonation_value = 0;
     private float hearingAbility = 0;
     private float speech_rate_value = 0;
+    private boolean saved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,30 @@ public class ResultsPerDay extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 v.getContext().startActivity(intent);
+            }
+        });
+        save_button = (Button) findViewById(R.id.saveButton);
+        if(getIntent().getBooleanExtra("trainingset", false)) {
+            try {
+                export_data();
+                save_button.setText("saved");
+                saved = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!saved) {
+                    try {
+                        export_data();
+                        save_button.setText("saved");
+                        saved = true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
         Calendar c = Calendar.getInstance();
@@ -113,11 +138,6 @@ public class ResultsPerDay extends AppCompatActivity {
         yAxis1.setDrawGridLines(false);
         yAxis1.setDrawAxisLine(false);
         yAxis1.setDrawLabels(false);
-        try {
-            export_data();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

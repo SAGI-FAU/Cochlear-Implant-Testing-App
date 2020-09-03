@@ -25,6 +25,7 @@ public class TrainingsetFinished extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ResultsPerDay.class);
+                intent.putExtra("trainingset", true);
                 v.getContext().startActivity(intent);
             }
         });
