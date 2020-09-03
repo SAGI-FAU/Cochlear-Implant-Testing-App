@@ -26,8 +26,6 @@ public class TrainingsetFinished extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ResultsPerDay.class);
                 intent.putExtra("trainingset", true);
-                intent.putExtra("intonation", getIntent().getExtras().getFloatArray("intonation"));
-                intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                 v.getContext().startActivity(intent);
             }
         });

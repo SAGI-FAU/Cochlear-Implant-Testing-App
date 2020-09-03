@@ -116,8 +116,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                         editor.apply();
                         if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
                             intent = new Intent(getApplicationContext(), TrainingsetFinished.class);
-                            intent.putExtra("intonation", int_f0);
-                            intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                         } else {
                             switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
                                 case "MinimalPairs":
@@ -128,8 +126,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("intonation", int_f0);
-                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "MinimalPairs2":
@@ -140,8 +136,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("intonation", int_f0);
-                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "Word_List":
@@ -152,8 +146,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("intonation", int_f0);
-                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "SyllableRepetition":
@@ -164,8 +156,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("intonation", int_f0);
-                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 case "Picture_Description":
@@ -176,8 +166,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
                                     intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                                     intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("intonation", int_f0);
-                                    intent.putExtra("realValues", getIntent().getExtras().getFloatArray("realValues"));
                                     intent.putExtra("trainingset", true);
                                     break;
                                 default:
