@@ -63,32 +63,6 @@ public class ResultsPerDay extends AppCompatActivity {
                 v.getContext().startActivity(intent);
             }
         });
-        save_button = (Button) findViewById(R.id.saveButton);
-        if(getIntent().getBooleanExtra("trainingset", false)) {
-            try {
-                export_data();
-                save_button.setText("saved");
-                saved = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        save_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!saved) {
-                    try {
-                        export_data();
-                        save_button.setText("saved");
-                        saved = true;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        Calendar c = Calendar.getInstance();
-        c.set(2020, 6, 12);
         List<FeatureDA> intonation = featureDataService.get_avg_all_feat_per_day(featureDataService.intonation_name);
         List<FeatureDA> hearing = featureDataService.get_avg_all_feat_per_day(featureDataService.hearing_name);
         List<FeatureDA> speech_rate = featureDataService.get_avg_all_feat_per_day(featureDataService.vrate_name);
@@ -98,6 +72,9 @@ public class ResultsPerDay extends AppCompatActivity {
         real_intonation_value = real_intonation.getFeature_value();
         real_speech_rate_value = real_speech_rate.getFeature_value();
         pitch_mean_value = pitch_mean.getFeature_value();
+        save_button = (Button) findViewById(R.id.saveButton);
+        Calendar c = Calendar.getInstance();
+        c.set(2020, 6, 12);
         if(speech_rate.size() == 0) {
             speech_rate_value = 0;
         } else {
@@ -147,6 +124,29 @@ public class ResultsPerDay extends AppCompatActivity {
         yAxis1.setDrawGridLines(false);
         yAxis1.setDrawAxisLine(false);
         yAxis1.setDrawLabels(false);
+        if(getIntent().getBooleanExtra("trainingset", false)) {
+            try {
+                export_data();
+                save_button.setText("saved");
+                saved = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!saved) {
+                    try {
+                        export_data();
+                        save_button.setText("saved");
+                        saved = true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
