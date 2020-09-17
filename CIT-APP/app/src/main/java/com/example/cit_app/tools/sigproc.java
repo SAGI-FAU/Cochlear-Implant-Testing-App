@@ -50,7 +50,9 @@ public class sigproc {
         //Scale between -1 and 1
         float[] temp = Arrays.copyOf(Nsig,Nsig.length);
            Arrays.sort(temp);
-        float max = temp[temp.length-1];
+
+        float max = 0;
+        max = temp[temp.length - 1];
         max = Math.abs(max);
         float min = temp[0];
         min = Math.abs(min);

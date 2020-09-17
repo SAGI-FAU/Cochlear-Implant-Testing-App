@@ -1,12 +1,8 @@
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -17,15 +13,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.cit_app.R;
-import com.example.cit_app.tools.NotificationReceiver;
 
-import java.util.Calendar;
 import java.util.Random;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener{
@@ -127,17 +120,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         edit.apply();
         SharedPreferences exercise = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
         SharedPreferences.Editor editor1 = exercise.edit();
-        editor1.putBoolean("Word_List", false);
-        editor1.apply();
-        editor1.putBoolean("SyllableRepetition", false);
-        editor1.apply();
-        editor1.putBoolean("ReadingOfSentences", false);
-        editor1.apply();
-        editor1.putBoolean("Picture_Description", false);
-        editor1.apply();
-        editor1.putBoolean("MinimalPairs", false);
-        editor1.apply();
-        editor1.putBoolean("MinimalPairs2", false);
+        editor1.putBoolean("Finished", false);
         editor1.apply();
         Intent intent = new Intent(this, MainActivity.class);
         this.startActivity(intent);

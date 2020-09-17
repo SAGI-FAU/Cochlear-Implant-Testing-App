@@ -212,6 +212,76 @@
                 android:layout_height="match_parent" >
 
                 <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_weight="0.085"
+                    android:layout_width="0dp"
+                    android:layout_height="72dp"
+                    app:srcCompat="@drawable/type_of_implant" />
+
+                <LinearLayout
+                    android:layout_weight="0.9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/typeOfImplant"
+                        android:textColor="#FFFF8C00"
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.2"
+                        android:layout_height="wrap_content"
+                        android:text="@string/typeOfImplant" />
+
+                    <RadioGroup
+                        android:id="@+id/rgTypeOfImplant"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.8"
+                        android:layout_height="wrap_content" >
+
+                        <RadioButton
+                            android:id="@+id/rbCochlearImplant"
+                            android:layout_weight="0.3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:autoSizeTextType="uniform"
+                            android:text="@string/cochlearImplant" />
+
+                        <RadioButton
+                            android:id="@+id/rbHearingAid"
+                            android:layout_weight="0.3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:autoSizeTextType="uniform"
+                            android:text="@string/hearingAid" />
+
+                        <RadioButton
+                            android:id="@+id/rbBothCI"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:autoSizeTextType="uniform"
+                            android:layout_weight="0.2"
+                            android:text="@string/both" />
+
+                        <RadioButton
+                            android:id="@+id/rbNone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:autoSizeTextType="uniform"
+                            android:layout_weight="0.2"
+                            android:text="@string/none" />
+                    </RadioGroup>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:background="@drawable/line_top_bot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageView
                     android:id="@+id/imageView7"
                     android:layout_weight="0.1"
                     android:layout_width="0dp"
@@ -261,65 +331,14 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="@string/both" />
-                    </RadioGroup>
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:background="@drawable/line_top_bot"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_weight="0.1"
-                    android:layout_width="0dp"
-                    android:layout_height="72dp"
-                    app:srcCompat="@drawable/type_of_implant" />
-
-                <LinearLayout
-                    android:layout_weight="0.9"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/typeOfImplant"
-                        android:textColor="#FFFF8C00"
-                        android:textSize="20sp"
-                        android:layout_width="match_parent"
-                        android:layout_weight="0.2"
-                        android:layout_height="wrap_content"
-                        android:text="@string/typeOfImplant" />
-
-                    <RadioGroup
-                        android:id="@+id/rgTypeOfImplant"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_weight="0.8"
-                        android:layout_height="wrap_content" >
 
                         <RadioButton
-                            android:id="@+id/rbCochlearImplant"
-                            android:layout_weight="0.5"
+                            android:id="@+id/rbNoneCI"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/cochlearImplant" />
-
-                        <RadioButton
-                            android:id="@+id/rbHearingAid"
+                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.5"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/hearingAid" />
-
-                        <RadioButton
-                            android:id="@+id/rbBothCI"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="@string/both" />
+                            android:text="@string/none" />
                     </RadioGroup>
                 </LinearLayout>
             </TableRow>

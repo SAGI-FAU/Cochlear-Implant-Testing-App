@@ -2,6 +2,7 @@ package com.example.cit_app.exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -16,10 +17,12 @@ import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.MinimalPairsExerciseFinished;
 import com.example.cit_app.R;
+import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
 import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 
 public class MinimalPairs2 extends AppCompatActivity {
@@ -27,37 +30,45 @@ public class MinimalPairs2 extends AppCompatActivity {
     private Random random = new Random();
     private TextView text;
     private String[] minimal_pairs = new String[80];
-    int exerciseCounter;
+    private int exerciseCounter;
     private int position = 0;
     private int counter = 0;
     private int oldPos = 0;
     private int choose = 0;
-    private int images[];
+    private int[] images;
+    private boolean listenPressed = false;
     private MediaPlayer player;
-    private String[] minimal_pairs_fricatives, minimal_pairs_stops, minimal_pairs_general, minimal_pairs_result, minimal_pairs_correct;
-    private Button start, topTop, botBot, topCenter, botCenter;
-    FeatureDataService featureDataService;
+    private String[] minimal_pairs_result;
+    private String[] minimal_pairs_correct;
+    private Button topTop;
+    private Button botBot;
+    private Button topCenter;
+    private Button botCenter;
+    private Dialog dialog;
+    private FeatureDataService featureDataService;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minimal_pairs2);
-        getSupportActionBar().setTitle(getResources().getString(R.string.MinimalPairs2)); // for set actionbar title
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.MinimalPairs2)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //initialize buttons and lists
-        start = (Button) findViewById(R.id.startButton);
-        topTop = (Button) findViewById(R.id.topTop);
-        botBot = (Button) findViewById(R.id.topCenter);
-        topCenter = (Button) findViewById(R.id.botCenter);
+        //Initialize
+        dialog = new Dialog(this);
+        Button start = findViewById(R.id.startButton);
+        topTop = findViewById(R.id.topTop);
+        botBot = findViewById(R.id.topCenter);
+        topCenter = findViewById(R.id.botCenter);
+        botCenter = findViewById(R.id.botBot);
+        text = findViewById(R.id.wordNumber2);
         images = new int[20];
         featureDataService = new FeatureDataService(this);
         if(getIntent().getExtras() != null)
-            exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0) + 1;
-        botCenter = (Button) findViewById(R.id.botBot);
+            exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0);
         ArrayList<Integer> usedNumber = new ArrayList<>();
-        text = (TextView) findViewById(R.id.wordNumber2);
-        minimal_pairs_fricatives = getResources().getStringArray(R.array.Minimal_Pairs_Fricatives);
-        minimal_pairs_stops = getResources().getStringArray(R.array.Minimal_Pairs_Stops);
-        minimal_pairs_general = getResources().getStringArray(R.array.Minimal_Pairs);
+        String[] minimal_pairs_fricatives = getResources().getStringArray(R.array.Minimal_Pairs_Fricatives);
+        String[] minimal_pairs_stops = getResources().getStringArray(R.array.Minimal_Pairs_Stops);
+        String[] minimal_pairs_general = getResources().getStringArray(R.array.Minimal_Pairs);
         minimal_pairs_result = new String[20];
         minimal_pairs_correct = new String[20];
         text.setText((counter + 1) + " / 20");
@@ -117,445 +128,239 @@ public class MinimalPairs2 extends AppCompatActivity {
         botCenter.setText(minimal_pairs[(position + 2) % 4]);
         botBot.setText(minimal_pairs[(position + 3) % 4]);
         oldPos += 4;
+        //First Button
         topTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(oldPos >= 80) {
-                    minimal_pairs_result[counter] = topTop.getText().toString();
-                    Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
-                    int correct = 0;
-                    for(int i = 0; i < 20; i++) {
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
-                        if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
-                            correct++;
-                            images[i] = R.drawable.right;
-                        } else {
-                            images[i] = R.drawable.wrong;
-                        }
-                    }
-                    intent.putExtra("correct", correct);
-                    intent.putExtra("images", images);
-                    intent.putExtra("results", minimal_pairs_result);
-                    if(getIntent().getBooleanExtra("trainingset", false)) {
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean("MinimalPairs2", true);
-                        editor.apply();
-                        if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
-                            intent = new Intent(v.getContext(), TrainingsetFinished.class);
-                        } else {
-                            switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
-                                case "MinimalPairs":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Word_List":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.WordList));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "ReadingOfSentences":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "SyllableRepetition":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Picture_Description":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                default:
-                                    intent = new Intent(v.getContext(), MainActivity.class);
-                                    break;
+                if (listenPressed) {
+                    if (oldPos >= 80) {
+                        minimal_pairs_result[counter] = topTop.getText().toString();
+                        Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
+                        int correct = 0;
+                        for (int i = 0; i < 20; i++) {
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
+                            if (minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
+                                correct++;
+                                images[i] = R.drawable.right;
+                            } else {
+                                images[i] = R.drawable.wrong;
                             }
                         }
+                        intent.putExtra("correct", correct);
+                        intent.putExtra("images", images);
+                        intent.putExtra("cw", minimal_pairs_correct);
+                        intent.putExtra("results", minimal_pairs_result);
+                        if (getIntent().getBooleanExtra("trainingset", false)) {
+                            intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
+                            intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                            intent.putExtra("exerciseCounter", exerciseCounter);
+                        }
+                        float int_f0 = (float) ((double) correct / (double) 20);
+                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        listenPressed = false;
+                        position += random.nextInt(3);
+                        minimal_pairs_result[counter] = topTop.getText().toString();
+                        counter++;
+                        topTop.setText(minimal_pairs[oldPos + (position % 4)]);
+                        topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
+                        botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
+                        botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                        text.setText((counter + 1) + " / 20");
+                        oldPos += 4;
+                        choose += 1;
+                        if (player != null) {
+                            player.stop();
+                            player.release();
+                            player = null;
+                        }
                     }
-                    float int_f0 = (float)((double) correct / (double) 20);
-                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
-                    v.getContext().startActivity(intent);
                 } else {
-                    position += random.nextInt(3);
-                    minimal_pairs_result[counter] = topTop.getText().toString();
-                    counter++;
-                    topTop.setText(minimal_pairs[oldPos + (position % 4)]);
-                    topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
-                    botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
-                    botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
-                    text.setText((counter + 1) + " / 20");
-                    oldPos += 4;
-                    choose += 1;
-                    if(player != null) {
-                        player.stop();
-                        player.release();
-                        player = null;
-                    }
+                    showPopUp(v);
                 }
             }
         });
+        
+        //Second Button
         topCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(oldPos >= 80) {
-                    minimal_pairs_result[counter] = topCenter.getText().toString();
-                    Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
-                    int correct = 0;
-                    for(int i = 0; i < 20; i++) {
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
-                        if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
-                            correct++;
-                            images[i] = R.drawable.right;
-                        } else {
-                            images[i] = R.drawable.wrong;
-                        }
-                    }
-                    intent.putExtra("correct", correct);
-                    intent.putExtra("images", images);
-                    intent.putExtra("results", minimal_pairs_result);
-                    if(getIntent().getBooleanExtra("trainingset", false)) {
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean("MinimalPairs2", true);
-                        editor.apply();
-                        if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
-                            intent = new Intent(v.getContext(), TrainingsetFinished.class);
-                        } else {
-                            switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
-                                case "MinimalPairs":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Word_List":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.WordList));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "ReadingOfSentences":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "SyllableRepetition":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Picture_Description":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                default:
-                                    intent = new Intent(v.getContext(), MainActivity.class);
-                                    break;
+                if(listenPressed) {
+                    if (oldPos >= 80) {
+                        minimal_pairs_result[counter] = topCenter.getText().toString();
+                        Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
+                        int correct = 0;
+                        for (int i = 0; i < 20; i++) {
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
+                            if (minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
+                                correct++;
+                                images[i] = R.drawable.right;
+                            } else {
+                                images[i] = R.drawable.wrong;
                             }
                         }
+                        intent.putExtra("correct", correct);
+                        intent.putExtra("images", images);
+                        intent.putExtra("cw", minimal_pairs_correct);
+                        intent.putExtra("results", minimal_pairs_result);
+                        if (getIntent().getBooleanExtra("trainingset", false)) {
+                            intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
+                            intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                            intent.putExtra("exerciseCounter", exerciseCounter);
+                        }
+                        float int_f0 = (float) ((double) correct / (double) 20);
+                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        listenPressed = false;
+                        position = random.nextInt(3);
+                        minimal_pairs_result[counter] = topCenter.getText().toString();
+                        counter++;
+                        topTop.setText(minimal_pairs[oldPos + (position % 4)]);
+                        topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
+                        botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
+                        botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                        text.setText((counter + 1) + " / 20");
+                        oldPos += 4;
+                        choose += 1;
+                        if (player != null) {
+                            player.stop();
+                            player.release();
+                            player = null;
+                        }
                     }
-                    float int_f0 = (float)((double) correct / (double) 20);
-                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
-                    v.getContext().startActivity(intent);
                 } else {
-                    position = random.nextInt(3);
-                    minimal_pairs_result[counter] = topCenter.getText().toString();
-                    counter++;
-                    topTop.setText(minimal_pairs[oldPos + (position % 4)]);
-                    topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
-                    botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
-                    botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
-                    text.setText((counter + 1) + " / 20");
-                    oldPos += 4;
-                    choose += 1;
-                    if(player != null) {
-                        player.stop();
-                        player.release();
-                        player = null;
-                    }
+                    showPopUp(v);
                 }
             }
         });
+
+        //Third Button
         botCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(oldPos >= 80) {
-                    minimal_pairs_result[counter] = botCenter.getText().toString();
-                    Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
-                    int correct = 0;
-                    for(int i = 0; i < 20; i++) {
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
-                        if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
-                            correct++;
-                            images[i] = R.drawable.right;
-                        } else {
-                            images[i] = R.drawable.wrong;
-                        }
-                    }
-                    intent.putExtra("correct", correct);
-                    intent.putExtra("images", images);
-                    intent.putExtra("results", minimal_pairs_result);
-                    if(getIntent().getBooleanExtra("trainingset", false)) {
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean("MinimalPairs2", true);
-                        editor.apply();
-                        if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
-                            intent = new Intent(v.getContext(), TrainingsetFinished.class);
-                        } else {
-                            switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
-                                case "MinimalPairs":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Word_List":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.WordList));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "ReadingOfSentences":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "SyllableRepetition":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Picture_Description":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                default:
-                                    intent = new Intent(v.getContext(), MainActivity.class);
-                                    break;
+                if(listenPressed) {
+                    if (oldPos >= 80) {
+                        minimal_pairs_result[counter] = botCenter.getText().toString();
+                        Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
+                        int correct = 0;
+                        for (int i = 0; i < 20; i++) {
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
+                            if (minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
+                                correct++;
+                                images[i] = R.drawable.right;
+                            } else {
+                                images[i] = R.drawable.wrong;
                             }
                         }
+                        intent.putExtra("correct", correct);
+                        intent.putExtra("images", images);
+                        intent.putExtra("cw", minimal_pairs_correct);
+                        intent.putExtra("results", minimal_pairs_result);
+                        if (getIntent().getBooleanExtra("trainingset", false)) {
+                            intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
+                            intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                            intent.putExtra("exerciseCounter", exerciseCounter);
+                        }
+                        float int_f0 = (float) ((double) correct / (double) 20);
+                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        listenPressed = false;
+                        position = random.nextInt(3);
+                        minimal_pairs_result[counter] = botCenter.getText().toString();
+                        counter++;
+                        topTop.setText(minimal_pairs[oldPos + (position % 4)]);
+                        topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
+                        botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
+                        botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                        text.setText((counter + 1) + " / 20");
+                        oldPos += 4;
+                        choose += 1;
+                        if (player != null) {
+                            player.stop();
+                            player.release();
+                            player = null;
+                        }
                     }
-                    float int_f0 = (float)((double) correct / (double) 20);
-                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
-                    v.getContext().startActivity(intent);
                 } else {
-                    position = random.nextInt(3);
-                    minimal_pairs_result[counter] = botCenter.getText().toString();
-                    counter++;
-                    topTop.setText(minimal_pairs[oldPos + (position % 4)]);
-                    topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
-                    botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
-                    botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
-                    text.setText((counter + 1) + " / 20");
-                    oldPos += 4;
-                    choose += 1;
-                    if(player != null) {
-                        player.stop();
-                        player.release();
-                        player = null;
-                    }
+                    showPopUp(v);
                 }
             }
         });
+
+        //Fourth Button
         botBot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(oldPos >= 80) {
-                    minimal_pairs_result[counter] = botBot.getText().toString();
-                    Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
-                    int correct = 0;
-                    for(int i = 0; i < 20; i++) {
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
-                        minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
-                        if(minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
-                            correct++;
-                            images[i] = R.drawable.right;
-                        } else {
-                            images[i] = R.drawable.wrong;
-                        }
-                    }
-                    intent.putExtra("correct", correct);
-                    intent.putExtra("images", images);
-                    intent.putExtra("results", minimal_pairs_result);
-                    if(getIntent().getBooleanExtra("trainingset", false)) {
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean("MinimalPairs2", true);
-                        editor.apply();
-                        if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
-                            intent = new Intent(v.getContext(), TrainingsetFinished.class);
-                        } else {
-                            switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
-                                case "MinimalPairs":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Word_List":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.WordList));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "ReadingOfSentences":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "SyllableRepetition":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Picture_Description":
-                                    intent = new Intent(v.getContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                default:
-                                    intent = new Intent(v.getContext(), MainActivity.class);
-                                    break;
+                if(listenPressed) {
+                    if (oldPos >= 80) {
+                        minimal_pairs_result[counter] = botBot.getText().toString();
+                        Intent intent = new Intent(MinimalPairs2.this, MinimalPairsExerciseFinished.class);
+                        int correct = 0;
+                        for (int i = 0; i < 20; i++) {
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ä", "ae");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ö", "oe");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ü", "ue");
+                            minimal_pairs_result[i] = minimal_pairs_result[i].replace("ß", "ss");
+                            if (minimal_pairs_result[i].equals(minimal_pairs_correct[i])) {
+                                correct++;
+                                images[i] = R.drawable.right;
+                            } else {
+                                images[i] = R.drawable.wrong;
                             }
                         }
+                        intent.putExtra("correct", correct);
+                        intent.putExtra("images", images);
+                        intent.putExtra("cw", minimal_pairs_correct);
+                        intent.putExtra("results", minimal_pairs_result);
+                        if (getIntent().getBooleanExtra("trainingset", false)) {
+                            intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
+                            intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                            intent.putExtra("exerciseCounter", exerciseCounter);
+                        }
+                        float int_f0 = (float) ((double) correct / (double) 20);
+                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        position = random.nextInt(3);
+                        minimal_pairs_result[counter] = botBot.getText().toString();
+                        counter++;
+                        topTop.setText(minimal_pairs[oldPos + (position % 4)]);
+                        topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
+                        botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
+                        botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
+                        text.setText((counter + 1) + " / 20");
+                        oldPos += 4;
+                        choose += 1;
+                        listenPressed = false;
+                        if (player != null) {
+                            player.stop();
+                            player.release();
+                            player = null;
+                        }
                     }
-                    float int_f0 = (float)((double) correct / (double) 20);
-                    featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
-                    v.getContext().startActivity(intent);
                 } else {
-                    position = random.nextInt(3);
-                    minimal_pairs_result[counter] = botBot.getText().toString();
-                    counter++;
-                    topTop.setText(minimal_pairs[oldPos + (position % 4)]);
-                    topCenter.setText(minimal_pairs[oldPos + ((position + 1) % 4)]);
-                    botCenter.setText(minimal_pairs[oldPos + ((position + 2) % 4)]);
-                    botBot.setText(minimal_pairs[oldPos + ((position + 3) % 4)]);
-                    text.setText((counter + 1) + " / 20");
-                    oldPos += 4;
-                    choose += 1;
-                    if(player != null) {
-                        player.stop();
-                        player.release();
-                        player = null;
-                    }
+                    showPopUp(v);
                 }
             }
         });
+
+        //Listen Button
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listenPressed = true;
                 if(player != null) {
                     player.seekTo(0);
                     player.start();
@@ -578,9 +383,18 @@ public class MinimalPairs2 extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        if(!getIntent().getExtras().getBoolean("trainingset"))
+        if(!Objects.requireNonNull(getIntent().getExtras()).getBoolean("trainingset"))
             finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showPopUp(View v) {
+
+        dialog.setContentView(R.layout.popup_daily_results);
+        TextView text = dialog.findViewById(R.id.close);
+        TextView textMessage = dialog.findViewById(R.id.resultsMessage);
+        text.setOnClickListener(v1 -> dialog.dismiss());
+        textMessage.setText(getResources().getString(R.string.listenNotPressed));
+        dialog.show();
     }
 }

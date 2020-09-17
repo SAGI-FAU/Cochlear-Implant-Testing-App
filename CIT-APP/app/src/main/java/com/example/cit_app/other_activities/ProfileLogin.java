@@ -1,27 +1,17 @@
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Camera;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Environment;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -34,8 +24,6 @@ import com.example.cit_app.data_access.PatientDA;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.PatientDataService;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -43,16 +31,12 @@ import java.util.Date;
 
 public class ProfileLogin extends AppCompatActivity implements View.OnClickListener {
 
-    private int Record_Audio_permission_Code = 1;
-    private int External_Storage_permission_Code = 2;
-    private int Camera_permission_Code = 3;
-    TextView tv_username;
-    TextView et_date;
-    EditText et_phone;
-    RadioGroup rg_gender, rg_side_of_implant, rg_smoker, rg_implant;
-    PatientDA patientData;
-    DatePickerDialog datePickerDialog;
-    Date birthdate;
+    private TextView tv_username;
+    private TextView et_date;
+    private EditText et_phone;
+    private PatientDA patientData;
+    private DatePickerDialog datePickerDialog;
+    private Date birthdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +74,10 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean parseData() {
-        rg_gender = findViewById(R.id.rgsex);
-        rg_side_of_implant = findViewById(R.id.rgSideOfImplant);
-        rg_implant = findViewById(R.id.rgTypeOfImplant);
-        rg_smoker = findViewById(R.id.rgSmoker);
+        RadioGroup rg_gender = findViewById(R.id.rgsex);
+        RadioGroup rg_side_of_implant = findViewById(R.id.rgSideOfImplant);
+        RadioGroup rg_implant = findViewById(R.id.rgTypeOfImplant);
+        RadioGroup rg_smoker = findViewById(R.id.rgSmoker);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("patientData", 0);
         SharedPreferences.Editor editor = pref.edit();
         String name = tv_username.getText().toString();
@@ -138,6 +122,12 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
                 editor.apply();
                 patientData.setSide("both");
                 break;
+
+            case R.id.rbNoneCI:
+                editor.putString("side_of_implant", "none");
+                editor.apply();
+                patientData.setSide("none");
+                break;
             default:
                 return false;
         }
@@ -175,6 +165,12 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
                 editor.apply();
                 patientData.setType("BotCI");
                 break;
+
+            case R.id.rbNoneCI:
+                editor.putString("Cochlear Implant", "None");
+                editor.apply();
+                patientData.setType("None");
+                break;
             default:
                 return false;
         }
@@ -202,27 +198,16 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("UserCreated",13);
                     editor.apply();
-                    if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                        requestRecordAudioPermission();
-                    }
-                    if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        requestExternalStoragePermission();
-                    }
-                    if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        requestExternalCameraPermission();
-                    }
-                    if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                        PatientDataService pds = new PatientDataService(getApplicationContext());
-                        pds.savePatient(patientData);
-                        patientData = pds.getPatient();
-                        try {
+                    PatientDataService pds = new PatientDataService(getApplicationContext());
+                    pds.savePatient(patientData);
+                    patientData = pds.getPatient();
+                    try {
                         export_profile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        Intent intent = new Intent(ProfileLogin.this, MainActivity.class);
-                        startActivity(intent);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    Intent intent = new Intent(ProfileLogin.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.button_back1:
@@ -260,59 +245,5 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         mCSVFileWriter.write(Type);
         mCSVFileWriter.close();
 
-    }
-
-    public void requestExternalStoragePermission() {
-        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            new androidx.appcompat.app.AlertDialog.Builder(this).setTitle("Permission needed").setMessage("For this application permission to write to your storage is needed").setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, External_Storage_permission_Code);
-                }
-            }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).create().show();
-        } else {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, External_Storage_permission_Code);
-        }
-    }
-
-    public void requestExternalCameraPermission() {
-        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            new androidx.appcompat.app.AlertDialog.Builder(this).setTitle("Permission needed").setMessage("For this application permission to write to your storage is needed").setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, Camera_permission_Code);
-                }
-            }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).create().show();
-        } else {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, Camera_permission_Code);
-        }
-    }
-
-    private void requestRecordAudioPermission() {
-        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            new androidx.appcompat.app.AlertDialog.Builder(this).setTitle("Permission needed").setMessage("For this application permission to record your voice is needed").setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, Record_Audio_permission_Code);
-                }
-            }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).create().show();
-        } else {
-            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, Record_Audio_permission_Code);
-        }
     }
 }

@@ -2,6 +2,8 @@ package com.example.cit_app;
 
 import android.os.Environment;
 
+import com.example.cit_app.data_access.PatientDA;
+import com.example.cit_app.data_access.PatientDataService;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.example.cit_app.tools.WAVfileReader;
@@ -126,11 +128,17 @@ public class RadarFeatures {
         float[] Signal = wavFileReader.readWAV(InfoSig[0]);
 
         //Eliminate any possible DC level and re-scale speech signal between -1 and 1
+        if(Signal.length == 0) {
+            return new float[1];
+        }
         Signal = SigProc.normsig(Signal);
+        //random value for verification
 
         //Get F0 contour
         float[] F0 = F0Detector.sig_f0(Signal, InfoSig[1]);
-
+        if(F0[0] == -10294739f) {
+            return new float[1];
+        }
         //Ensure nonzero values in f0 contour
         List lf0 = ArrM.find(F0,0f,2);
 

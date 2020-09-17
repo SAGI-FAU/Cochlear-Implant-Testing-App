@@ -1,63 +1,93 @@
 package com.example.cit_app.exercises;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.cit_app.RadarFeatures;
 import com.example.cit_app.data_access.FeatureDataService;
+import com.example.cit_app.data_access.PatientDA;
+import com.example.cit_app.data_access.PatientDataService;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
 import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
+import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
 import com.example.cit_app.other_activities.TrainingsetFinished;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Random;
 
 public class Picture_Description extends AppCompatActivity {
     private boolean isRecording = false;
     private String path;
     private SpeechRecorder recorder;
-    int exerciseCounter;
-    CardView record;
-    FeatureDataService featureDataService;
-    ImageView imageView;
-    TextView recordText;
-    float int_f0[] = new float[3];
+    private SubsamplingScaleImageView picture;
+    private int exerciseCounter;
+    private FeatureDataService featureDataService;
+    private  ImageView imageView;
+    private  TextView recordText;
+    private PatientDA patientDA;
+    private CardView record;
+    private int[] images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture__description);
-        getSupportActionBar().setTitle(getResources().getString(R.string.PictureDescription)); // for set actionbar title
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.PictureDescription)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        images = new int[7];
+        //Initialize
         if(getIntent().getExtras() != null)
-            exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0) + 1;
-        record = (CardView) findViewById(R.id.recordPicture);
+            exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0);
+        record = findViewById(R.id.recordPicture);
+        picture = findViewById(R.id.picture);
         recorder = SpeechRecorder.getInstance(this, new Picture_Description.VolumeHandler(), "Picture_Description");
-        recordText = (TextView) findViewById(R.id.recordPictureText);
-        imageView = (ImageView) findViewById(R.id.recordPictureImage);
+        recordText = findViewById(R.id.recordPictureText);
+        imageView = findViewById(R.id.recordPictureImage);
         featureDataService = new FeatureDataService(this);
+        PatientDataService patientDataService = new PatientDataService(this);
+        patientDA = patientDataService.getPatient();
+        Calendar c  = Calendar.getInstance();
+        if(c.get(Calendar.YEAR) - (patientDA.getBirthday().getYear() + 1900) < 13) {
+            images[0] = R.drawable.picture_description_child1;
+            images[1] = R.drawable.picture_description_child2;
+            images[2] = R.drawable.picture_description_child3;
+            images[3] = R.drawable.picture_description_child4;
+            images[4] = R.drawable.picture_description_child5;
+            images[5] = R.drawable.picture_description_child6;
+            images[6] = R.drawable.picture_description_child7;
+        } else {
+            images[0] = R.drawable.picture_description_adults1;
+            images[1] = R.drawable.picture_description_adults2;
+            images[2] = R.drawable.picture_description_adults3;
+            images[3] = R.drawable.picture_description_adults4;
+            images[4] = R.drawable.picture_description_adults5;
+            images[5] = R.drawable.picture_description_adults6;
+            images[6] = R.drawable.picture_description_adults7;
+        }
+        Random rand = new Random();
+        int choose = rand.nextInt(7);
+        ImageSource src = ImageSource.resource(images[choose]);
+        picture.setImage(src);
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +95,7 @@ public class Picture_Description extends AppCompatActivity {
                     recorder.stopRecording();
                     imageView.setImageResource(R.drawable.play);
                     isRecording = false;
-                    recordText.setText("aufnehmen");
+                    recordText.setText(getResources().getString(R.string.record));
                 } else {
                     path = recorder.prepare("Picture_Description");
                     recorder.record();
@@ -89,82 +119,43 @@ public class Picture_Description extends AppCompatActivity {
             final String state = bundle.getString("State", "Empty");
             if (state.equals("Finished")){
 
-                int_f0 = RadarFeatures.intonation(path);
+                float[] int_f0 = RadarFeatures.intonation(path);
+                if(int_f0.length == 1) {
+                    Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(Float.isNaN(int_f0[0])) {
-
+                    Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
                     File file = new File(path);
                     Date lastModDate = new Date(file.lastModified());
+                    if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
+                        //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                        if(int_f0[1] >= 17.5) {
+                            int_f0[0] = 1;
+                        } else {
+                            int_f0[0] = int_f0[1]/17.5f;
+                        }
+                    } else {
+                        //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
+                        if(int_f0[1] >= 31.4) {
+                            int_f0[0] = 1;
+                        } else {
+                            int_f0[0] = int_f0[1]/31.4f;
+                        }
+                    }
                     featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
                     featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
                     featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
                     Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
                     intent.putExtra("exercise", "Picture description");
                     if(getIntent().getBooleanExtra("trainingset", false)) {
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean("Picture_Description", true);
-                        editor.apply();
-                        if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
-                            intent = new Intent(getApplicationContext(), TrainingsetFinished.class);
-                        } else {
-                            switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
-                                case "MinimalPairs":
-                                    intent = new Intent(getApplicationContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "MinimalPairs2":
-                                    intent = new Intent(getApplicationContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "Word_List":
-                                    intent = new Intent(getApplicationContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.WordList));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "ReadingOfSentences":
-                                    intent = new Intent(getApplicationContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                case "SyllableRepetition":
-                                    intent = new Intent(getApplicationContext(), Instruction.class);
-                                    intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                                    //TODO Think of some useful descriptions and instructions
-                                    intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                                    intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
-                                    intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                    intent.putExtra("exerciseCounter", exerciseCounter);
-                                    intent.putExtra("trainingset", true);
-                                    break;
-                                default:
-                                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    break;
-                            }
-                        }
+                        intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
+                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                        intent.putExtra("exerciseCounter", exerciseCounter);
                     }
+                    record.setEnabled(false);
                     recorder.release();
                     getApplicationContext().startActivity(intent);
                 }
@@ -175,8 +166,7 @@ public class Picture_Description extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        if(!getIntent().getExtras().getBoolean("trainingset"))
+        if(!Objects.requireNonNull(getIntent().getExtras()).getBoolean("trainingset"))
             finish();
         return super.onOptionsItemSelected(item);
     }

@@ -46,23 +46,22 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-//TODO PATIENT DATA
 public class ProfileMain extends AppCompatActivity implements View.OnClickListener {
 
     private static final int CAMERA_REQUEST = 0;
     private static final int GALLERY_PICTURE = 1;
 
-    TextView tv_username, profile_name;
-    TextView et_date;
-    EditText et_phone;
-    RadioGroup rg_gender, rg_side_of_implant, rg_smoker, rg_implant;
-    PatientDA patientData;
-    DatePickerDialog datePickerDialog;
-    Date birthdate;
-    PatientDataService pds;
-    CircleImageView takePicture, profile_picture;
-    Bitmap bitmap;
-    String selectedImagePath;
+    private TextView tv_username, profile_name;
+    private TextView et_date;
+    private EditText et_phone;
+    private RadioGroup rg_gender, rg_side_of_implant, rg_smoker, rg_implant;
+    private PatientDA patientData;
+    private DatePickerDialog datePickerDialog;
+    private Date birthdate;
+    private PatientDataService pds;
+    private CircleImageView takePicture, profile_picture;
+    private Bitmap bitmap;
+    private String selectedImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

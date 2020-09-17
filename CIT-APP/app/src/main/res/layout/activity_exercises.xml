@@ -90,8 +90,9 @@
                             android:layout_weight="0.9"
                             android:autoSizeTextType="uniform"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:text="@string/MinimalPairs"
-                            android:textSize="40sp" />
+                            android:textSize="30sp" />
 
                         <ImageView
                             android:id="@+id/image_minpairs"
@@ -149,9 +150,10 @@
                             android:layout_height="50dp"
                             android:layout_weight="0.9"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:autoSizeTextType="uniform"
                             android:text="@string/MinimalPairs2"
-                            android:textSize="40sp" />
+                            android:textSize="30sp" />
 
                         <ImageView
                             android:id="@+id/image_minpairs2"
@@ -210,8 +212,9 @@
                             android:layout_weight="0.9"
                             android:autoSizeTextType="uniform"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:text="@string/WordList"
-                            android:textSize="40sp" />
+                            android:textSize="30sp" />
 
                         <ImageView
                             android:id="@+id/image_wordlist"
@@ -270,8 +273,9 @@
                             android:layout_weight="0.9"
                             android:gravity="center"
                             android:autoSizeTextType="uniform"
+                            android:textStyle="bold"
                             android:text="@string/PictureDescription"
-                            android:textSize="40sp" />
+                            android:textSize="30sp" />
 
                         <ImageView
                             android:id="@+id/image_picture"
@@ -330,8 +334,9 @@
                             android:layout_weight="0.9"
                             android:autoSizeTextType="uniform"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:text="@string/SentenceReading"
-                            android:textSize="40sp" />
+                            android:textSize="30sp" />
 
                         <ImageView
                             android:id="@+id/image_sentence"
@@ -390,8 +395,9 @@
                             android:layout_weight="0.9"
                             android:gravity="center"
                             android:autoSizeTextType="uniform"
+                            android:textStyle="bold"
                             android:text="@string/SyllableRepetition"
-                            android:textSize="40sp" />
+                            android:textSize="30sp" />
 
                         <ImageView
                             android:id="@+id/image_repetition"

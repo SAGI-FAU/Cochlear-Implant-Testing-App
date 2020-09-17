@@ -5,11 +5,7 @@
 
 package com.example.cit_app.data_access;
 
-import android.Manifest;
-import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -19,12 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.example.cit_app.R;
-import com.example.cit_app.other_activities.MainActivity;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -48,6 +39,7 @@ public class SpeechRecorder {
     private static DataOutputStream DATA_OUTPUT_STREAM;
     private static File FILE_PCM;
     private static File FILE_WAV;
+    private boolean init = false;
 
     private int minBufferSize;
 
@@ -60,6 +52,7 @@ public class SpeechRecorder {
         }
         minBufferSize = AudioRecord.getMinBufferSize(SAMPLING_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
         AUDIO_RECORD = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLING_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, minBufferSize);
+        init = true;
     }
 
     /**
@@ -107,6 +100,7 @@ public class SpeechRecorder {
      * @return String whether recording was successful
      */
     public String record(){
+        if(init) {
             Thread recordingThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -157,7 +151,9 @@ public class SpeechRecorder {
                 }
             });
             recordingThread.start();
-        return "Recording started";
+            return "Recording started";
+        }
+        return "not started";
     }
 
     /**

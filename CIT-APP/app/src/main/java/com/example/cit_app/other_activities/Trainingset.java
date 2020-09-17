@@ -12,21 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.cit_app.ExerciseAdapter;
 import com.example.cit_app.R;
-import com.example.cit_app.exercises.MinimalPairs;
-import com.example.cit_app.exercises.MinimalPairs2;
-import com.example.cit_app.exercises.Picture_Description;
-import com.example.cit_app.exercises.ReadingOfSentences;
-import com.example.cit_app.exercises.SyllableRepetition;
-import com.example.cit_app.exercises.Word_List;
-import com.example.cit_app.other_activities.Instruction;
-import com.example.cit_app.other_activities.MainActivity;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,17 +76,7 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
             int[] intelligebility_or_articulation_images = {R.drawable.hearing, R.drawable.speaking};
             exercise_list = new String[]{intonation_exercise[choose], hearing_exercise, speech_rate, intelligebility_or_articulation_exercise[choose]};
             List<String> list = new ArrayList<String>(Arrays.asList(exercise_list));
-            editor1.putBoolean("Word_List", false);
-            editor1.apply();
-            editor1.putBoolean("SyllableRepetition", false);
-            editor1.apply();
-            editor1.putBoolean("ReadingOfSentences", false);
-            editor1.apply();
-            editor1.putBoolean("Picture_Description", false);
-            editor1.apply();
-            editor1.putBoolean("MinimalPairs", false);
-            editor1.apply();
-            editor1.putBoolean("MinimalPairs2", false);
+            editor1.putBoolean("Finished", false);
             editor1.apply();
             exercise_list = list.toArray(new String[0]);
             if(list.isEmpty()) {
@@ -115,44 +94,11 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
             } else {
                 exerciseList = findViewById(R.id.trainingsetList);
                 int[] intelligebility_or_articulation_images = {R.drawable.hearing, R.drawable.speaking};
-                exercise_list = new String[]{intonation_exercise[choose], hearing_exercise, speech_rate, intelligebility_or_articulation_exercise[choose]};
+                if(!exercise.getBoolean("Finished", false))
+                    exercise_list = new String[]{intonation_exercise[choose], hearing_exercise, speech_rate, intelligebility_or_articulation_exercise[choose]};
+                else
+                    exercise_list = new String[]{};
                 List<String> list = new ArrayList<String>(Arrays.asList(exercise_list));
-                for (int i = 0; i < exercise_list.length; i++) {
-                    switch (exercise_list[i]) {
-                        case "Word_List":
-                            if (word_list) {
-                                list.remove(exercise_list[i]);
-                            }
-                            break;
-                        case "SyllableRepetition":
-                            if (syllable_repetition) {
-                                list.remove(exercise_list[i]);
-                            }
-                            break;
-                        case "ReadingOfSentences":
-                            if (reading_of_sentences) {
-                                list.remove(exercise_list[i]);
-                            }
-                            break;
-                        case "Picture_Description":
-                            if (picture_description) {
-                                list.remove(exercise_list[i]);
-                            }
-                            break;
-                        case "MinimalPairs2":
-                            if (minimal_pairs_2) {
-                                list.remove(exercise_list[i]);
-                            }
-                            break;
-                        case "MinimalPairs":
-                            if (minimal_pairs) {
-                                list.remove(exercise_list[i]);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
                 exercise_list = list.toArray(new String[0]);
                 if (list.isEmpty()) {
                     exercise_list = new String[]{getString(R.string.listEmpty)};
@@ -172,7 +118,6 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                     case "MinimalPairs":
                         intent = new Intent(v.getContext(), Instruction.class);
                         intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                        //TODO Think of some useful descriptions and instructions
                         intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
                         intent.putExtra("exerciseList", exercise_list);
@@ -182,7 +127,6 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                     case "MinimalPairs2":
                         intent = new Intent(v.getContext(), Instruction.class);
                         intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
-                        //TODO Think of some useful descriptions and instructions
                         intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
                         intent.putExtra("exerciseList", exercise_list);
@@ -192,7 +136,6 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                     case "Word_List":
                         intent = new Intent(v.getContext(), Instruction.class);
                         intent.putExtra("title", getResources().getString(R.string.WordList));
-                        //TODO Think of some useful descriptions and instructions
                         intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
                         intent.putExtra("exerciseList", exercise_list);
@@ -202,7 +145,6 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                     case "ReadingOfSentences":
                         intent = new Intent(v.getContext(), Instruction.class);
                         intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                        //TODO Think of some useful descriptions and instructions
                         intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
                         intent.putExtra("exerciseList", exercise_list);
@@ -212,7 +154,6 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                     case "Picture_Description":
                         intent = new Intent(v.getContext(), Instruction.class);
                         intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                        //TODO Think of some useful descriptions and instructions
                         intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
                         intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
                         intent.putExtra("exerciseList", exercise_list);
@@ -222,9 +163,56 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
                     case "SyllableRepetition":
                         intent = new Intent(v.getContext(), Instruction.class);
                         intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
-                        //TODO Think of some useful descriptions and instructions
                         intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
+                        String s;
+                        String s1;
+                        String s2;
+                        Random r = new Random();
+                        int i = r.nextInt(7);
+                        switch (i) {
+                            case 0:
+                                s = getResources().getString(R.string.pataka);
+                                s1 = getResources().getString(R.string.ExamplePataka);
+                                s2 = "Pataka";
+                                break;
+                            case 1:
+                                s = getResources().getString(R.string.petaka);
+                                s1 = getResources().getString(R.string.ExamplePetaka);
+                                s2 = "Petaka";
+                                break;
+                            case 2:
+                                s = getResources().getString(R.string.pakata);
+                                s1 = getResources().getString(R.string.ExamplePakata);
+                                s2 = "Pakata";
+                                break;
+                            case 3:
+                                s = getResources().getString(R.string.pa);
+                                s1 = getResources().getString(R.string.ExamplePa);
+                                s2 = "Pa";
+                                break;
+                            case 4:
+                                s = getResources().getString(R.string.ta);
+                                s1 = getResources().getString(R.string.ExampleTa);
+                                s2 = "Ta";
+                                break;
+                            case 5:
+                                s = getResources().getString(R.string.ka);
+                                s1 = getResources().getString(R.string.ExampleKa);
+                                s2 = "Ka";
+                                break;
+                            case 6:
+                                s = getResources().getString(R.string.sifaschu);
+                                s1 = getResources().getString(R.string.ExampleSifaschu);
+                                s2 = "Sifaschu";
+                                break;
+                            default:
+                                s = "";
+                                s1 = "";
+                                s2 = "";
+                                break;
+                        }
+                        intent.putExtra("word", s2);
+                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition1) + s + getResources().getString(R.string.ExplanationSyllableRepetition2) + s1 + getResources().getString(R.string.ExplanationSyllableRepetition3));
                         intent.putExtra("exerciseList", exercise_list);
                         intent.putExtra("exerciseCounter", 0);
                         intent.putExtra("trainingset", true);

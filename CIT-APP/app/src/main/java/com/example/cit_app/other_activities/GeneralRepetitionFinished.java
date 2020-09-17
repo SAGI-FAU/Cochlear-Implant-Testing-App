@@ -16,19 +16,21 @@ import com.example.cit_app.exercises.ReadingOfSentences;
 import com.example.cit_app.exercises.SyllableRepetition;
 import com.example.cit_app.exercises.Word_List;
 
+import java.util.Objects;
+
 public class GeneralRepetitionFinished extends AppCompatActivity {
 
-    Button done, again;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_general_repetition_finished);
-        getSupportActionBar().setTitle(getResources().getString(R.string.GeneralRepetitionFinished)); // for set actionbar title
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.GeneralRepetitionFinished)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        done = (Button) findViewById(R.id.done);
-        again = (Button) findViewById(R.id.again);
+        //Initialize
+        Button done = findViewById(R.id.done);
+        Button again = findViewById(R.id.again);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +42,7 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                switch(getIntent().getStringExtra("exercise")) {
+                switch(Objects.requireNonNull(getIntent().getStringExtra("exercise"))) {
                     case "SyllableRepetition": intent = new Intent(v.getContext(), SyllableRepetition.class); break;
                     case "Word_List": intent = new Intent(v.getContext(), Word_List.class); break;
                     case "ReadingOfSentences": intent = new Intent(v.getContext(), ReadingOfSentences.class); break;
@@ -54,7 +56,6 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         finish();
         return super.onOptionsItemSelected(item);
     }

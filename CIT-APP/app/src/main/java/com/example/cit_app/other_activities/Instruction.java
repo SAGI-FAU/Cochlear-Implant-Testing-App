@@ -3,7 +3,6 @@ package com.example.cit_app.other_activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.cit_app.R;
@@ -23,11 +23,11 @@ import com.example.cit_app.exercises.ReadingOfSentences;
 import com.example.cit_app.exercises.SyllableRepetition;
 import com.example.cit_app.exercises.Word_List;
 
+import java.util.Objects;
+
 public class Instruction extends AppCompatActivity {
 
-    TextView title, description, instruction;
-    Button start;
-    Intent newActivity;
+    private Intent newActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +35,23 @@ public class Instruction extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_instruction);
-        getSupportActionBar().setTitle(getResources().getString(R.string.Instruction)); // for set actionbar title
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.Instruction)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Initialize
         final Intent intent = getIntent();
-        title = (TextView) findViewById(R.id.exerciseTitle);
-        description = (TextView) findViewById(R.id.exerciseDescription);
-        instruction = (TextView) findViewById(R.id.exerciseInstruction);
-        start = (Button) findViewById(R.id.startExercise);
+        TextView title = findViewById(R.id.exerciseTitle);
+        TextView description = findViewById(R.id.exerciseDescription);
+        TextView instruction = findViewById(R.id.exerciseInstruction);
+        Button start = findViewById(R.id.startExercise);
         title.setText(intent.getStringExtra("title"));
         description.setText(intent.getStringExtra("description"));
         instruction.setText(intent.getStringExtra("instruction"));
         String path = "android.resource://" + getPackageName() + "/";
-        switch(intent.getStringExtra("title")) {
+        switch(Objects.requireNonNull(intent.getStringExtra("title"))) {
             case "Minimal pairs":
             case "Minimalpaare":
                 newActivity = new Intent(this, MinimalPairs.class);
-                newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.minimalpairs_instruction;
@@ -58,7 +59,7 @@ public class Instruction extends AppCompatActivity {
             case "Minimal pairs 2":
             case "Minimalpaare 2":
                 newActivity = new Intent(this, MinimalPairs2.class);
-                newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.minimalpairs2_instruction;
@@ -66,7 +67,7 @@ public class Instruction extends AppCompatActivity {
             case "Word list":
             case "Wortliste":
                 newActivity = new Intent(this, Word_List.class);
-                newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.wordlist_instruction;
@@ -74,7 +75,7 @@ public class Instruction extends AppCompatActivity {
             case "Sentence reading":
             case "Sätze lesen":
                 newActivity = new Intent(this, ReadingOfSentences.class);
-                newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.readingofsentences_instruction;
@@ -82,7 +83,8 @@ public class Instruction extends AppCompatActivity {
             case "Syllable repetition":
             case "Wortwiederholung":
                 newActivity = new Intent(this, SyllableRepetition.class);
-                newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
+                newActivity.putExtra("word", intent.getExtras().getString("word"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.syllablerepetition_instruction;
@@ -90,7 +92,7 @@ public class Instruction extends AppCompatActivity {
             case "Picture description":
             case "Bildbeschreibung":
                 newActivity = new Intent(this, Picture_Description.class);
-                newActivity.putExtra("trainingset", intent.getExtras().getBoolean("trainingset"));
+                newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
                 path = path + R.raw.picturedescription_instruction;
@@ -116,8 +118,7 @@ public class Instruction extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        if(!getIntent().getExtras().getBoolean("trainingset"))
+        if(!Objects.requireNonNull(getIntent().getExtras()).getBoolean("trainingset"))
             finish();
         return super.onOptionsItemSelected(item);
     }

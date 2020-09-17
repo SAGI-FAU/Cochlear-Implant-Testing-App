@@ -36,7 +36,7 @@ public class FeatureDADao extends AbstractDao<FeatureDA, Long> {
     public FeatureDADao(DaoConfig config) {
         super(config);
     }
-    
+
     public FeatureDADao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
     }

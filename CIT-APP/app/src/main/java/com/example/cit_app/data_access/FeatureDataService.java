@@ -169,7 +169,8 @@ public class FeatureDataService {
 
 
     public FeatureDA get_last_feat_value(String feature_name){
-        List<FeatureDA> features=get_feature_by_name(feature_name);
+        Date curr0= Calendar.getInstance().getTime();
+        List<FeatureDA> features=get_feature_by_date_and_name(feature_name, curr0);
         if (features.size()==0){
             return new FeatureDA(feature_name);
         }

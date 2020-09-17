@@ -17,6 +17,8 @@ import com.example.cit_app.exercises.MinimalPairs;
 import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
 
+import java.util.Random;
+
 //This class is the view showing the exercise list
 public class Exercises extends AppCompatActivity {
 
@@ -97,7 +99,55 @@ public class Exercises extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), Instruction.class);
                 intent.putExtra("title", getResources().getString(R.string.SyllableRepetition));
                 intent.putExtra("description", getResources().getString(R.string.DescriptionSyllableRepetition));
-                intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition));
+                String s;
+                String s1;
+                String s2;
+                Random r = new Random();
+                int i = r.nextInt(7);
+                switch (i) {
+                    case 0:
+                        s = getResources().getString(R.string.pataka);
+                        s1 = getResources().getString(R.string.ExamplePataka);
+                        s2 = "Pataka";
+                        break;
+                    case 1:
+                        s = getResources().getString(R.string.petaka);
+                        s1 = getResources().getString(R.string.ExamplePetaka);
+                        s2 = "Petaka";
+                        break;
+                    case 2:
+                        s = getResources().getString(R.string.pakata);
+                        s1 = getResources().getString(R.string.ExamplePakata);
+                        s2 = "Pakata";
+                        break;
+                    case 3:
+                        s = getResources().getString(R.string.pa);
+                        s1 = getResources().getString(R.string.ExamplePa);
+                        s2 = "Pa";
+                        break;
+                    case 4:
+                        s = getResources().getString(R.string.ta);
+                        s1 = getResources().getString(R.string.ExampleTa);
+                        s2 = "Ta";
+                        break;
+                    case 5:
+                        s = getResources().getString(R.string.ka);
+                        s1 = getResources().getString(R.string.ExampleKa);
+                        s2 = "Ka";
+                        break;
+                    case 6:
+                        s = getResources().getString(R.string.sifaschu);
+                        s1 = getResources().getString(R.string.ExampleSifaschu);
+                        s2 = "Sifaschu";
+                        break;
+                    default:
+                        s = "";
+                        s1 = "";
+                        s2 = "";
+                        break;
+                }
+                intent.putExtra("word", s2);
+                intent.putExtra("instruction", getResources().getString(R.string.ExplanationSyllableRepetition1) + s + getResources().getString(R.string.ExplanationSyllableRepetition2) + s1 + getResources().getString(R.string.ExplanationSyllableRepetition3));
                 intent.putExtra("trainingset", false);
                 v.getContext().startActivity(intent);
             }

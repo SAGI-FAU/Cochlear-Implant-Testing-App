@@ -22,21 +22,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".other_activities.TrainingsetFinished"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+        <activity android:name=".other_activities.TrainingsetExerciseFinished"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name=".other_activities.TrainingsetFinished"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".other_activities.ProfileMain"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".other_activities.LoginInfoScreen"
+        <activity
+            android:name=".other_activities.LoginInfoScreen"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".other_activities.ResultsPerYear"
+        <activity
+            android:name=".other_activities.ResultsPerYear"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".other_activities.ResultsPerDay"
+        <activity
+            android:name=".other_activities.ResultsPerDay"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".other_activities.MainActivity"
             android:label="@string/app_name"
@@ -51,17 +57,18 @@
 
         <receiver android:name=".tools.NotificationReceiver" />
 
-        <activity android:name=".other_activities.ProfileLogin"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".other_activities.ProfileLogin"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".exercises.ReadingOfSentences"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".exercises.Picture_Description"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".exercises.Word_List"
             android:screenOrientation="portrait"
@@ -69,7 +76,7 @@
         <activity
             android:name=".exercises.MinimalPairs"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".other_activities.GeneralRepetitionFinished"
             android:screenOrientation="portrait"

@@ -57,10 +57,6 @@ public class FeatureDA {
         this.feature_value = feature_value;
     }
 
-    @Generated(hash = 1688047980)
-    public FeatureDA() {
-    }
-
     public Long getId() {
         return this.id;
     }

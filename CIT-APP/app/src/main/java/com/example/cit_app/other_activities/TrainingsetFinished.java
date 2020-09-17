@@ -3,6 +3,7 @@ package com.example.cit_app.other_activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,10 @@ public class TrainingsetFinished extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ResultsPerDay.class);
                 intent.putExtra("trainingset", true);
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean("Finished", true);
+                editor.apply();
                 v.getContext().startActivity(intent);
             }
         });

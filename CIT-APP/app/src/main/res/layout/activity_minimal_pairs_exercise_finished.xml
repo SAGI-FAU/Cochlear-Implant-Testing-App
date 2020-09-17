@@ -20,10 +20,59 @@
             android:background="@drawable/yellow_background"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.35"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/underscore"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/underscore"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="@string/yourWord" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/underscore"
+                    android:autoSizeTextType="uniform"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="@string/correctWord" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/underscore"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="@string/play" />
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/correct_words"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.9"
                 android:layout_gravity="center">
 
             </androidx.recyclerview.widget.RecyclerView>

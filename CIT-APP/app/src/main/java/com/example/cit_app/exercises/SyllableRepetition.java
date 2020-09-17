@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
@@ -17,46 +16,54 @@ import android.widget.TextView;
 
 import com.example.cit_app.RadarFeatures;
 import com.example.cit_app.data_access.FeatureDataService;
+import com.example.cit_app.data_access.PatientDA;
+import com.example.cit_app.data_access.PatientDataService;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
 import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
+import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
 import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Objects;
 
 public class SyllableRepetition extends AppCompatActivity{
 
-    //TODO Add recording of voice
     private TextView timer;
     private ProgressBar progress;
     private Button start;
+    private TextView syllable;
     private String path;
     private boolean isRecording, started;
     private SpeechRecorder recorder;
-    int exerciseCounter;
-    private CountDownTimer cdt;
+    private int exerciseCounter;
     private Context c = this;
-    int counter = 5000;
     private FeatureDataService featureDataService;
-    float int_f0[] = new float[2];
+    private float[] int_f0 = new float[2];
+    private PatientDA patientDA;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllable_repetition);
-        getSupportActionBar().setTitle(getResources().getString(R.string.SyllableRepetition)); // for set actionbar title
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.SyllableRepetition)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Initialize
         started = false;
-        timer = (TextView) findViewById(R.id.timer);
+        timer = findViewById(R.id.timer);
+        progress = findViewById(R.id.timerProgress);
+        start = findViewById(R.id.startTimer);
+        syllable = findViewById(R.id.syllable);
+        syllable.setText(getIntent().getExtras().getString("word"));
         timer.setText("5");
         if(getIntent().getExtras() != null)
-            exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0) + 1;
+            exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0);
         featureDataService = new FeatureDataService(this);
-        progress = (ProgressBar) findViewById(R.id.timerProgress);
+        PatientDataService patientDataService = new PatientDataService(this);
+        patientDA = patientDataService.getPatient();
         progress.getIndeterminateDrawable().setColorFilter(0xFFFF5722, android.graphics.PorterDuff.Mode.MULTIPLY);
-        start = (Button) findViewById(R.id.startTimer);
         recorder = SpeechRecorder.getInstance(this, new SyllableRepetition.VolumeHandler(), "SyllableRepetition");
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,70 +106,9 @@ public class SyllableRepetition extends AppCompatActivity{
                         Intent intent = new Intent(c, GeneralRepetitionFinished.class);
                         intent.putExtra("exercise", "SyllableRepetition");
                         if(getIntent().getBooleanExtra("trainingset", false)) {
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("ExerciseFinished", 0);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putBoolean("SyllableRepetition", true);
-                            editor.apply();
-                            if(exerciseCounter >= getIntent().getExtras().getStringArray("exerciseList").length) {
-                                intent = new Intent(c, TrainingsetFinished.class);
-                            } else {
-                                switch (getIntent().getExtras().getStringArray("exerciseList")[exerciseCounter]) {
-                                    case "MinimalPairs":
-                                        intent = new Intent(c, Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.MinimalPairs));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "MinimalPairs2":
-                                        intent = new Intent(c, Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.MinimalPairs2));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionMinPairs2));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationMinPairs2));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "Word_List":
-                                        intent = new Intent(c, Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.WordList));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionWordList));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationWordList));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("realValues", int_f0);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "ReadingOfSentences":
-                                        intent = new Intent(c, Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.SentenceReading));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionSentenceReading));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationSentenceReading));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    case "Picture_Description":
-                                        intent = new Intent(c, Instruction.class);
-                                        intent.putExtra("title", getResources().getString(R.string.PictureDescription));
-                                        //TODO Think of some useful descriptions and instructions
-                                        intent.putExtra("description", getResources().getString(R.string.DescriptionPictureDescription));
-                                        intent.putExtra("instruction", getResources().getString(R.string.ExplanationPictureDescription));
-                                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                                        intent.putExtra("exerciseCounter", exerciseCounter);
-                                        intent.putExtra("trainingset", true);
-                                        break;
-                                    default:
-                                        intent = new Intent(c, MainActivity.class);
-                                        break;
-                                }
-                            }
+                            intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
+                            intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                            intent.putExtra("exerciseCounter", exerciseCounter);
                         }
                         recorder.stopRecording();
                         recorder.release();
@@ -176,7 +122,6 @@ public class SyllableRepetition extends AppCompatActivity{
                     }
                 }
             };
-
             handler.postDelayed(counter, countDownInterval);
         }
     }
@@ -196,6 +141,21 @@ public class SyllableRepetition extends AppCompatActivity{
                 int_f0 = RadarFeatures.voiceRate(path);
                 File file = new File(path);
                 Date lastModDate = new Date(file.lastModified());
+                if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
+                    //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                    if(int_f0[1] >= 1.3) {
+                        int_f0[0] = 1;
+                    } else {
+                        int_f0[0] = int_f0[1]/1.3f;
+                    }
+                } else {
+                    //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
+                    if(int_f0[1] >= 1.2) {
+                        int_f0[0] = 1;
+                    } else {
+                        int_f0[0] = int_f0[1]/1.2f;
+                    }
+                }
                 featureDataService.save_feature(featureDataService.vrate_name, lastModDate, int_f0[0]);
                 featureDataService.save_feature(featureDataService.real_speech_rate_name, lastModDate, int_f0[1]);
             }
@@ -205,8 +165,7 @@ public class SyllableRepetition extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        if(!getIntent().getExtras().getBoolean("trainingset"))
+        if(!Objects.requireNonNull(getIntent().getExtras()).getBoolean("trainingset"))
             finish();
         return super.onOptionsItemSelected(item);
     }

@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
+        android:background="@drawable/yellow_background"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
@@ -31,17 +32,18 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:autoSizeTextType="uniform"
-            android:layout_weight="0.5"
-            android:background="@drawable/yellow_background"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
             android:text="@string/home" />
 
-        <Button
-            android:id="@+id/saveButton"
+        <ImageView
+            android:id="@+id/homeImage"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:autoSizeTextType="uniform"
-            android:background="@drawable/yellow_background"
-            android:layout_weight="0.5"
+            android:src="@drawable/home"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/transparent"
+            android:layout_weight="0.6"
             android:text="@string/save" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

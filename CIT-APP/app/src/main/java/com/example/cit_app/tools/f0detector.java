@@ -43,7 +43,9 @@ public class f0detector {
         nfft = (int) (Math.pow(2, Math.ceil(Math.log((int) Math.ceil(winlen * fs)) / Math.log(2))));
         //Get f0 contour from signal
         float[] pitchC = f0_cont(sig);
-
+        if(pitchC.length <= 0) {
+            return new float[]{-10294739f};
+        }
         //Fix contour.
         pitchC = fixf0(pitchC);
 

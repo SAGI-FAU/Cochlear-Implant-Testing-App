@@ -35,11 +35,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
 
     private CircleImageView profile, settings;
-    ViewPager viewPager;
-    Adapter adapter;
-    List<Model> models;
-    Integer[] colors = null;
-    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+    private ViewPager viewPager;
+    private Adapter adapter;
+    private List<Model> models;
+    private Integer[] colors = null;
+    private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAlarm() {
-        Calendar c = Calendar.getInstance();
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
         int hour = p.getInt("Notification Time", 9);
         Notifier notifier = new Notifier(this);
