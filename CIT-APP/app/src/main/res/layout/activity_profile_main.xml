@@ -235,26 +235,26 @@
 
                     <RadioGroup
                         android:id="@+id/rgTypeOfImplant"
-                        android:gravity="center"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="0.8"
-                        android:layout_height="wrap_content" >
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/rbCochlearImplant"
-                            android:layout_weight="0.3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
+                            android:layout_weight="0.3"
                             android:text="@string/cochlearImplant" />
 
                         <RadioButton
                             android:id="@+id/rbHearingAid"
-                            android:layout_weight="0.3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
+                            android:layout_weight="0.3"
                             android:text="@string/hearingAid" />
 
                         <RadioButton
@@ -266,7 +266,7 @@
                             android:text="@string/both" />
 
                         <RadioButton
-                            android:id="@+id/rbNone"
+                            android:id="@+id/rbNoneCI"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"

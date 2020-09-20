@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     android:focusableInTouchMode="true"
     tools:context=".other_activities.ProfileLogin">
 
@@ -18,10 +16,8 @@
         android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="0.5">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -265,7 +261,7 @@
                             android:text="@string/both" />
 
                         <RadioButton
-                            android:id="@+id/rbNone"
+                            android:id="@+id/rbNoneCI"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
