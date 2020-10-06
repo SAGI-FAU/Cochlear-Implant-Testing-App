@@ -28,8 +28,6 @@ public class TrainingsetExerciseFinished extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainingset_exercise_finished);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.trainingsetExerciseFinishedTitle)); // for set actionbar title
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         done = findViewById(R.id.done);
         again = findViewById(R.id.again);
         done.setOnClickListener(new View.OnClickListener() {

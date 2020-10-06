@@ -37,7 +37,7 @@ import java.util.Random;
 
 public class Picture_Description extends AppCompatActivity {
     private boolean isRecording = false;
-    private String path;
+    private static String path;
     private SpeechRecorder recorder;
     private SubsamplingScaleImageView picture;
     private int exerciseCounter;
@@ -54,7 +54,7 @@ public class Picture_Description extends AppCompatActivity {
         setContentView(R.layout.activity_picture__description);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.PictureDescription)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        images = new int[7];
+        images = new int[8];
         //Initialize
         if(getIntent().getExtras() != null)
             exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0);
@@ -75,6 +75,7 @@ public class Picture_Description extends AppCompatActivity {
             images[4] = R.drawable.picture_description_child5;
             images[5] = R.drawable.picture_description_child6;
             images[6] = R.drawable.picture_description_child7;
+            images[7] = R.drawable.cookie;
         } else {
             images[0] = R.drawable.picture_description_adults1;
             images[1] = R.drawable.picture_description_adults2;
@@ -83,6 +84,7 @@ public class Picture_Description extends AppCompatActivity {
             images[4] = R.drawable.picture_description_adults5;
             images[5] = R.drawable.picture_description_adults6;
             images[6] = R.drawable.picture_description_adults7;
+            images[7] = R.drawable.cookie;
         }
         Random rand = new Random();
         int choose = rand.nextInt(7);
@@ -117,47 +119,53 @@ public class Picture_Description extends AppCompatActivity {
             Bundle bundle = msg.getData();
 
             final String state = bundle.getString("State", "Empty");
-            if (state.equals("Finished")){
-
-                float[] int_f0 = RadarFeatures.intonation(path);
-                if(int_f0.length == 1) {
+            if (state.equals("Finished")) {
+                if(path == null) {
                     Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(Float.isNaN(int_f0[0])) {
-                    Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    File file = new File(path);
-                    Date lastModDate = new Date(file.lastModified());
-                    if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
-                        //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                        if(int_f0[1] >= 17.5) {
-                            int_f0[0] = 1;
-                        } else {
-                            int_f0[0] = int_f0[1]/17.5f;
-                        }
+                File f = new File(path);
+                if (f.exists() && !f.isDirectory()) {
+                    float[] int_f0 = RadarFeatures.intonation(path);
+                    if (int_f0.length == 1) {
+                        Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (Float.isNaN(int_f0[0])) {
+                        Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
+                        return;
                     } else {
-                        //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
-                        if(int_f0[1] >= 31.4) {
-                            int_f0[0] = 1;
+                        File file = new File(path);
+                        Date lastModDate = new Date(file.lastModified());
+                        if (patientDA.getGender().equals(getResources().getString(R.string.male))) {
+                            //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                            if (int_f0[1] >= 17.5) {
+                                int_f0[0] = 1;
+                            } else {
+                                int_f0[0] = int_f0[1] / 17.5f;
+                            }
                         } else {
-                            int_f0[0] = int_f0[1]/31.4f;
+                            //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
+                            if (int_f0[1] >= 31.4) {
+                                int_f0[0] = 1;
+                            } else {
+                                int_f0[0] = int_f0[1] / 31.4f;
+                            }
                         }
+                        featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
+                        featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
+                        featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
+                        Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
+                        intent.putExtra("exercise", "Picture description");
+                        if (getIntent().getBooleanExtra("trainingset", false)) {
+                            intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
+                            intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                            intent.putExtra("exerciseCounter", exerciseCounter);
+                        }
+                        record.setEnabled(false);
+                        recorder.release();
+                        getApplicationContext().startActivity(intent);
                     }
-                    featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
-                    featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
-                    featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
-                    Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
-                    intent.putExtra("exercise", "Picture description");
-                    if(getIntent().getBooleanExtra("trainingset", false)) {
-                        intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
-                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                        intent.putExtra("exerciseCounter", exerciseCounter);
-                    }
-                    record.setEnabled(false);
-                    recorder.release();
-                    getApplicationContext().startActivity(intent);
                 }
             }
         }
@@ -166,8 +174,7 @@ public class Picture_Description extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(!Objects.requireNonNull(getIntent().getExtras()).getBoolean("trainingset"))
-            finish();
+        finish();
         return super.onOptionsItemSelected(item);
     }
 }

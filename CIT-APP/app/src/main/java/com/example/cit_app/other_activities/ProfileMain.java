@@ -87,11 +87,13 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         RadioButton rb_left = findViewById(R.id.rbLeft);
         RadioButton rb_right = findViewById(R.id.rbRight);
         RadioButton rb_both = findViewById(R.id.rbBoth);
+        RadioButton rb_none = findViewById(R.id.rbNoSide);
         RadioButton rb_cochlear = findViewById(R.id.rbCochlearImplant);
         RadioButton rb_hearing_aid = findViewById(R.id.rbHearingAid);
         RadioButton rb_smoker = findViewById(R.id.rbSmoker);
         RadioButton rb_no_smoker = findViewById(R.id.rbNoSmoker);
         RadioButton rb_both_ci = findViewById(R.id.rbBothCI);
+        RadioButton rb_none_CI = findViewById(R.id.rbNoneCI);
         File filepath = Environment.getExternalStorageDirectory();// + "/CITA/PROFILE/profile_pic.jpg";
         File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE/");
         dir.mkdir();
@@ -140,6 +142,8 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
                     rb_left.setChecked(true);break;
                 case "both":
                     rb_both.setChecked(true);break;
+                case "none":
+                    rb_none.setChecked(true);break;
             }
         }
         if (pref.getBoolean("Smoker", false)) {
@@ -156,6 +160,8 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
                     rb_hearing_aid.setChecked(true);break;
                 case "BothCI":
                     rb_both_ci.setChecked(true);break;
+                case "None":
+                    rb_none_CI.setChecked(true);break;
             }
         }
 
@@ -219,6 +225,11 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
                 editor.apply();
                 patientData.setSide("both");
                 break;
+            case R.id.rbNoSide:
+                editor.putString("side_of_implant", "none");
+                editor.apply();
+                patientData.setSide("none");
+                break;
             default:
                 break;
         }
@@ -239,6 +250,10 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
                 editor.putString("CochlearImplant", "BothCI");
                 editor.apply();
                 patientData.setType("BothCI");
+            case R.id.rbNoneCI:
+                editor.putString("CochlearImplant", "None");
+                editor.apply();
+                patientData.setType("None");
                 break;
             default:
                 break;

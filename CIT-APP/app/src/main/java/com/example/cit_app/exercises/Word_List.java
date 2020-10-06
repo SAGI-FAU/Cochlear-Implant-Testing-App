@@ -144,8 +144,7 @@ public class Word_List extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(!Objects.requireNonNull(getIntent().getExtras()).getBoolean("trainingset"))
-            finish();
+        finish();
         return super.onOptionsItemSelected(item);
     }
 }

@@ -66,7 +66,7 @@ public class MinimalPairs extends AppCompatActivity {
         String[] minimal_pairs_stops = getResources().getStringArray(R.array.Minimal_Pairs_Stops);
         String[] minimal_pairs_general = getResources().getStringArray(R.array.Minimal_Pairs);
 
-        //fill minimal_pairs list with 20 pairs consisting of 10 random 5 fricative and 5 stop pairs
+        //fill minimal_pairs list with 20 pairs consisting of 1 random 2 fricative and 2 stop pairs
         for(int i = 0; i < 20; i+=4) {
             int position = 4 * random.nextInt(50);
             if(i < 1) {
@@ -78,17 +78,31 @@ public class MinimalPairs extends AppCompatActivity {
                 minimal_pairs[i + 2] = minimal_pairs_general[position + 2];
                 minimal_pairs[i + 3] = minimal_pairs_general[position + 3];
             } else {
-                if(i == 4) {
-                    usedNumber.clear();
-                }
-                position = 4 * random.nextInt(12);
-                while(usedNumber.contains(position)) {
+                if (i < 9) {
+                    if (i == 4) {
+                        usedNumber.clear();
+                    }
                     position = 4 * random.nextInt(12);
+                    while (usedNumber.contains(position)) {
+                        position = 4 * random.nextInt(12);
+                    }
+                    minimal_pairs[i] = minimal_pairs_fricatives[position];
+                    minimal_pairs[i + 1] = minimal_pairs_fricatives[position + 1];
+                    minimal_pairs[i + 2] = minimal_pairs_fricatives[position + 2];
+                    minimal_pairs[i + 3] = minimal_pairs_fricatives[position + 3];
+                } else {
+                    if (i == 12) {
+                        usedNumber.clear();
+                    }
+                    position = 4 * random.nextInt(7);
+                    while (usedNumber.contains(position)) {
+                        position = 4 * random.nextInt(7);
+                    }
+                    minimal_pairs[i] = minimal_pairs_fricatives[position];
+                    minimal_pairs[i + 1] = minimal_pairs_stops[position + 1];
+                    minimal_pairs[i + 2] = minimal_pairs_stops[position + 2];
+                    minimal_pairs[i + 3] = minimal_pairs_stops[position + 3];
                 }
-                minimal_pairs[i] = minimal_pairs_fricatives[position];
-                minimal_pairs[i + 1] = minimal_pairs_fricatives[position + 1];
-                minimal_pairs[i + 2] = minimal_pairs_fricatives[position + 2];
-                minimal_pairs[i + 3] = minimal_pairs_fricatives[position + 3];
             }
             usedNumber.add(position);
         }
@@ -186,8 +200,7 @@ public class MinimalPairs extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(!getIntent().getExtras().getBoolean("trainingset"))
-            finish();
+        finish();
         return super.onOptionsItemSelected(item);
     }
 

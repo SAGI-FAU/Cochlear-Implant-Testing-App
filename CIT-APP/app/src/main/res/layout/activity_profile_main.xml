@@ -245,7 +245,6 @@
                             android:id="@+id/rbCochlearImplant"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.3"
                             android:text="@string/cochlearImplant" />
 
@@ -253,7 +252,6 @@
                             android:id="@+id/rbHearingAid"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.3"
                             android:text="@string/hearingAid" />
 
@@ -261,7 +259,6 @@
                             android:id="@+id/rbBothCI"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.2"
                             android:text="@string/both" />
 
@@ -269,7 +266,6 @@
                             android:id="@+id/rbNoneCI"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.2"
                             android:text="@string/none" />
                     </RadioGroup>
@@ -333,10 +329,9 @@
                             android:text="@string/both" />
 
                         <RadioButton
-                            android:id="@+id/rbNoneCI"
+                            android:id="@+id/rbNoSide"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:autoSizeTextType="uniform"
                             android:layout_weight="0.5"
                             android:text="@string/none" />
                     </RadioGroup>

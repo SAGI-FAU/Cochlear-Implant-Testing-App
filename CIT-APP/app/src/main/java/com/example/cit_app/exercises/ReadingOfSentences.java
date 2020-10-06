@@ -33,7 +33,7 @@ import java.util.Random;
 
 public class ReadingOfSentences extends AppCompatActivity {
 
-    private String path;
+    private static String path;
     private boolean isRecording = false;
     private SpeechRecorder recorder;
     private int exerciseCounter;
@@ -88,8 +88,7 @@ public class ReadingOfSentences extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(!Objects.requireNonNull(getIntent().getExtras()).getBoolean("trainingset"))
-            finish();
+        finish();
         return super.onOptionsItemSelected(item);
     }
 
@@ -103,47 +102,53 @@ public class ReadingOfSentences extends AppCompatActivity {
             Bundle bundle = msg.getData();
 
             final String state = bundle.getString("State", "Empty");
-            if (state.equals("Finished")){
-
-                float[] int_f0 = RadarFeatures.intonation(path);
-                if(int_f0.length == 1) {
+            if (state.equals("Finished")) {
+                if(path == null) {
                     Toast.makeText(ReadingOfSentences.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!Float.isNaN(int_f0[0])) {
-                    File file = new File(path);
-                    Date lastModDate = new Date(file.lastModified());
-                    if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
-                        //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                        if(int_f0[1] >= 17.5) {
-                            int_f0[0] = 1;
+                File f = new File(path);
+                if (f.exists() && !f.isDirectory()) {
+                    float[] int_f0 = RadarFeatures.intonation(path);
+                    if (int_f0.length == 1) {
+                        Toast.makeText(ReadingOfSentences.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (!Float.isNaN(int_f0[0])) {
+                        File file = new File(path);
+                        Date lastModDate = new Date(file.lastModified());
+                        if (patientDA.getGender().equals(getResources().getString(R.string.male))) {
+                            //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                            if (int_f0[1] >= 17.5) {
+                                int_f0[0] = 1;
+                            } else {
+                                int_f0[0] = int_f0[1] / 17.5f;
+                            }
                         } else {
-                            int_f0[0] = int_f0[1]/17.5f;
+                            //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
+                            if ((int_f0[1]) >= 31.4) {
+                                int_f0[0] = 1;
+                            } else {
+                                int_f0[0] = (int_f0[1]) / 31.4f;
+                            }
                         }
+                        featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
+                        featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
+                        featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
+                        Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
+                        intent.putExtra("exercise", "ReadingOfSentences");
+                        if (getIntent().getBooleanExtra("trainingset", false)) {
+                            intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
+                            intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
+                            intent.putExtra("exerciseCounter", exerciseCounter);
+                        }
+                        record.setEnabled(false);
+                        recorder.release();
+                        getApplicationContext().startActivity(intent);
                     } else {
-                        //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
-                        if((int_f0[1]) >= 31.4) {
-                            int_f0[0] = 1;
-                        } else {
-                            int_f0[0] = (int_f0[1])/31.4f;
-                        }
+                        Toast.makeText(ReadingOfSentences.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
-                    featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
-                    featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
-                    Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
-                    intent.putExtra("exercise", "ReadingOfSentences");
-                    if(getIntent().getBooleanExtra("trainingset", false)) {
-                        intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
-                        intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
-                        intent.putExtra("exerciseCounter", exerciseCounter);
-                    }
-                    record.setEnabled(false);
-                    recorder.release();
-                    getApplicationContext().startActivity(intent);
-                } else {
-                    Toast.makeText(ReadingOfSentences.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
-                    return;
                 }
             }
         }

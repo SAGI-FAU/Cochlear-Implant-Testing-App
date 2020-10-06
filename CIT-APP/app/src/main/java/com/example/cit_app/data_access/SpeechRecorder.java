@@ -117,7 +117,8 @@ public class SpeechRecorder {
                         message.sendToTarget();
                         for (int i = 0; i < size; i++) {
                             try {
-                                DATA_OUTPUT_STREAM.writeShort(shorts[i]);
+                                if (DATA_OUTPUT_STREAM != null)
+                                    DATA_OUTPUT_STREAM.writeShort(shorts[i]);
                             } catch (IOException e) {
                                 Log.e("SpeechRecorder", e.toString());
                                 AUDIO_RECORD.stop();
@@ -131,7 +132,8 @@ public class SpeechRecorder {
                         }
                     }
                     try {
-                        DATA_OUTPUT_STREAM.close();
+                        if (DATA_OUTPUT_STREAM != null)
+                            DATA_OUTPUT_STREAM.close();
                     } catch (IOException e) {
                         Log.e("SpeechRecorder", e.toString());
                     }
@@ -145,9 +147,11 @@ public class SpeechRecorder {
                     Message message = HANDLER.obtainMessage();
                     Bundle data = new Bundle();
                     data.putString("State", "Finished");
-                    data.putString("File", FILE_WAV.getAbsolutePath());
-                    message.setData(data);
-                    message.sendToTarget();
+                    if (FILE_WAV != null) {
+                        data.putString("File", FILE_WAV.getAbsolutePath());
+                        message.setData(data);
+                        message.sendToTarget();
+                    }
                 }
             });
             recordingThread.start();

@@ -123,7 +123,7 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
                 patientData.setSide("both");
                 break;
 
-            case R.id.rbNoneCI:
+            case R.id.rbNoSide:
                 editor.putString("side_of_implant", "none");
                 editor.apply();
                 patientData.setSide("none");
@@ -167,7 +167,7 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.rbNoneCI:
-                editor.putString("Cochlear Implant", "None");
+                editor.putString("CochlearImplant", "None");
                 editor.apply();
                 patientData.setType("None");
                 break;
