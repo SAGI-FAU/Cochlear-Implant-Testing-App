@@ -30,6 +30,7 @@ public class Word_List extends AppCompatActivity {
     private SpeechRecorder recorder;
     private TextView word, text, recordText;
     private ImageView imageView;
+    private static String path;
     private  Random rand = new Random();
     private  int exerciseCounter;
     private  int counter = 1;
@@ -117,6 +118,7 @@ public class Word_List extends AppCompatActivity {
                     }
                     isRecording = false;
                 } else {
+                    recorder.prepare(getResources().getString(R.string.WordList));
                     recorder.record();
                     recordText.setText(R.string.recording);
                     imageView.setImageResource(R.drawable.pause);

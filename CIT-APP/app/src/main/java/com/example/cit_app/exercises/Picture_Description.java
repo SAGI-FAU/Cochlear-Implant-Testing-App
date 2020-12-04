@@ -47,6 +47,11 @@ public class Picture_Description extends AppCompatActivity {
     private PatientDA patientDA;
     private CardView record;
     private int[] images;
+    //These values were calculated from a personal sample
+    private final float INTONATIONMEANMALE = 79.0333333333333f;
+    private final float INTONATIONDEVMALE = 20.7496f;
+    private final float INTONATIONMEANFEMALE = 96.3429f;
+    private final float INTONATIONDEVFEMALE = 19.9838f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +73,22 @@ public class Picture_Description extends AppCompatActivity {
         patientDA = patientDataService.getPatient();
         Calendar c  = Calendar.getInstance();
         if(c.get(Calendar.YEAR) - (patientDA.getBirthday().getYear() + 1900) < 13) {
-            images[0] = R.drawable.picture_description_child1;
-            images[1] = R.drawable.picture_description_child2;
-            images[2] = R.drawable.picture_description_child3;
-            images[3] = R.drawable.picture_description_child4;
-            images[4] = R.drawable.picture_description_child5;
-            images[5] = R.drawable.picture_description_child6;
-            images[6] = R.drawable.picture_description_child7;
+            images[0] = R.drawable.picture_description_1;
+            images[1] = R.drawable.picture_description_2;
+            images[2] = R.drawable.picture_description_3;
+            images[3] = R.drawable.picture_description_4;
+            images[4] = R.drawable.picture_description_5;
+            images[5] = R.drawable.picture_description_6;
+            images[6] = R.drawable.picture_description_7;
             images[7] = R.drawable.cookie;
         } else {
-            images[0] = R.drawable.picture_description_adults1;
-            images[1] = R.drawable.picture_description_adults2;
-            images[2] = R.drawable.picture_description_adults3;
-            images[3] = R.drawable.picture_description_adults4;
-            images[4] = R.drawable.picture_description_adults5;
-            images[5] = R.drawable.picture_description_adults6;
-            images[6] = R.drawable.picture_description_adults7;
+            images[0] = R.drawable.picture_description_7;
+            images[1] = R.drawable.picture_description_1;
+            images[2] = R.drawable.picture_description_2;
+            images[3] = R.drawable.picture_description_3;
+            images[4] = R.drawable.picture_description_4;
+            images[5] = R.drawable.picture_description_5;
+            images[6] = R.drawable.picture_description_6;
             images[7] = R.drawable.cookie;
         }
         Random rand = new Random();
@@ -135,29 +140,40 @@ public class Picture_Description extends AppCompatActivity {
                         Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        File file = new File(path);
-                        Date lastModDate = new Date(file.lastModified());
-                        if (patientDA.getGender().equals(getResources().getString(R.string.male))) {
-                            //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                            if (int_f0[1] >= 17.5) {
-                                int_f0[0] = 1;
-                            } else {
-                                int_f0[0] = int_f0[1] / 17.5f;
-                            }
-                        } else {
-                            //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
-                            if (int_f0[1] >= 31.4) {
-                                int_f0[0] = 1;
-                            } else {
-                                int_f0[0] = int_f0[1] / 31.4f;
-                            }
-                        }
-                        featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
-                        featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
-                        featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
                         Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);
                         intent.putExtra("exercise", "Picture description");
                         if (getIntent().getBooleanExtra("trainingset", false)) {
+                            File file = new File(path);
+                            Date lastModDate = new Date(file.lastModified());
+                            if (patientDA.getGender().equals(getResources().getString(R.string.male))) {
+                                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                                int_f0[0] = (int_f0[1] - INTONATIONMEANMALE)/INTONATIONDEVMALE;
+                                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                                if (int_f0[0] < -5 || int_f0[0] > 5) {
+                                    int_f0[0] = 0;
+                                } else {
+                                    if (int_f0[0] <= 1 && int_f0[0] >= -1) {
+                                        int_f0[0] = 1;
+                                    } else {
+                                        int_f0[0] = Math.abs((Math.abs(int_f0[0])-5)/4f);
+                                    }
+                                }
+                            } else {
+                                int_f0[0] = (int_f0[1] - INTONATIONMEANFEMALE)/INTONATIONDEVFEMALE;
+                                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                                if (int_f0[0] < -5 || int_f0[0] > 5) {
+                                    int_f0[0] = 0;
+                                } else {
+                                    if (int_f0[0] <= 1 && int_f0[0] >= -1) {
+                                        int_f0[0] = 1;
+                                    } else {
+                                        int_f0[0] = Math.abs((Math.abs(int_f0[0])-5)/4f);
+                                    }
+                                }
+                            }
+                            featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
+                            featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
+                            featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
                             intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
                             intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                             intent.putExtra("exerciseCounter", exerciseCounter);

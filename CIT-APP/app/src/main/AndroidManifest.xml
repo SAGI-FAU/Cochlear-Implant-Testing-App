@@ -22,7 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".other_activities.TrainingsetExerciseFinished"
+        <activity android:name=".other_activities.Gaussdistribution"></activity>
+        <activity
+            android:name=".other_activities.TrainingsetExerciseFinished"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".other_activities.TrainingsetFinished"

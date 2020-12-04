@@ -44,6 +44,11 @@ public class SyllableRepetition extends AppCompatActivity{
     private FeatureDataService featureDataService;
     private float[] int_f0 = new float[2];
     private PatientDA patientDA;
+    //These values were calculated from a personal sample
+    private final float SPEECHRATEMEANMALE = 3.38095238095238f;
+    private final float SPEECHRATEDEVMALE = 0.5133f;
+    private final float SPEECHRATEMEANFEMALE = 3.1143f;
+    private final float SPEECHRATEDEVFEMALE = 0.4518f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,26 +143,39 @@ public class SyllableRepetition extends AppCompatActivity{
             final String state = bundle.getString("State", "Empty");
             if (state.equals("Finished")){
 
-                int_f0 = RadarFeatures.voiceRate(path);
-                File file = new File(path);
-                Date lastModDate = new Date(file.lastModified());
-                if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
-                    //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                    if(int_f0[1] >= 1.3) {
-                        int_f0[0] = 1;
+                if(getIntent().getBooleanExtra("trainingset", false)) {
+                    int_f0 = RadarFeatures.voiceRate(path);
+                    File file = new File(path);
+                    Date lastModDate = new Date(file.lastModified());
+                    if (patientDA.getGender().equals(getResources().getString(R.string.male))) {
+                        //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                        int_f0[0] = (int_f0[1] - SPEECHRATEMEANMALE) / SPEECHRATEDEVMALE;
+                        //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                        if (int_f0[0] < -5 || int_f0[0] > 5) {
+                            int_f0[0] = 0;
+                        } else {
+                            if (int_f0[0] <= 1 && int_f0[0] >= -1) {
+                                int_f0[0] = 1;
+                            } else {
+                                int_f0[0] = Math.abs((Math.abs(int_f0[0]) - 5) / 4f);
+                            }
+                        }
                     } else {
-                        int_f0[0] = int_f0[1]/1.3f;
+                        int_f0[0] = (int_f0[1] - SPEECHRATEMEANFEMALE) / SPEECHRATEDEVFEMALE;
+                        //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
+                        if (int_f0[0] < -5 || int_f0[0] > 5) {
+                            int_f0[0] = 0;
+                        } else {
+                            if (int_f0[0] <= 1 && int_f0[0] >= -1) {
+                                int_f0[0] = 1;
+                            } else {
+                                int_f0[0] = Math.abs((Math.abs(int_f0[0]) - 5) / 4f);
+                            }
+                        }
                     }
-                } else {
-                    //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
-                    if(int_f0[1] >= 1.2) {
-                        int_f0[0] = 1;
-                    } else {
-                        int_f0[0] = int_f0[1]/1.2f;
-                    }
+                    featureDataService.save_feature(featureDataService.vrate_name, lastModDate, int_f0[0]);
+                    featureDataService.save_feature(featureDataService.real_speech_rate_name, lastModDate, int_f0[1]);
                 }
-                featureDataService.save_feature(featureDataService.vrate_name, lastModDate, int_f0[0]);
-                featureDataService.save_feature(featureDataService.real_speech_rate_name, lastModDate, int_f0[1]);
             }
         }
     }

@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.cit_app.data_access.CSVFileWriter;
 import com.example.cit_app.data_access.FeatureDataService;
 import com.example.cit_app.other_activities.Instruction;
 import com.example.cit_app.other_activities.MainActivity;
@@ -20,6 +22,7 @@ import com.example.cit_app.R;
 import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
 import com.example.cit_app.other_activities.TrainingsetFinished;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -153,13 +156,18 @@ public class MinimalPairs2 extends AppCompatActivity {
                         intent.putExtra("images", images);
                         intent.putExtra("cw", minimal_pairs_correct);
                         intent.putExtra("results", minimal_pairs_result);
+                        float int_f0 = (float) ((double) correct / (double) 20);
                         if (getIntent().getBooleanExtra("trainingset", false)) {
+                            try {
+                                export_data();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                             intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
                             intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                             intent.putExtra("exerciseCounter", exerciseCounter);
                         }
-                        float int_f0 = (float) ((double) correct / (double) 20);
-                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                         v.getContext().startActivity(intent);
                     } else {
                         listenPressed = false;
@@ -210,13 +218,18 @@ public class MinimalPairs2 extends AppCompatActivity {
                         intent.putExtra("images", images);
                         intent.putExtra("cw", minimal_pairs_correct);
                         intent.putExtra("results", minimal_pairs_result);
+                        float int_f0 = (float) ((double) correct / (double) 20);
                         if (getIntent().getBooleanExtra("trainingset", false)) {
+                            try {
+                                export_data();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                             intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
                             intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                             intent.putExtra("exerciseCounter", exerciseCounter);
                         }
-                        float int_f0 = (float) ((double) correct / (double) 20);
-                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                         v.getContext().startActivity(intent);
                     } else {
                         listenPressed = false;
@@ -267,13 +280,18 @@ public class MinimalPairs2 extends AppCompatActivity {
                         intent.putExtra("images", images);
                         intent.putExtra("cw", minimal_pairs_correct);
                         intent.putExtra("results", minimal_pairs_result);
+                        float int_f0 = (float) ((double) correct / (double) 20);
                         if (getIntent().getBooleanExtra("trainingset", false)) {
+                            try {
+                                export_data();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                             intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
                             intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                             intent.putExtra("exerciseCounter", exerciseCounter);
                         }
-                        float int_f0 = (float) ((double) correct / (double) 20);
-                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                         v.getContext().startActivity(intent);
                     } else {
                         listenPressed = false;
@@ -324,13 +342,18 @@ public class MinimalPairs2 extends AppCompatActivity {
                         intent.putExtra("images", images);
                         intent.putExtra("cw", minimal_pairs_correct);
                         intent.putExtra("results", minimal_pairs_result);
+                        float int_f0 = (float) ((double) correct / (double) 20);
                         if (getIntent().getBooleanExtra("trainingset", false)) {
+                            try {
+                                export_data();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                             intent = new Intent(v.getContext(), TrainingsetExerciseFinished.class);
                             intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                             intent.putExtra("exerciseCounter", exerciseCounter);
                         }
-                        float int_f0 = (float) ((double) correct / (double) 20);
-                        featureDataService.save_feature(featureDataService.hearing_name, Calendar.getInstance().getTime(), int_f0);
                         v.getContext().startActivity(intent);
                     } else {
                         position = random.nextInt(3);
@@ -389,11 +412,24 @@ public class MinimalPairs2 extends AppCompatActivity {
 
     private void showPopUp(View v) {
 
-        dialog.setContentView(R.layout.popup_daily_results);
+        dialog.setContentView(R.layout.popup_results_explanation);
         TextView text = dialog.findViewById(R.id.close);
         TextView textMessage = dialog.findViewById(R.id.resultsMessage);
         text.setOnClickListener(v1 -> dialog.dismiss());
         textMessage.setText(getResources().getString(R.string.listenNotPressed));
         dialog.show();
+    }
+
+    private void export_data()  throws IOException {
+        String PATH = Environment.getExternalStorageDirectory() + "/CITA/METADATA/RESULTS/";
+        CSVFileWriter mCSVFileWriter = new CSVFileWriter("MinimalPairs2", PATH);
+        String[] start = {"correct_word", "chosen_word"};
+        mCSVFileWriter.write(start);
+        for(int i = 0; i < minimal_pairs_correct.length; i++) {
+            String[] correct_result = {minimal_pairs_correct[i], minimal_pairs_result[i]};
+            mCSVFileWriter.write(correct_result);
+        }
+        mCSVFileWriter.close();
+
     }
 }

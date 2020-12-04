@@ -98,7 +98,7 @@ public class MinimalPairs extends AppCompatActivity {
                     while (usedNumber.contains(position)) {
                         position = 4 * random.nextInt(7);
                     }
-                    minimal_pairs[i] = minimal_pairs_fricatives[position];
+                    minimal_pairs[i] = minimal_pairs_stops[position];
                     minimal_pairs[i + 1] = minimal_pairs_stops[position + 1];
                     minimal_pairs[i + 2] = minimal_pairs_stops[position + 2];
                     minimal_pairs[i + 3] = minimal_pairs_stops[position + 3];
@@ -170,6 +170,7 @@ public class MinimalPairs extends AppCompatActivity {
                     } else {
                         if (player != null)
                             player.stop();
+                        recorder.prepare(getResources().getString(R.string.MinimalPairs));
                         recorder.record();
                         imageView.setImageResource(R.drawable.pause);
                         isRecording = true;
@@ -206,7 +207,7 @@ public class MinimalPairs extends AppCompatActivity {
 
     private void showPopUp(View v) {
 
-        dialog.setContentView(R.layout.popup_daily_results);
+        dialog.setContentView(R.layout.popup_results_explanation);
         TextView text = dialog.findViewById(R.id.close);
         TextView textMessage = dialog.findViewById(R.id.resultsMessage);
         text.setOnClickListener(v1 -> dialog.dismiss());

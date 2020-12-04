@@ -323,10 +323,10 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
 
     private void pictureDialog() {
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
-        myAlertDialog.setTitle("Upload Pictures Option");
-        myAlertDialog.setMessage("How do you want to set your picture?");
+        myAlertDialog.setTitle(getResources().getString(R.string.UploadPictures));
+        myAlertDialog.setMessage(getResources().getString(R.string.UploadPicturesGallery));
 
-        myAlertDialog.setPositiveButton("Gallery",
+        myAlertDialog.setPositiveButton(getResources().getString(R.string.Gallery),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                         Intent pictureActionIntent = null;
@@ -337,19 +337,6 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
                         startActivityForResult(
                                 pictureActionIntent,
                                 GALLERY_PICTURE);
-
-                    }
-                });
-
-        myAlertDialog.setNegativeButton("Camera",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-
-                        Intent intent = new Intent(
-                                MediaStore.ACTION_IMAGE_CAPTURE);
-
-                        startActivityForResult(intent,
-                                CAMERA_REQUEST);
 
                     }
                 });
@@ -364,50 +351,7 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         bitmap = null;
         selectedImagePath = null;
 
-        if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
-
-
-
-                bitmap = (Bitmap) data.getExtras().get("data");
-                //profile_picture.setImageBitmap(bitmap);
-                File filepath = Environment.getExternalStorageDirectory();// + "/CITA/PROFILE/profile_pic.jpg";
-                File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE/");
-                dir.mkdir();
-                File file = new File(dir, "current_profile_pic.jpg");
-                    OutputStream outputStream = null;
-                    if (file.exists()) {
-                        profile_picture.setImageDrawable(null);
-                    }
-            try {
-                outputStream = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            try {
-                outputStream.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(Uri.fromFile(file));
-                BitmapFactory.decodeStream(inputStream);
-                profile_picture.setImageURI(Uri.fromFile(file));
-                inputStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        } else if (resultCode == RESULT_OK && requestCode == GALLERY_PICTURE) {
+        if (resultCode == RESULT_OK && requestCode == GALLERY_PICTURE) {
             if (data != null) {
 
                 Uri selectedImage = data.getData();
