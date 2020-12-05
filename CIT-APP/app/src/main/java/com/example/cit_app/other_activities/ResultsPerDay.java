@@ -528,12 +528,14 @@ public class ResultsPerDay extends AppCompatActivity {
         String[] speech_rate_real = {"Speech_Rate_Real", String.format("%.1f",real_speech_rate_value)};
         mCSVFileWriter.write(speech_rate_real);
         String[] intonation_real = {"Intonation_Real", String.format("%.1f",real_intonation_value)};
-        String[] pitch_mean = {"Pitch_Mean", String.format("%.1f",pitch_mean_value)};
+        String[] pitch_mean = {"Pitch_Mean_Real", String.format("%.1f",pitch_mean_value)};
+        String[] pitch = {"Pitch_Mean", String.valueOf(pitch_mean_entry)};
         mCSVFileWriter.write(pitch_mean);
         mCSVFileWriter.write(intonation_real);
         mCSVFileWriter.write(hearing_ability);
         mCSVFileWriter.write(intonation);
         mCSVFileWriter.write(speech_rate);
+        mCSVFileWriter.write(pitch);
         mCSVFileWriter.close();
 
     }
