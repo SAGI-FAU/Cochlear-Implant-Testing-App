@@ -60,7 +60,7 @@ public class MinimalPairs extends AppCompatActivity {
         imageView.setImageResource(R.drawable.play);
         isRecording = false;
         boolean isPlaying = false;
-        recorder = SpeechRecorder.getInstance(this, new MinimalPairs.VolumeHandler(), "Minimal_Pairs");
+        recorder = SpeechRecorder.getInstance(this, new MinimalPairs.VolumeHandler(), "MinimalPairs");
         text.setText(counter + " / 20");
         String[] minimal_pairs_fricatives = getResources().getStringArray(R.array.Minimal_Pairs_Fricatives);
         String[] minimal_pairs_stops = getResources().getStringArray(R.array.Minimal_Pairs_Stops);

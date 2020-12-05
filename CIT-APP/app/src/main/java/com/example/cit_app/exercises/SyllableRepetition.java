@@ -110,6 +110,7 @@ public class SyllableRepetition extends AppCompatActivity{
                         started = false;
                         Intent intent = new Intent(c, GeneralRepetitionFinished.class);
                         intent.putExtra("exercise", "SyllableRepetition");
+                        intent.putExtra("word", syllable.getText());
                         if(getIntent().getBooleanExtra("trainingset", false)) {
                             intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
                             intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));

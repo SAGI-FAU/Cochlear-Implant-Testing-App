@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,10 +22,7 @@ import com.example.cit_app.data_access.PatientDataService;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
-import com.example.cit_app.other_activities.Instruction;
-import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
-import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.io.File;
 import java.util.Calendar;
@@ -35,7 +30,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
 
-public class Picture_Description extends AppCompatActivity {
+public class PictureDescription extends AppCompatActivity {
     private boolean isRecording = false;
     private static String path;
     private SpeechRecorder recorder;
@@ -65,7 +60,7 @@ public class Picture_Description extends AppCompatActivity {
             exerciseCounter = getIntent().getExtras().getInt("exerciseCounter", 0);
         record = findViewById(R.id.recordPicture);
         picture = findViewById(R.id.picture);
-        recorder = SpeechRecorder.getInstance(this, new Picture_Description.VolumeHandler(), "Picture_Description");
+        recorder = SpeechRecorder.getInstance(this, new PictureDescription.VolumeHandler(), "PictureDescription");
         recordText = findViewById(R.id.recordPictureText);
         imageView = findViewById(R.id.recordPictureImage);
         featureDataService = new FeatureDataService(this);
@@ -126,18 +121,18 @@ public class Picture_Description extends AppCompatActivity {
             final String state = bundle.getString("State", "Empty");
             if (state.equals("Finished")) {
                 if(path == null) {
-                    Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PictureDescription.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 File f = new File(path);
                 if (f.exists() && !f.isDirectory()) {
                     float[] int_f0 = RadarFeatures.intonation(path);
                     if (int_f0.length == 1) {
-                        Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PictureDescription.this, getResources().getString(R.string.messageAgain), Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (Float.isNaN(int_f0[0])) {
-                        Toast.makeText(Picture_Description.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PictureDescription.this, getResources().getString(R.string.messageEmpty), Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         Intent intent = new Intent(getApplicationContext(), GeneralRepetitionFinished.class);

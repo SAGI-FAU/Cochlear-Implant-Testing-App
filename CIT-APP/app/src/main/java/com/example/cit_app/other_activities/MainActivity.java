@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         File filepath = Environment.getExternalStorageDirectory();// + "/CITA/PROFILE/profile_pic.jpg";
-        File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE/");
+        File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE_PICTURE/");
         dir.mkdir();
         File file = new File(dir, "current_profile_pic.jpg");
         if(file.exists()) {

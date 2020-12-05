@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,16 +15,13 @@ import android.widget.TextView;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
-import com.example.cit_app.other_activities.Instruction;
-import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
-import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-public class Word_List extends AppCompatActivity {
+public class WordList extends AppCompatActivity {
     private boolean isRecording = false;
     private SpeechRecorder recorder;
     private TextView word, text, recordText;
@@ -56,7 +52,7 @@ public class Word_List extends AppCompatActivity {
         CardView record = findViewById(R.id.recordWordList);
         recordText = findViewById(R.id.recordWordListText);
         imageView = findViewById(R.id.recordWordListImage);
-        recorder = SpeechRecorder.getInstance(this, new Word_List.VolumeHandler(), "Word_List");
+        recorder = SpeechRecorder.getInstance(this, new WordList.VolumeHandler(), "WordList");
         text.setText(counter + " / 10");
         //Find random words but at least 2 plosives, 2 nasal, 2 sibilant and 4 fricative sounds
         for(int i = 0; i < 10; i++) {

@@ -95,7 +95,7 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         RadioButton rb_both_ci = findViewById(R.id.rbBothCI);
         RadioButton rb_none_CI = findViewById(R.id.rbNoneCI);
         File filepath = Environment.getExternalStorageDirectory();// + "/CITA/PROFILE/profile_pic.jpg";
-        File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE/");
+        File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE_PICTURE/");
         dir.mkdir();
         File file = new File(dir, "current_profile_pic.jpg");
         if(file.exists()) {
@@ -366,7 +366,7 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
                 bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
                 // preview image
                 File filepath = Environment.getExternalStorageDirectory();// + "/CITA/PROFILE/profile_pic.jpg";
-                File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE/");
+                File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE_PICTURE/");
                 dir.mkdir();
                 File file = new File(dir, "current_profile_pic.jpg");
                 OutputStream outputStream = null;

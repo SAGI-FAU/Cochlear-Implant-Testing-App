@@ -12,9 +12,10 @@ import android.widget.Button;
 
 import com.example.cit_app.R;
 import com.example.cit_app.exercises.MinimalPairs;
+import com.example.cit_app.exercises.PictureDescription;
 import com.example.cit_app.exercises.ReadingOfSentences;
 import com.example.cit_app.exercises.SyllableRepetition;
-import com.example.cit_app.exercises.Word_List;
+import com.example.cit_app.exercises.WordList;
 
 import java.util.Objects;
 
@@ -43,9 +44,10 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent;
                 switch(Objects.requireNonNull(getIntent().getStringExtra("exercise"))) {
-                    case "SyllableRepetition": intent = new Intent(v.getContext(), SyllableRepetition.class); break;
-                    case "Word_List": intent = new Intent(v.getContext(), Word_List.class); break;
+                    case "SyllableRepetition": intent = new Intent(v.getContext(), SyllableRepetition.class); intent.putExtra("word", getIntent().getStringExtra("word")); break;
+                    case "Word_List": intent = new Intent(v.getContext(), WordList.class); break;
                     case "ReadingOfSentences": intent = new Intent(v.getContext(), ReadingOfSentences.class); break;
+                    case "Picture description": intent = new Intent(v.getContext(), PictureDescription.class);break;
                     case "MinimalPairs": intent = new Intent(v.getContext(), MinimalPairs.class);break;
                     default: intent = new Intent(v.getContext(), MainActivity.class);
                 }

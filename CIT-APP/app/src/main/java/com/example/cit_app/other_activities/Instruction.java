@@ -12,16 +12,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.cit_app.R;
 import com.example.cit_app.exercises.MinimalPairs;
 import com.example.cit_app.exercises.MinimalPairs2;
-import com.example.cit_app.exercises.Picture_Description;
+import com.example.cit_app.exercises.PictureDescription;
 import com.example.cit_app.exercises.ReadingOfSentences;
 import com.example.cit_app.exercises.SyllableRepetition;
-import com.example.cit_app.exercises.Word_List;
+import com.example.cit_app.exercises.WordList;
 
 import java.util.Objects;
 
@@ -66,7 +65,7 @@ public class Instruction extends AppCompatActivity {
                 break;
             case "Word list":
             case "Wortliste":
-                newActivity = new Intent(this, Word_List.class);
+                newActivity = new Intent(this, WordList.class);
                 newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
@@ -91,7 +90,7 @@ public class Instruction extends AppCompatActivity {
                 break;
             case "Picture description":
             case "Bildbeschreibung":
-                newActivity = new Intent(this, Picture_Description.class);
+                newActivity = new Intent(this, PictureDescription.class);
                 newActivity.putExtra("trainingset", Objects.requireNonNull(intent.getExtras()).getBoolean("trainingset"));
                 newActivity.putExtra("exerciseList", intent.getExtras().getStringArray("exerciseList"));
                 newActivity.putExtra("exerciseCounter", intent.getExtras().getInt("exerciseCounter"));
