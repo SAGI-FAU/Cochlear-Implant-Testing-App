@@ -10,7 +10,7 @@
     <string name="DescriptionMinPairs2">Wählen Sie das gehörte Wort aus</string>
     <string name="ExplanationMinPairs2">Drücken Sie den \"hören\" Knopf um ein Wort zu hören. Drücken Sie dann den Knopf mit dem Wort, dass Sie gehört haben. Achtung: Es können Wörter enthalten sein, die keine Bedeutung haben wie z.B. Hange.</string>
     <string name="permissions">"Um diese Applikation nutzen zu können müssen sie zustimmen dass diese App Ihr Mikrofon, Ihre Kamera und Zugriff auf Ihren Speicher bekommt"</string>
-    <string name="DescriptionSyllableRepetition">Wortwiederholung</string>
+    <string name="DescriptionSyllableRepetition">Wiederholen Sie die Silbe</string>
     <string name="ExplanationSyllableRepetition1">Bitte wiederholen Sie\u0020</string>
     <string name="ExplanationSyllableRepetition2">\u0020so oft wie möglich innerhalb von fünf Sekunden. Zum beispiel so: </string>
     <string name="ExamplePataka">pataka, pataka, pataka, pataka, ..., pataka.</string>
@@ -23,7 +23,7 @@
     <string name="ExplanationSyllableRepetition3">\u0020Drücken Sie auf \"aufnehmen\" wenn Sie bereit sind um den Countdown zu starten. Der Countdown beendet die Übung automatisch nach fünf Sekunden.</string>
     <string name="DescriptionMinPairs">Wiederholen Sie das gehörte Wort</string>
     <string name="ExplanationMinPairs">Drücken Sie \"hören\" um ein Wort zu hören, drücken Sie dann \"aufnehmen\" und wiederholen Sie das gehörte Wort. Drücken Sie \"aufnahme läuft ...\" um die Aufnahme zu beenden. Achtung: Es können Wörter enthalten sein, die keine Bedeutung haben wie z.B. Hange.</string>
-    <string name="DescriptionWordList">Wortwiederholung</string>
+    <string name="DescriptionWordList">Lesen Sie das angezeigte Wort</string>
     <string name="ExplanationWordList">Drücken Sie den \"aufnehmen\" Knopf und sagen Sie danach das Wort, welches in der Mitte zu sehen is. Drücken Sie \"aufnahme läuft ...\" um die Aufnahme zu beenden.</string>
     <string name="Listen">Hören</string>
     <string name="record">Aufnehmen</string>
@@ -33,7 +33,7 @@
     <string name="ExerciseListDesc">Klicken Sie hier um eine Liste aller Übungen zu sehen. Diese können Sie immer und überall individuell machen!</string>
     <string name="dailyResultDesc">Sehen Sie sich Ihre Ergebnisse für den heutigen Tag an! Sehen Sie wie die Werte Ihrer Hörfähigkeit, Ihrer Sprech Rate und Ihrer Intonation heute waren!</string>
     <string name="evaluationOverTimeDesc">Schauen Sie sich die Veränderung Ihrer Fähigkeiten über den Verlauf des Jahres an! Sehen Sie wie Sie sich in den letzten Monaten verbessert haben und bleiben Sie weiter am Ball!</string>
-    <string name="DescriptionPictureDescription">Bildbeschreibung</string>
+    <string name="DescriptionPictureDescription">Beschreiben Sie das angezeigte Bild</string>
     <string name="ExplanationPictureDescription">Bitte drücken Sie den \"aufnehmen\" Knopf und beginnen Sie das Bild zu beschreiben. Drücken Sie den \"aufnahme läuft ...\" Knopf um die Aufnahme zu beenden.</string>
     <string name="DescriptionSentenceReading">Lesen Sie einen Satz</string>
     <string name="ExplanationSentenceReading">Bitte lesen Sie den Satz auf dem Bildschirm. Drücken Sie auf \"aufnehmen\" wenn Sie bereit sind. Drücken Sie \"aufnahme läuft ...\" um die Aufnahme zu beenden.</string>

@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -5,7 +9,6 @@ import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,10 +21,7 @@ import android.widget.TextView;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
-import com.example.cit_app.other_activities.Instruction;
-import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
-import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,6 +48,7 @@ public class MinimalPairs extends AppCompatActivity {
         setContentView(R.layout.activity_minimal_pairs);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.MinimalPairs)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         CardView record = findViewById(R.id.record);
         CardView listen = findViewById(R.id.listen);
@@ -59,7 +60,6 @@ public class MinimalPairs extends AppCompatActivity {
         dialog = new Dialog(this);
         imageView.setImageResource(R.drawable.play);
         isRecording = false;
-        boolean isPlaying = false;
         recorder = SpeechRecorder.getInstance(this, new MinimalPairs.VolumeHandler(), "MinimalPairs");
         text.setText(counter + " / 20");
         String[] minimal_pairs_fricatives = getResources().getStringArray(R.array.Minimal_Pairs_Fricatives);
@@ -198,13 +198,13 @@ public class MinimalPairs extends AppCompatActivity {
         }
     }
 
-
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
     }
-
+    //Show pop up when the user tried to record something before listening
     private void showPopUp(View v) {
 
         dialog.setContentView(R.layout.popup_results_explanation);

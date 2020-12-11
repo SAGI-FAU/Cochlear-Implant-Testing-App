@@ -1,10 +1,13 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,12 +18,9 @@ import android.widget.TextView;
 
 import com.example.cit_app.data_access.CSVFileWriter;
 import com.example.cit_app.data_access.FeatureDataService;
-import com.example.cit_app.other_activities.Instruction;
-import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.MinimalPairsExerciseFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
-import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +56,7 @@ public class MinimalPairs2 extends AppCompatActivity {
         setContentView(R.layout.activity_minimal_pairs2);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.MinimalPairs2)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         dialog = new Dialog(this);
         Button start = findViewById(R.id.startButton);
@@ -75,6 +76,7 @@ public class MinimalPairs2 extends AppCompatActivity {
         minimal_pairs_result = new String[20];
         minimal_pairs_correct = new String[20];
         text.setText((counter + 1) + " / 20");
+
         //fill minimal_pairs list with 20 pairs consisting of 10 random 5 fricative and 5 stop pairs
         for(int i = 0; i < 20; i++) {
             position = 4 * random.nextInt(50);
@@ -403,13 +405,6 @@ public class MinimalPairs2 extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
-    }
-
     private void showPopUp(View v) {
 
         dialog.setContentView(R.layout.popup_results_explanation);
@@ -432,4 +427,12 @@ public class MinimalPairs2 extends AppCompatActivity {
         mCSVFileWriter.close();
 
     }
+
+    //This allows you to return to the activity before
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }

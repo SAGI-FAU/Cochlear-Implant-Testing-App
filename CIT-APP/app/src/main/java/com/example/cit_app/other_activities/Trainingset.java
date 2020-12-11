@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +47,8 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
         setContentView(R.layout.activity_trainingset);
         getSupportActionBar().setTitle(getResources().getString(R.string.trainingsetTitle)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //initialize
         exerciseList = findViewById(R.id.trainingsetList);
         startTrainingset = (CardView) findViewById(R.id.startTraining);
         String[] intonation_exercise = {"Picture_Description", "ReadingOfSentences"};
@@ -65,6 +71,8 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
         picture_description = exercise.getBoolean("Picture_Description", false);
         word_list = exercise.getBoolean("Word_List", false);
         reading_of_sentences = exercise.getBoolean("ReadingOfSentences", false);
+
+        //Check if daily session has already been done
         if(!weekDay.equals(state)) {
             choose = rand.nextInt(2);
             editor.putInt("MEM2", choose);
@@ -226,15 +234,15 @@ public class Trainingset extends AppCompatActivity implements ExerciseAdapter.On
         });
     }
 
+    @Override
+    public void onExerciseClick(int position) {
+    }
 
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         finish();
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onExerciseClick(int position) {
-    }
 }

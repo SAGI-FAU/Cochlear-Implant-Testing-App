@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +36,8 @@ public class Exercises extends AppCompatActivity {
         setContentView(R.layout.activity_exercises);
         getSupportActionBar().setTitle(getResources().getString(R.string.exerciseList)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //initialize
         minPairs = (CardView) findViewById(R.id.minpairs_cardview);
         minPairs2 = (CardView) findViewById(R.id.minpairs2_cardview);
         wordList = (CardView) findViewById(R.id.wordlist_cardview);

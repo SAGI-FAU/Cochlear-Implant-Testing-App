@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +50,8 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setTitle(getResources().getString(R.string.Login)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //initialize
         et_date = findViewById(R.id.editTextTextbirthdate);
         tv_username = findViewById(R.id.editTextName);
         et_phone = findViewById(R.id.editTextPhone);
@@ -218,13 +224,6 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        finish();
-        return super.onOptionsItemSelected(item);
-    }
-
     private void export_profile()  throws IOException {
         String PATH = Environment.getExternalStorageDirectory() + "/CITA/METADATA/PROFILE/";
         CSVFileWriter mCSVFileWriter = new CSVFileWriter("Profile", PATH);
@@ -246,4 +245,12 @@ public class ProfileLogin extends AppCompatActivity implements View.OnClickListe
         mCSVFileWriter.close();
 
     }
+
+    //This allows you to return to the activity before
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }

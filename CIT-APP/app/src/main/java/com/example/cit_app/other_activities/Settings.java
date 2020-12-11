@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +41,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         getSupportActionBar().setTitle(getResources().getString(R.string.Settings)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setListeners();
+
+        //initialize
         dialog = new Dialog(this);
         ImageView help = findViewById(R.id.help);
         help.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +53,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         });
     }
 
+    //How does reset work
     private void showPopUp(View v) {
 
         dialog.setContentView(R.layout.popup_help);
@@ -95,15 +102,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-            Intent intent = new Intent(this, MainActivity.class);
-            this.startActivity(intent);
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_restart_session:
@@ -125,4 +123,12 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         Intent intent = new Intent(this, MainActivity.class);
         this.startActivity(intent);
     }
+
+    //This allows you to return to the activity before
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }

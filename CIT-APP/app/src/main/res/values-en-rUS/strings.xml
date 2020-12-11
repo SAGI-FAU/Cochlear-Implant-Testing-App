@@ -10,10 +10,10 @@
     <string name="timefornotifications">time for notifications</string>
     <string name="DescriptionMinPairs2">Select the word you heard</string>
     <string name="ExplanationMinPairs2">Press the \"listen\" button to hear a word. Then click the button with the name of the word you heard. Attention: The exercise may contain words, which make no sense.</string>
-    <string name="DescriptionSyllableRepetition">word repetition</string>
+    <string name="DescriptionSyllableRepetition">Repeat the shown syllable</string>
     <string name="DescriptionMinPairs">Say the word you heard</string>
     <string name="ExplanationMinPairs">Press the \"listen\" button to listen to the word, then press \"record\" and repeat the word you heard. After you finished repeating the word, press \"recording ...\" to stop the recording. Attention: The exercise may contain words, which make no sense.</string>
-    <string name="DescriptionWordList">word repetition</string>
+    <string name="DescriptionWordList">Read the word on the screen</string>
     <string name="ExplanationWordList">Press the \"record\" button, then read the word shown in the middle of the screen out loud. After you finished repeating the word, press \"recording ...\" to stop the recording. </string>
     <string name="Listen">listen</string>
     <string name="record">record</string>
@@ -41,7 +41,7 @@
     <string name="evaluationOverTimeDesc">See how you changed over the course of time! Check out if you improved in the last months and keep your training up!</string>
     <string name="GeneralRepetitionFinished">Exercise Finished</string>
     <string name="trainingsetFinishedSaying">You finished your training session for today!\nNow go and take a look at your results!</string>
-    <string name="DescriptionPictureDescription">picture description</string>
+    <string name="DescriptionPictureDescription">Describe the shown picture</string>
     <string name="ExplanationPictureDescription">Please press the \"record\" button and then start describing the picture on the screen. When you are finished press the \"recording ...\" button.</string>
     <string name="DescriptionSentenceReading">Read the sentence</string>
     <string name="ExplanationSentenceReading">Please read the sentence on the screen. Press the \"record\" button when you are ready. When you are finished press the \"recording ...\" button.</string>

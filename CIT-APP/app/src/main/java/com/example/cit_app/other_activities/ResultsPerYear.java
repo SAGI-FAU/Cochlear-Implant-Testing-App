@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +48,8 @@ public class ResultsPerYear extends AppCompatActivity {
         setContentView(R.layout.activity_results_per_year);
         getSupportActionBar().setTitle(getResources().getString(R.string.ResultsPerYear)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //initialize
         lineChart = findViewById(R.id.evaluation_over_time);
         featureDataService = new FeatureDataService(this);
         patientDataService = new PatientDataService(this);
@@ -80,21 +86,6 @@ public class ResultsPerYear extends AppCompatActivity {
             float speech_rate = featureDataService.get_avg_feature_for_month(featureDataService.vrate_name, c.getTime()).getFeature_value();
             speech_rate_values.add(new Entry(counter, speech_rate));
             float pitch_value = featureDataService.get_avg_feature_for_month(featureDataService.pitch_mean_name, c.getTime()).getFeature_value();
-            if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
-                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                if(pitch_value >= 120) {
-                    pitch_value = 1;
-                } else {
-                    pitch_value = pitch_value/120;
-                }
-            } else {
-                //120Hz is the mean value of female test speakers from the info_sentences.csv dataset
-                if(pitch_value >= 190) {
-                    pitch_value = 1;
-                } else {
-                    pitch_value = pitch_value/190;
-                }
-            }
             pitch_mean_values.add(new Entry(counter, pitch_value));
             counter ++;
         }
@@ -102,9 +93,9 @@ public class ResultsPerYear extends AppCompatActivity {
         LineDataSet dataset2 = new LineDataSet(hearing, getResources().getString(R.string.hearingAbility));
         LineDataSet dataset3 = new LineDataSet(speech_rate_values, getResources().getString(R.string.speechrate));
         LineDataSet dataset4 = new LineDataSet(pitch_mean_values, getResources().getString(R.string.pitch_mean));
-        dataset.setColors(ColorTemplate.rgb("#000000"));
-        dataset2.setColors(ColorTemplate.rgb("#FFFFFF"));
-        dataset3.setColors(ColorTemplate.rgb("#0084f9"));
+        dataset.setColors(ColorTemplate.rgb("#0084f9"));
+        dataset2.setColors(ColorTemplate.rgb("#000000"));
+        dataset3.setColors(ColorTemplate.rgb("#FFFFFF"));
         dataset4.setColors(ColorTemplate.rgb("#00FF00"));
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataset);
@@ -140,11 +131,11 @@ public class ResultsPerYear extends AppCompatActivity {
         yAxis1.setDrawLabels(false);
     }
 
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
         return super.onOptionsItemSelected(item);
     }
+
 }

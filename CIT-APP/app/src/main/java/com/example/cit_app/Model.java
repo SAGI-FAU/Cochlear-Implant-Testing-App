@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app;
 
 public class Model {
@@ -16,10 +20,6 @@ public class Model {
         return image;
     }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -30,9 +30,5 @@ public class Model {
 
     public String getDesc() {
         return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 }

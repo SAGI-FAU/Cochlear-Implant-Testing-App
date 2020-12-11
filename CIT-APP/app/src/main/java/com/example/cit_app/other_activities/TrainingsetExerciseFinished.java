@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -5,12 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cit_app.R;
 
@@ -28,6 +29,8 @@ public class TrainingsetExerciseFinished extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainingset_exercise_finished);
+
+        //initialize
         done = findViewById(R.id.done);
         again = findViewById(R.id.again);
         done.setOnClickListener(new View.OnClickListener() {
@@ -276,4 +279,12 @@ public class TrainingsetExerciseFinished extends AppCompatActivity {
             }
         });
     }
+
+    //This allows you to return to the activity before
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }

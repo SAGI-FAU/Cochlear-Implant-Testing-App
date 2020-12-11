@@ -23,21 +23,6 @@ public class PatientDataService
         db.close();
     }
 
-    public void updatePatient(PatientDA patient){
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(invocationcontext, dbname);
-        Database db = helper.getWritableDb();
-        DaoSession session = new DaoMaster(db).newSession();
-        session.getPatientDADao().update(patient);
-        db.close();
-    }
-
-    public void deletePatient(PatientDA patient){
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(invocationcontext, dbname);
-        Database db = helper.getWritableDb();
-        DaoSession session = new DaoMaster(db).newSession();
-        session.getPatientDADao().delete(patient);
-        db.close();
-    }
     public PatientDA getPatient(){
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(invocationcontext, dbname);
         Database db = helper.getReadableDb();
@@ -48,16 +33,5 @@ public class PatientDataService
         db.close();
         return patient;
     }
-
-    public Long countPatients(){
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(invocationcontext, dbname);
-        Database db = helper.getReadableDb();
-        DaoSession session = new DaoMaster(db).newSession();
-        PatientDADao dao = session.getPatientDADao();
-        Long N_pat = dao.queryBuilder().count();
-        db.close();
-        return N_pat;
-    }
-
 
 }

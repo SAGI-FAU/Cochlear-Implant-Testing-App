@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,6 +77,8 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         in.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+        //initialize
         et_date = findViewById(R.id.editTextTextbirthdate);
         tv_username = findViewById(R.id.editTextName);
         et_phone = findViewById(R.id.editTextPhone);
@@ -98,6 +104,7 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE_PICTURE/");
         dir.mkdir();
         File file = new File(dir, "current_profile_pic.jpg");
+        //Fill in all the data and get the profile picture
         if(file.exists()) {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(Uri.fromFile(file));
@@ -446,13 +453,13 @@ public class ProfileMain extends AppCompatActivity implements View.OnClickListen
         mCSVFileWriter.write(Side);
         mCSVFileWriter.write(Type);
         mCSVFileWriter.close();
-
     }
 
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-            finish();
+        finish();
         return super.onOptionsItemSelected(item);
     }
+
 }

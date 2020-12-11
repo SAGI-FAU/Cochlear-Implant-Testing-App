@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +29,7 @@ public class LoginInfoScreen extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_info_screen);
+
         //Initialize
         Button beginLogin = (Button) findViewById(R.id.startLogin);
         beginLogin.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +45,7 @@ public class LoginInfoScreen extends AppCompatActivity {
             }
         });
     }
-
+    //Ask permissions
     private void requestAll() {
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
             new androidx.appcompat.app.AlertDialog.Builder(this).setTitle(getResources().getString(R.string.needed)).setMessage(getResources().getString(R.string.permissions)).setPositiveButton("ok", new DialogInterface.OnClickListener() {

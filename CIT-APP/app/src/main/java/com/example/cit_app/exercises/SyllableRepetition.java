@@ -1,10 +1,13 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,10 +24,7 @@ import com.example.cit_app.data_access.PatientDataService;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
-import com.example.cit_app.other_activities.Instruction;
-import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
-import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.io.File;
 import java.util.Date;
@@ -181,7 +181,7 @@ public class SyllableRepetition extends AppCompatActivity{
         }
     }
 
-
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();

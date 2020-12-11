@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +40,7 @@ public class Instruction extends AppCompatActivity {
         setContentView(R.layout.activity_instruction);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.Instruction)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         final Intent intent = getIntent();
         TextView title = findViewById(R.id.exerciseTitle);
@@ -46,6 +51,7 @@ public class Instruction extends AppCompatActivity {
         description.setText(intent.getStringExtra("description"));
         instruction.setText(intent.getStringExtra("instruction"));
         String path = "android.resource://" + getPackageName() + "/";
+        //Choose the instruction according to the exercise
         switch(Objects.requireNonNull(intent.getStringExtra("title"))) {
             case "Minimal pairs":
             case "Minimalpaare":
@@ -115,9 +121,11 @@ public class Instruction extends AppCompatActivity {
         });
     }
 
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
     }
+
 }

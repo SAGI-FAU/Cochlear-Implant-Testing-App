@@ -22,8 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/arrow_left" />
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/yourWord"

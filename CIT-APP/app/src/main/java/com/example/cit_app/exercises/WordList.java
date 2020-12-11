@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +43,7 @@ public class WordList extends AppCompatActivity {
         setContentView(R.layout.activity_word__list);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.WordList)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         wordList = new String[10];
         if(getIntent().getExtras() != null)
@@ -87,7 +92,7 @@ public class WordList extends AppCompatActivity {
                 }
             }
         }
-
+        //Record button
         word.setText(wordList[0]);
         record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,10 +144,11 @@ public class WordList extends AppCompatActivity {
         }
     }
 
-
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
     }
+
 }

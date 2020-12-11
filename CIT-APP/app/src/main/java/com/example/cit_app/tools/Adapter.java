@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.tools;
 
 import android.content.Context;
@@ -15,7 +19,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.cit_app.Exercises;
 import com.example.cit_app.Model;
 import com.example.cit_app.R;
-import com.example.cit_app.other_activities.Gaussdistribution;
 import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.ResultsPerDay;
 import com.example.cit_app.other_activities.ResultsPerYear;

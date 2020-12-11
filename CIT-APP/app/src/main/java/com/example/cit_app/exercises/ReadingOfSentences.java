@@ -1,10 +1,13 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,10 +24,7 @@ import com.example.cit_app.data_access.PatientDataService;
 import com.example.cit_app.other_activities.GeneralRepetitionFinished;
 import com.example.cit_app.R;
 import com.example.cit_app.data_access.SpeechRecorder;
-import com.example.cit_app.other_activities.Instruction;
-import com.example.cit_app.other_activities.MainActivity;
 import com.example.cit_app.other_activities.TrainingsetExerciseFinished;
-import com.example.cit_app.other_activities.TrainingsetFinished;
 
 import java.io.File;
 import java.util.Date;
@@ -47,6 +47,10 @@ public class ReadingOfSentences extends AppCompatActivity {
     private final float INTONATIONDEVMALE = 20.7496f;
     private final float INTONATIONMEANFEMALE = 96.3429f;
     private final float INTONATIONDEVFEMALE = 19.9838f;
+    private final float PITCHMEANFEMALE = 345.4286f;
+    private final float PITCHDEVFEMALE = 29.2643f;
+    private final float PITCHDEVMALE = 56.8301f;
+    private final float PITCHMEANMALE = 257.919f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class ReadingOfSentences extends AppCompatActivity {
         setContentView(R.layout.activity_reading_of_sentences);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.SentenceReading)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         String[] sentences = getResources().getStringArray(R.array.Sentences);
         TextView text = findViewById(R.id.sentences);
@@ -90,13 +95,6 @@ public class ReadingOfSentences extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
-    }
-
     private class VolumeHandler extends Handler {
 
         public VolumeHandler() {
@@ -125,9 +123,9 @@ public class ReadingOfSentences extends AppCompatActivity {
                         if (getIntent().getBooleanExtra("trainingset", false)) {
                             File file = new File(path);
                             Date lastModDate = new Date(file.lastModified());
+                            //Calculate score in comparison to healthy test speaker
                             if (patientDA.getGender().equals(getResources().getString(R.string.male))) {
                                 int_f0[0] = (int_f0[1] - INTONATIONMEANMALE)/INTONATIONDEVMALE;
-                                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
                                 if (int_f0[0] < -5 || int_f0[0] > 5) {
                                     int_f0[0] = 0;
                                 } else {
@@ -139,7 +137,6 @@ public class ReadingOfSentences extends AppCompatActivity {
                                 }
                             } else {
                                 int_f0[0] = (int_f0[1] - INTONATIONMEANFEMALE)/INTONATIONDEVFEMALE;
-                                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
                                 if (int_f0[0] < -5 || int_f0[0] > 5) {
                                     int_f0[0] = 0;
                                 } else {
@@ -150,9 +147,35 @@ public class ReadingOfSentences extends AppCompatActivity {
                                     }
                                 }
                             }
+
+                            float pitch = 0.0f;
+                            if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
+                                pitch = (int_f0[2] - PITCHMEANMALE) / PITCHDEVMALE;
+                                if (pitch < -5 || pitch > 5) {
+                                    pitch = 0;
+                                } else {
+                                    if (pitch <= 1 && pitch >= -1) {
+                                        pitch = 1;
+                                    } else {
+                                        pitch = Math.abs((Math.abs(pitch) - 5) / 4f);
+                                    }
+                                }
+                            } else {
+                                pitch = (int_f0[2] - PITCHMEANFEMALE) / PITCHDEVFEMALE;
+                                if (pitch < -5 || pitch > 5) {
+                                    pitch = 0;
+                                } else {
+                                    if (pitch <= 1 && pitch >= -1) {
+                                        pitch = 1;
+                                    } else {
+                                        pitch = Math.abs((Math.abs(pitch) - 5) / 4f);
+                                    }
+                                }
+                            }
                             featureDataService.save_feature(featureDataService.intonation_name, lastModDate, int_f0[0]);
                             featureDataService.save_feature(featureDataService.real_intonation_name, lastModDate, int_f0[1]);
-                            featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, int_f0[2]);
+                            featureDataService.save_feature(featureDataService.pitch_mean_name, lastModDate, pitch);
+                            featureDataService.save_feature(featureDataService.real_pitch_mean_name, lastModDate, int_f0[2]);
                             intent = new Intent(getApplicationContext(), TrainingsetExerciseFinished.class);
                             intent.putExtra("exerciseList", getIntent().getExtras().getStringArray("exerciseList"));
                             intent.putExtra("exerciseCounter", exerciseCounter);
@@ -167,6 +190,13 @@ public class ReadingOfSentences extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    //This allows you to return to the activity before
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
 }

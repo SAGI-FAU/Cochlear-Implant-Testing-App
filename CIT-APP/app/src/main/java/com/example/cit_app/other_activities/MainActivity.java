@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import android.animation.ArgbEvaluator;
@@ -46,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = getSharedPreferences("LoginPref", MODE_PRIVATE);
+        //Check if CITA is used for the first time
         int login = prefs.getInt("UserCreated", 0);
         if (login == 0) {
             Intent intent = new Intent(this, LoginInfoScreen.class);
             this.startActivity(intent);
         }
+
+        //initialize
         profile = (CircleImageView) findViewById(R.id.profile_pic);
         settings = (CircleImageView) findViewById(R.id.settings);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 v.getContext().startActivity(intent);
             }
         });
-        File filepath = Environment.getExternalStorageDirectory();// + "/CITA/PROFILE/profile_pic.jpg";
+        //Load profile picture
+        File filepath = Environment.getExternalStorageDirectory();
         File dir = new File(filepath.getAbsolutePath() + "/CITA/PROFILE_PICTURE/");
         dir.mkdir();
         File file = new File(dir, "current_profile_pic.jpg");
@@ -83,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        //Create main screen
         if (!Locale.getDefault().getDisplayLanguage().equals("Deutsch")) {
             models = new ArrayList<>();
             models.add(new Model(R.drawable.trainingset_background, "Daily Session", getResources().getString(R.string.trainingsetDesc)));
@@ -143,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         });
         setAlarm();
     }
-
+    //start notifier
     public void setAlarm() {
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
         int hour = p.getInt("Notification Time", 9);

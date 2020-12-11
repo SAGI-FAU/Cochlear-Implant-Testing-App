@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,10 +40,11 @@ public class TrainingsetFinished extends AppCompatActivity {
         });
     }
 
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         finish();
         return super.onOptionsItemSelected(item);
     }
+
 }

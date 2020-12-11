@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,7 +46,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ResultsPerDay extends AppCompatActivity {
@@ -56,8 +59,8 @@ public class ResultsPerDay extends AppCompatActivity {
     private float speech_rate_value = 0;
     private float real_intonation_value = 0;
     private float pitch_mean_value = 0;
+    private float real_mean_pitch_value = 0;
     private float real_speech_rate_value = 0;
-    private float pitch_mean_entry = 0;
     private float shown_pitch_mean = 0;
     private float shown_intonation = 0;
     private float shown_speech_rate = 0;
@@ -87,6 +90,8 @@ public class ResultsPerDay extends AppCompatActivity {
         setContentView(R.layout.activity_results_per_day);
         getSupportActionBar().setTitle(getResources().getString(R.string.ResultsPerDay)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //initialize
         barChart = findViewById(R.id.dailyEvaluationBarChart);
         homeImage = findViewById(R.id.homeImage);
         featureDataService = new FeatureDataService(this);
@@ -119,72 +124,25 @@ public class ResultsPerDay extends AppCompatActivity {
         FeatureDA intonation = featureDataService.get_last_feat_value(featureDataService.intonation_name);
         FeatureDA hearing = featureDataService.get_last_feat_value(featureDataService.hearing_name);
         FeatureDA speech_rate = featureDataService.get_last_feat_value(featureDataService.vrate_name);
-        FeatureDA real_intonation = featureDataService.get_last_feat_value(featureDataService.real_intonation_name);
         FeatureDA pitch_mean = featureDataService.get_last_feat_value(featureDataService.pitch_mean_name);
+        FeatureDA real_pitch_mean = featureDataService.get_last_feat_value(featureDataService.real_pitch_mean_name);
+        FeatureDA real_intonation = featureDataService.get_last_feat_value(featureDataService.real_intonation_name);
         FeatureDA real_speech_rate = featureDataService.get_last_feat_value(featureDataService.real_speech_rate_name);
         real_intonation_value = real_intonation.getFeature_value();
         real_speech_rate_value = real_speech_rate.getFeature_value();
+        real_mean_pitch_value = real_pitch_mean.getFeature_value();
+        speech_rate_value = speech_rate.getFeature_value();
+        intonation_value = intonation.getFeature_value();
+        hearingAbility = hearing.getFeature_value();
         pitch_mean_value = pitch_mean.getFeature_value();
-        Calendar c = Calendar.getInstance();
-        c.set(2020, 6, 12);
-        if(speech_rate.getFeature_value() == 0) {
-            speech_rate_value = 0;
-        } else {
-            speech_rate_value = speech_rate.getFeature_value();
-        }
-        if(intonation.getFeature_value() == 0) {
-            intonation_value = 0;
-        } else {
-            intonation_value = intonation.getFeature_value();
-        }
-        if(hearing.getFeature_value() == 0) {
-            hearingAbility = 0;
-        } else {
-            hearingAbility = hearing.getFeature_value();
-        }
         patientDA = patientDataService.getPatient();
-        if(patientDA.getGender().equals(getResources().getString(R.string.male))) {
-            if(pitch_mean_value == 0) {
-                pitch_mean_entry = 0;
-            } else {
-                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                pitch_mean_entry = (pitch_mean_value - PITCHMEANMALE) / PITCHDEVMALE;
-                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                if (pitch_mean_entry < -5 || pitch_mean_entry > 5) {
-                    pitch_mean_entry = 0;
-                } else {
-                    if (pitch_mean_entry <= 1 && pitch_mean_entry >= -1) {
-                        pitch_mean_entry = 1;
-                    } else {
-                        pitch_mean_entry = Math.abs((Math.abs(pitch_mean_entry) - 5) / 4f);
-                    }
-                }
-            }
-        } else {
-            if(pitch_mean_value == 0) {
-                pitch_mean_entry = 0;
-            } else {
-                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                pitch_mean_entry = (pitch_mean_value - PITCHMEANFEMALE) / PITCHDEVFEMALE;
-                //120Hz is the mean value of male test speakers from the info_sentences.csv dataset
-                if (pitch_mean_entry < -5 || pitch_mean_entry > 5) {
-                    pitch_mean_entry = 0;
-                } else {
-                    if (pitch_mean_entry <= 1 && pitch_mean_entry >= -1) {
-                        pitch_mean_entry = 1;
-                    } else {
-                        pitch_mean_entry = Math.abs((Math.abs(pitch_mean_entry) - 5) / 4f);
-                    }
-                }
-            }
-        }
         List<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, hearingAbility));
         entries.add(new BarEntry(1f, speech_rate_value));
         entries.add(new BarEntry(2f, intonation_value));
-        entries.add(new BarEntry(3f, pitch_mean_entry));
+        entries.add(new BarEntry(3f, pitch_mean_value));
         BarDataSet dataset = new BarDataSet(entries, "");
-        dataset.setColors(new int[] {Color.BLACK, Color.WHITE, Color.BLUE, Color.RED});
+        dataset.setColors(new int[] {Color.BLACK, Color.WHITE, Color.BLUE, Color.GREEN});
         BarData data = new BarData(dataset);
         data.setBarWidth(0.4f);
         ValueFormatter percentageFormatter = new PercentageFormatter();
@@ -233,6 +191,7 @@ public class ResultsPerDay extends AppCompatActivity {
         }
     }
 
+    //Show a pop up screen with infos if this is the first time daily results are used
     private void showFirstTime() {
         explanation.setContentView(R.layout.popup_results_explanation);
         SharedPreferences prefs = getSharedPreferences("FirstTimePref", MODE_PRIVATE);
@@ -247,14 +206,6 @@ public class ResultsPerDay extends AppCompatActivity {
             }
         });
         explanation.show();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        return super.onOptionsItemSelected(item);
     }
 
     public class DayAxisValueFormatter extends ValueFormatter {
@@ -278,6 +229,7 @@ public class ResultsPerDay extends AppCompatActivity {
         }
     }
 
+    //Show pop up with normal distribution
     private void showPopUp(View v, float number) {
 
         dialog.setContentView(R.layout.popup_daily_results);
@@ -389,7 +341,7 @@ public class ResultsPerDay extends AppCompatActivity {
                 }
             }
             if (number == 3.0) {
-                textMessage.setText(getResources().getString(R.string.pitchText) + String.format("%.1f", pitch_mean_value));
+                textMessage.setText(getResources().getString(R.string.pitchText) + String.format("%.1f", real_mean_pitch_value));
                 shown_pitch_mean = (pitch_mean_value - PITCHMEANMALE)/PITCHDEVMALE;
                 float x = (float)(1/(Math.sqrt(2 * Math.PI)));
                 float r = (float)Math.pow(shown_pitch_mean, 2);
@@ -450,7 +402,7 @@ public class ResultsPerDay extends AppCompatActivity {
                 }
             }
             if (number == 3.0) {
-                textMessage.setText(getResources().getString(R.string.pitchTextF) + String.format("%.1f", pitch_mean_value));
+                textMessage.setText(getResources().getString(R.string.pitchTextF) + String.format("%.1f", real_mean_pitch_value));
                 shown_pitch_mean = (pitch_mean_value - PITCHMEANFEMALE)/PITCHDEVFEMALE;
                 float x = (float)(1/(Math.sqrt(2 * Math.PI)));
                 float r = (float)Math.pow(shown_pitch_mean, 2);
@@ -528,8 +480,8 @@ public class ResultsPerDay extends AppCompatActivity {
         String[] speech_rate_real = {"Speech_Rate_Real", String.format("%.1f",real_speech_rate_value)};
         mCSVFileWriter.write(speech_rate_real);
         String[] intonation_real = {"Intonation_Real", String.format("%.1f",real_intonation_value)};
-        String[] pitch_mean = {"Pitch_Mean_Real", String.format("%.1f",pitch_mean_value)};
-        String[] pitch = {"Pitch_Mean", String.valueOf(pitch_mean_entry)};
+        String[] pitch_mean = {"Pitch_Mean_Real", String.format("%.1f",real_mean_pitch_value)};
+        String[] pitch = {"Pitch_Mean", String.valueOf(pitch_mean_value)};
         mCSVFileWriter.write(pitch_mean);
         mCSVFileWriter.write(intonation_real);
         mCSVFileWriter.write(hearing_ability);
@@ -539,4 +491,12 @@ public class ResultsPerDay extends AppCompatActivity {
         mCSVFileWriter.close();
 
     }
+
+    //This allows you to return to the activity before
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }

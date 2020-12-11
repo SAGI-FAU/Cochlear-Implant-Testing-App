@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +33,7 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
         setContentView(R.layout.activity_general_repetition_finished);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.GeneralRepetitionFinished)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         Button done = findViewById(R.id.done);
         Button again = findViewById(R.id.again);
@@ -39,6 +44,7 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
                 v.getContext().startActivity(intent);
             }
         });
+        //Button to repeat the exercise
         again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,9 +62,11 @@ public class GeneralRepetitionFinished extends AppCompatActivity {
         });
     }
 
+    //This allows you to return to the activity before
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
     }
+
 }

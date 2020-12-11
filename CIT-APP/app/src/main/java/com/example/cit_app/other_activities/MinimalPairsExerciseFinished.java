@@ -1,3 +1,7 @@
+/**
+ * Created by Christoph Popp
+ */
+
 package com.example.cit_app.other_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +35,7 @@ public class MinimalPairsExerciseFinished extends AppCompatActivity implements M
         setContentView(R.layout.activity_minimal_pairs_exercise_finished);
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.GeneralRepetitionFinished)); // for set actionbar title
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         CardView done = findViewById(R.id.doneButton);
         CardView again = findViewById(R.id.againButton);
@@ -67,13 +72,7 @@ public class MinimalPairsExerciseFinished extends AppCompatActivity implements M
         });
 
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-            finish();
-        return super.onOptionsItemSelected(item);
-    }
-
+    //play the correct word
     @Override
     public void onExerciseClick(int position) {
 
@@ -90,4 +89,12 @@ public class MinimalPairsExerciseFinished extends AppCompatActivity implements M
         player = MediaPlayer.create(this, Integer.parseInt(path2));
         player.start();
     }
+
+    //This allows you to return to the activity before
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 }
